@@ -12,7 +12,6 @@
 
 <style>
 
-
 *{
 margin:0;
 padding:0;
@@ -24,7 +23,6 @@ font-family:Arial,sans-serif;
 body{
 
 background:#020617;
-
 color:white;
 
 }
@@ -34,15 +32,11 @@ color:white;
 .header{
 
 background:#020611;
-
 padding:30px;
-
 text-align:center;
-
 border-bottom:1px solid #00bfff;
 
 }
-
 
 
 .header h1{
@@ -64,13 +58,9 @@ padding:40px 8%;
 .card{
 
 background:#071426;
-
 border:1px solid #00bfff;
-
 border-radius:20px;
-
 padding:30px;
-
 margin-bottom:30px;
 
 }
@@ -80,48 +70,32 @@ margin-bottom:30px;
 h2{
 
 color:#00bfff;
-
 margin-bottom:20px;
 
 }
 
 
 
-
-table{
+input,select,textarea{
 
 width:100%;
-
-border-collapse:collapse;
-
-}
-
-
-
-th,td{
-
 padding:12px;
+margin:10px 0;
+
+background:#020617;
+color:white;
 
 border:1px solid #00bfff;
 
-text-align:center;
+border-radius:10px;
 
 }
-
-
-
-th{
-
-color:#00ff88;
-
-}
-
 
 
 
 button{
 
-padding:8px 15px;
+padding:10px 20px;
 
 border:none;
 
@@ -138,7 +112,6 @@ font-weight:bold;
 .approve{
 
 background:#00ff88;
-
 color:black;
 
 }
@@ -148,12 +121,43 @@ color:black;
 .reject{
 
 background:red;
-
 color:white;
 
 }
 
 
+
+.add{
+
+background:#00bfff;
+color:black;
+
+}
+
+
+
+table{
+
+width:100%;
+border-collapse:collapse;
+
+}
+
+
+th,td{
+
+padding:12px;
+border:1px solid #00bfff;
+text-align:center;
+
+}
+
+
+th{
+
+color:#00ff88;
+
+}
 
 
 .link{
@@ -163,24 +167,7 @@ color:#00bfff;
 }
 
 
-
-
-@media(max-width:700px){
-
-
-table{
-
-font-size:12px;
-
-}
-
-
-}
-
-
-
 </style>
-
 
 </head>
 
@@ -189,14 +176,11 @@ font-size:12px;
 
 
 
-
 <div class="header">
-
 
 <h1>
 SAGATRADING ADMIN PANEL
 </h1>
-
 
 <p>
 Owner / Admin Control
@@ -210,7 +194,9 @@ Owner / Admin Control
 
 
 
+
 <div class="container">
+
 
 
 
@@ -222,8 +208,6 @@ Owner / Admin Control
 <h2>
 👨‍🎓 Student Registrations
 </h2>
-
-
 
 
 <table id="studentTable">
@@ -252,8 +236,9 @@ Owner / Admin Control
 </table>
 
 
-
 </div>
+
+
 
 
 
@@ -264,18 +249,62 @@ Owner / Admin Control
 
 
 <h2>
-📚 Course Management
+📚 Add Course Material
 </h2>
 
 
-<p>
+<input 
+id="title"
+placeholder="Material Title">
 
-Manage videos, PDFs and student learning materials.
 
-</p>
+<select id="type">
+
+<option value="video">
+Video
+</option>
+
+
+<option value="pdf">
+PDF
+</option>
+
+
+<option value="announcement">
+Announcement
+</option>
+
+
+</select>
+
+
+
+<input
+id="link"
+placeholder="Video / PDF Link">
+
+
+
+<textarea
+
+id="description"
+
+placeholder="Description">
+
+</textarea>
+
+
+
+<button class="add" onclick="addMaterial()">
+
+ADD MATERIAL
+
+</button>
 
 
 </div>
+
+
 
 
 
@@ -294,27 +323,39 @@ Manage videos, PDFs and student learning materials.
 
 <li>✅ Approve Students</li>
 
-<li>✅ Reject Applications</li>
+<li>✅ Reject Students</li>
 
-<li>✅ Manage Courses</li>
+<li>✅ Add Videos</li>
 
-<li>✅ View Payments</li>
+<li>✅ Add PDFs</li>
 
-<li>✅ Control Student Access</li>
+<li>✅ Add Announcements</li>
 
 
 </ul>
 
 
 </div>
-<!-- FIREBASE -->
+
+
+
+</div>
+
+
+
+
+
+
+
+
 
 <script type="module">
 
 
-import { initializeApp }
+import {initializeApp}
 
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
 
 
 import {
@@ -324,6 +365,8 @@ getFirestore,
 collection,
 
 getDocs,
+
+addDoc,
 
 doc,
 
@@ -340,17 +383,18 @@ from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 const firebaseConfig = {
 
 
-apiKey: "AIzaSyD1vUF2PEwbcKsd1EhnxITRs_z_GZ689VQ",
+apiKey:"AIzaSyD1vUF2PEwbcKsd1EhnxITRs_z_GZ689VQ",
 
-authDomain: "sagatrading-mentorship.firebaseapp.com",
+authDomain:"sagatrading-mentorship.firebaseapp.com",
 
-projectId: "sagatrading-mentorship",
+projectId:"sagatrading-mentorship",
 
-storageBucket: "sagatrading-mentorship.firebasestorage.app",
+storageBucket:"sagatrading-mentorship.firebasestorage.app",
 
-messagingSenderId: "832507974614",
+messagingSenderId:"832507974614",
 
-appId: "1:832507974614:web:6ad7b3f941d348a7388a77"
+appId:"1:832507974614:web:6ad7b3f941d348a7388a77"
+
 
 };
 
@@ -367,62 +411,52 @@ const db = getFirestore(app);
 
 
 
-async function loadStudents(){
 
+
+
+async function loadStudents(){
 
 
 const snapshot = await getDocs(collection(db,"students"));
 
 
-
-let table = document.getElementById("studentTable");
+let table=document.getElementById("studentTable");
 
 
 
 snapshot.forEach((student)=>{
 
 
-
-let data = student.data();
-
-
-let id = student.id;
+let data=student.data();
 
 
-
-let row = table.insertRow();
+let id=student.id;
 
 
 
-row.innerHTML = `
-
-
-<td>
-${data.name || ""}
-</td>
-
-
-<td>
-${data.phone || ""}
-</td>
+let row=table.insertRow();
 
 
 
-<td>
-${data.email || ""}
-</td>
+row.innerHTML=`
 
 
+<td>${data.name || ""}</td>
 
-<td>
-${data.course || ""}
-</td>
+
+<td>${data.phone || ""}</td>
+
+
+<td>${data.email || ""}</td>
+
+
+<td>${data.course || ""}</td>
 
 
 
 <td>
 
-<a class="link" 
+<a class="link"
 href="${data.payment || '#'}"
 target="_blank">
 
@@ -434,7 +468,6 @@ View
 
 
 
-
 <td>
 
 ${data.status || "pending"}
@@ -443,11 +476,11 @@ ${data.status || "pending"}
 
 
 
-
 <td>
 
 
 <button class="approve"
+
 onclick="approveStudent('${id}')">
 
 Approve
@@ -457,6 +490,7 @@ Approve
 
 
 <button class="reject"
+
 onclick="rejectStudent('${id}')">
 
 Reject
@@ -475,8 +509,10 @@ Reject
 });
 
 
-
 }
+
+
+
 
 
 
@@ -486,12 +522,7 @@ Reject
 window.approveStudent = async function(id){
 
 
-
-const studentRef = doc(db,"students",id);
-
-
-
-await updateDoc(studentRef,{
+await updateDoc(doc(db,"students",id),{
 
 
 status:"approved"
@@ -500,16 +531,13 @@ status:"approved"
 });
 
 
-
 alert("Student Approved");
 
 
 location.reload();
 
 
-
 }
-
 
 
 
@@ -520,12 +548,7 @@ location.reload();
 window.rejectStudent = async function(id){
 
 
-
-const studentRef = doc(db,"students",id);
-
-
-
-await updateDoc(studentRef,{
+await updateDoc(doc(db,"students",id),{
 
 
 status:"rejected"
@@ -534,16 +557,61 @@ status:"rejected"
 });
 
 
-
 alert("Student Rejected");
 
 
 location.reload();
 
 
-
 }
 
+
+
+
+
+
+
+
+
+window.addMaterial = async function(){
+
+
+
+let title=document.getElementById("title").value;
+
+
+let type=document.getElementById("type").value;
+
+
+let link=document.getElementById("link").value;
+
+
+let description=document.getElementById("description").value;
+
+
+
+
+await addDoc(collection(db,"materials"),{
+
+
+title:title,
+
+type:type,
+
+link:link,
+
+description:description
+
+
+});
+
+
+
+alert("Material Added Successfully");
+
+
+
+}
 
 
 
@@ -555,7 +623,6 @@ loadStudents();
 
 
 </script>
-
 
 
 
