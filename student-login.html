@@ -11,42 +11,32 @@
 <title>SAGATRADING Student Login</title>
 
 
-
 <style>
 
-
 *{
-
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:Arial,sans-serif;
-
 }
-
 
 
 body{
 
 background:#020617;
-
 color:white;
 
 height:100vh;
 
 display:flex;
-
 justify-content:center;
-
 align-items:center;
 
 }
 
 
 
-
 .login-box{
-
 
 background:#071426;
 
@@ -60,9 +50,7 @@ width:350px;
 
 text-align:center;
 
-
 }
-
 
 
 
@@ -72,15 +60,11 @@ color:#00bfff;
 
 font-size:30px;
 
-margin-bottom:10px;
-
 }
 
 
 
-
 input{
-
 
 width:100%;
 
@@ -96,14 +80,11 @@ background:#020617;
 
 color:white;
 
-
 }
 
 
 
-
 button{
-
 
 margin-top:15px;
 
@@ -121,48 +102,37 @@ font-weight:bold;
 
 cursor:pointer;
 
-
 }
 
 
 
 button:hover{
 
-
 background:white;
 
-
 }
-
 
 
 
 #message{
 
-
 margin-top:20px;
 
 color:#00ff88;
 
-
 }
-
 
 
 </style>
 
-
 </head>
-
 
 
 <body>
 
 
 
-
 <div class="login-box">
-
 
 
 <h2>
@@ -170,11 +140,9 @@ SAGATRADING
 </h2>
 
 
-
 <h3>
 Student Login
 </h3>
-
 
 
 
@@ -202,7 +170,7 @@ placeholder="Password">
 
 
 
-<button onclick="loginStudent()">
+<button id="loginBtn">
 
 LOGIN
 
@@ -210,18 +178,20 @@ LOGIN
 
 
 
-
 <p id="message"></p>
-
-
 
 
 </div>
 
-  <script type="module">
 
 
-import { initializeApp }
+
+
+
+<script type="module">
+
+
+import {initializeApp}
 
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
@@ -259,22 +229,26 @@ from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
 
+
+
 const firebaseConfig = {
 
 
-apiKey: "AIzaSyD1vUF2PEwbcKsd1EhnxITRs_z_GZ689VQ",
+apiKey:"AIzaSyD1vUF2PEwbcKsd1EhnxITRs_z_GZ689VQ",
 
-authDomain: "sagatrading-mentorship.firebaseapp.com",
+authDomain:"sagatrading-mentorship.firebaseapp.com",
 
-projectId: "sagatrading-mentorship",
+projectId:"sagatrading-mentorship",
 
-storageBucket: "sagatrading-mentorship.firebasestorage.app",
+storageBucket:"sagatrading-mentorship.firebasestorage.app",
 
-messagingSenderId: "832507974614",
+messagingSenderId:"832507974614",
 
-appId: "1:832507974614:web:6ad7b3f941d348a7388a77"
+appId:"1:832507974614:web:6ad7b3f941d348a7388a77"
+
 
 };
+
 
 
 
@@ -295,17 +269,44 @@ const db = getFirestore(app);
 
 
 
-window.loginStudent = async function(){
+document.getElementById("loginBtn").addEventListener("click",loginStudent);
 
 
 
-let email = 
-document.getElementById("email").value;
 
 
 
-let password =
-document.getElementById("password").value;
+
+
+async function loginStudent(){
+
+
+
+let email = document.getElementById("email").value;
+
+
+let password = document.getElementById("password").value;
+
+
+
+
+
+let msg = document.getElementById("message");
+
+
+
+
+if(email=="" || password==""){
+
+
+msg.innerHTML="Enter Email and Password";
+
+
+return;
+
+
+}
+
 
 
 
@@ -315,7 +316,17 @@ try{
 
 
 
-await signInWithEmailAndPassword(auth,email,password);
+await signInWithEmailAndPassword(
+
+auth,
+
+email,
+
+password
+
+);
+
+
 
 
 
@@ -339,12 +350,11 @@ const snapshot = await getDocs(q);
 
 
 
+
 if(snapshot.empty){
 
 
-document.getElementById("message").innerHTML =
-
-"Student record not found";
+msg.innerHTML="Student record not found";
 
 
 return;
@@ -357,15 +367,14 @@ return;
 
 
 
-
-let studentData;
+let student;
 
 
 
 snapshot.forEach((doc)=>{
 
 
-studentData = doc.data();
+student = doc.data();
 
 
 });
@@ -376,13 +385,13 @@ studentData = doc.data();
 
 
 
-if(studentData.status === "approved"){
+if(student.status=="approved"){
 
 
 
-document.getElementById("message").innerHTML =
+msg.innerHTML="Login Successful ✅";
 
-"Login Successful";
+
 
 
 setTimeout(()=>{
@@ -400,30 +409,40 @@ window.location.href="student-dashboard.html";
 else{
 
 
+msg.innerHTML=
 
-document.getElementById("message").innerHTML =
-
-"Your account is waiting for admin approval";
-
-
-}
-
+"Waiting for Admin Approval";
 
 
 }
 
-.catch((error)=>{
+
+
+
+}
+
+catch(error){
+
+
 
 console.log(error.code);
 
-document.getElementById("message").innerHTML =
-error.code;
 
-});
+
+msg.innerHTML=
+
+"Login Error: "+error.code;
 
 
 
 }
+
+
+
+}
+
+
+
 
 
 
