@@ -28,7 +28,6 @@ color:white;
 }
 
 
-
 .header{
 
 background:#020611;
@@ -109,6 +108,15 @@ font-weight:bold;
 
 
 
+.add{
+
+background:#00bfff;
+color:black;
+
+}
+
+
+
 .approve{
 
 background:#00ff88;
@@ -127,10 +135,10 @@ color:white;
 
 
 
-.add{
+.delete{
 
-background:#00bfff;
-color:black;
+background:red;
+color:white;
 
 }
 
@@ -160,6 +168,7 @@ color:#00ff88;
 }
 
 
+
 .link{
 
 color:#00bfff;
@@ -167,7 +176,9 @@ color:#00bfff;
 }
 
 
+
 </style>
+
 
 </head>
 
@@ -183,12 +194,11 @@ SAGATRADING ADMIN PANEL
 </h1>
 
 <p>
-Owner / Admin Control
+Owner Control System
 </p>
 
 
 </div>
-
 
 
 
@@ -210,6 +220,7 @@ Owner / Admin Control
 </h2>
 
 
+
 <table id="studentTable">
 
 
@@ -217,13 +228,9 @@ Owner / Admin Control
 
 <th>Name</th>
 
-<th>Phone</th>
-
 <th>Email</th>
 
 <th>Course</th>
-
-<th>Payment</th>
 
 <th>Status</th>
 
@@ -253,12 +260,15 @@ Owner / Admin Control
 </h2>
 
 
+
 <input 
 id="title"
 placeholder="Material Title">
 
 
+
 <select id="type">
+
 
 <option value="video">
 Video
@@ -279,9 +289,14 @@ Announcement
 
 
 
+
 <input
+
 id="link"
+
 placeholder="Video / PDF Link">
+
+
 
 
 
@@ -292,6 +307,7 @@ id="description"
 placeholder="Description">
 
 </textarea>
+
 
 
 
@@ -315,44 +331,34 @@ ADD MATERIAL
 
 
 <h2>
-⚙️ Admin Features
+📂 Uploaded Materials
 </h2>
 
 
-<ul>
 
-<li>✅ Approve Students</li>
-
-<li>✅ Reject Students</li>
-
-<li>✅ Add Videos</li>
-
-<li>✅ Add PDFs</li>
-
-<li>✅ Add Announcements</li>
+<table id="materialTable">
 
 
-</ul>
+<tr>
+
+<th>Title</th>
+
+<th>Type</th>
+
+<th>Action</th>
+
+
+</tr>
+
+
+</table>
 
 
 </div>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
 <script type="module">
 
 
-import {initializeApp}
+import { initializeApp }
 
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
@@ -370,11 +376,14 @@ addDoc,
 
 doc,
 
-updateDoc
+updateDoc,
+
+deleteDoc
 
 }
 
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
 
 
 
@@ -402,6 +411,7 @@ appId:"1:832507974614:web:6ad7b3f941d348a7388a77"
 
 
 
+
 const app = initializeApp(firebaseConfig);
 
 
@@ -417,34 +427,34 @@ const db = getFirestore(app);
 async function loadStudents(){
 
 
+
 const snapshot = await getDocs(collection(db,"students"));
 
 
-let table=document.getElementById("studentTable");
+
+const table = document.getElementById("studentTable");
 
 
 
 snapshot.forEach((student)=>{
 
 
-let data=student.data();
+
+let data = student.data();
 
 
-let id=student.id;
-
-
-
-let row=table.insertRow();
+let id = student.id;
 
 
 
-row.innerHTML=`
+let row = table.insertRow();
+
+
+
+row.innerHTML = `
 
 
 <td>${data.name || ""}</td>
-
-
-<td>${data.phone || ""}</td>
 
 
 <td>${data.email || ""}</td>
@@ -453,26 +463,7 @@ row.innerHTML=`
 <td>${data.course || ""}</td>
 
 
-
-<td>
-
-<a class="link"
-href="${data.payment || '#'}"
-target="_blank">
-
-View
-
-</a>
-
-</td>
-
-
-
-<td>
-
-${data.status || "pending"}
-
-</td>
+<td>${data.status || "pending"}</td>
 
 
 
@@ -498,7 +489,6 @@ Reject
 </button>
 
 
-
 </td>
 
 
@@ -507,6 +497,7 @@ Reject
 
 
 });
+
 
 
 }
@@ -522,13 +513,18 @@ Reject
 window.approveStudent = async function(id){
 
 
-await updateDoc(doc(db,"students",id),{
+await updateDoc(
 
+doc(db,"students",id),
+
+{
 
 status:"approved"
 
+}
 
-});
+);
+
 
 
 alert("Student Approved");
@@ -545,16 +541,22 @@ location.reload();
 
 
 
+
 window.rejectStudent = async function(id){
 
 
-await updateDoc(doc(db,"students",id),{
+await updateDoc(
 
+doc(db,"students",id),
+
+{
 
 status:"rejected"
 
+}
 
-});
+);
+
 
 
 alert("Student Rejected");
@@ -577,21 +579,42 @@ window.addMaterial = async function(){
 
 
 
-let title=document.getElementById("title").value;
+let title = document.getElementById("title").value;
 
 
-let type=document.getElementById("type").value;
+let type = document.getElementById("type").value;
 
 
-let link=document.getElementById("link").value;
+let link = document.getElementById("link").value;
 
 
-let description=document.getElementById("description").value;
+let description = document.getElementById("description").value;
 
 
 
 
-await addDoc(collection(db,"materials"),{
+
+if(title===""){
+
+
+alert("Enter Material Title");
+
+
+return;
+
+
+}
+
+
+
+
+
+
+await addDoc(
+
+collection(db,"materials"),
+
+{
 
 
 title:title,
@@ -603,11 +626,19 @@ link:link,
 description:description
 
 
-});
+}
+
+);
+
+
 
 
 
 alert("Material Added Successfully");
+
+
+
+location.reload();
 
 
 
@@ -618,12 +649,131 @@ alert("Material Added Successfully");
 
 
 
+
+
+
+async function loadMaterials(){
+
+
+
+const table = document.getElementById("materialTable");
+
+
+
+const snapshot = await getDocs(
+
+collection(db,"materials")
+
+);
+
+
+
+
+
+snapshot.forEach((item)=>{
+
+
+
+let data = item.data();
+
+
+let id = item.id;
+
+
+
+let row = table.insertRow();
+
+
+
+
+
+row.innerHTML = `
+
+
+<td>
+
+${data.title}
+
+</td>
+
+
+
+<td>
+
+${data.type}
+
+</td>
+
+
+
+
+<td>
+
+
+<button class="delete"
+
+onclick="deleteMaterial('${id}')">
+
+Delete
+
+</button>
+
+
+</td>
+
+
+`;
+
+
+
+});
+
+
+
+}
+
+
+
+
+
+
+
+
+window.deleteMaterial = async function(id){
+
+
+
+await deleteDoc(
+
+doc(db,"materials",id)
+
+);
+
+
+
+alert("Material Deleted");
+
+
+location.reload();
+
+
+
+}
+
+
+
+
+
+
+
 loadStudents();
+
+
+loadMaterials();
 
 
 
 </script>
-
 
 
 
