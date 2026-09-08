@@ -412,20 +412,14 @@ document.getElementById("message").innerHTML =
 
 }
 
+.catch((error)=>{
 
-
-
-
-catch(error){
-
-
+console.log(error.code);
 
 document.getElementById("message").innerHTML =
+error.code;
 
-"Login Failed";
-
-
-}
+});
 
 
 
