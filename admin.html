@@ -4,33 +4,48 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SAGATRADING Admin Panel</title>
+<title>SAGATRADING ADMIN PANEL</title>
 
 
 <style>
 
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+
 body{
 
 background:#020617;
+
 color:white;
-font-family:Arial;
 
 }
+
 
 
 .header{
 
 background:#020611;
-padding:25px;
+
+padding:30px;
+
 text-align:center;
+
 border-bottom:1px solid #00bfff;
 
 }
 
 
-h1,h2{
+
+.header h1{
 
 color:#00bfff;
 
@@ -40,7 +55,7 @@ color:#00bfff;
 
 .container{
 
-padding:40px 10%;
+padding:40px 8%;
 
 }
 
@@ -49,31 +64,99 @@ padding:40px 10%;
 .card{
 
 background:#071426;
+
 border:1px solid #00bfff;
+
 border-radius:20px;
+
 padding:30px;
-margin:20px 0;
+
+margin-bottom:30px;
 
 }
+
+
+
+h2{
+
+color:#00bfff;
+
+margin-bottom:20px;
+
+}
+
+
 
 
 table{
 
 width:100%;
+
 border-collapse:collapse;
 
 }
 
 
+
 th,td{
 
-padding:15px;
+padding:12px;
+
 border:1px solid #00bfff;
+
+text-align:center;
 
 }
 
 
+
 th{
+
+color:#00ff88;
+
+}
+
+
+
+
+button{
+
+padding:8px 15px;
+
+border:none;
+
+border-radius:20px;
+
+cursor:pointer;
+
+font-weight:bold;
+
+}
+
+
+
+.approve{
+
+background:#00ff88;
+
+color:black;
+
+}
+
+
+
+.reject{
+
+background:red;
+
+color:white;
+
+}
+
+
+
+
+.link{
 
 color:#00bfff;
 
@@ -81,12 +164,29 @@ color:#00bfff;
 
 
 
+
+@media(max-width:700px){
+
+
+table{
+
+font-size:12px;
+
+}
+
+
+}
+
+
+
 </style>
+
 
 </head>
 
 
 <body>
+
 
 
 
@@ -114,6 +214,8 @@ Owner / Admin Control
 
 
 
+
+
 <div class="card">
 
 
@@ -122,32 +224,27 @@ Owner / Admin Control
 </h2>
 
 
-<table>
+
+
+<table id="studentTable">
 
 
 <tr>
 
 <th>Name</th>
 
+<th>Phone</th>
+
 <th>Email</th>
 
 <th>Course</th>
 
+<th>Payment</th>
+
 <th>Status</th>
 
-</tr>
+<th>Action</th>
 
-
-
-<tr>
-
-<td>Loading...</td>
-
-<td>Loading...</td>
-
-<td>Loading...</td>
-
-<td>Pending</td>
 
 </tr>
 
@@ -155,8 +252,8 @@ Owner / Admin Control
 </table>
 
 
-</div>
 
+</div>
 
 
 
@@ -173,13 +270,12 @@ Owner / Admin Control
 
 <p>
 
-Add course videos, PDFs and announcements here.
+Manage videos, PDFs and student learning materials.
 
 </p>
 
 
 </div>
-
 
 
 
@@ -196,38 +292,42 @@ Add course videos, PDFs and announcements here.
 
 <ul>
 
-<li>Approve Students</li>
+<li>✅ Approve Students</li>
 
-<li>Manage Courses</li>
+<li>✅ Reject Applications</li>
 
-<li>Upload Learning Materials</li>
+<li>✅ Manage Courses</li>
 
-<li>View Feedback</li>
+<li>✅ View Payments</li>
+
+<li>✅ Control Student Access</li>
 
 
 </ul>
 
 
 </div>
-
-
-
-
-</div>
-
+<!-- FIREBASE -->
 
 <script type="module">
+
 
 import { initializeApp }
 
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
 
-import { 
+import {
 
 getFirestore,
+
 collection,
-getDocs
+
+getDocs,
+
+doc,
+
+updateDoc
 
 }
 
@@ -235,7 +335,10 @@ from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
 
+
+
 const firebaseConfig = {
+
 
 apiKey: "AIzaSyD1vUF2PEwbcKsd1EhnxITRs_z_GZ689VQ",
 
@@ -253,6 +356,8 @@ appId: "1:832507974614:web:6ad7b3f941d348a7388a77"
 
 
 
+
+
 const app = initializeApp(firebaseConfig);
 
 
@@ -260,35 +365,108 @@ const db = getFirestore(app);
 
 
 
+
+
 async function loadStudents(){
 
 
-const querySnapshot = await getDocs(collection(db,"students"));
 
-
-let table = document.querySelector("table");
+const snapshot = await getDocs(collection(db,"students"));
 
 
 
-querySnapshot.forEach((doc)=>{
+let table = document.getElementById("studentTable");
 
 
-let data = doc.data();
+
+snapshot.forEach((student)=>{
+
+
+
+let data = student.data();
+
+
+let id = student.id;
 
 
 
 let row = table.insertRow();
 
 
+
 row.innerHTML = `
 
-<td>${data.name}</td>
 
-<td>${data.email}</td>
+<td>
+${data.name || ""}
+</td>
 
-<td>${data.course}</td>
 
-<td>${data.status}</td>
+<td>
+${data.phone || ""}
+</td>
+
+
+
+<td>
+${data.email || ""}
+</td>
+
+
+
+<td>
+${data.course || ""}
+</td>
+
+
+
+<td>
+
+<a class="link" 
+href="${data.payment || '#'}"
+target="_blank">
+
+View
+
+</a>
+
+</td>
+
+
+
+
+<td>
+
+${data.status || "pending"}
+
+</td>
+
+
+
+
+<td>
+
+
+<button class="approve"
+onclick="approveStudent('${id}')">
+
+Approve
+
+</button>
+
+
+
+<button class="reject"
+onclick="rejectStudent('${id}')">
+
+Reject
+
+</button>
+
+
+
+</td>
+
 
 `;
 
@@ -297,14 +475,89 @@ row.innerHTML = `
 });
 
 
+
 }
+
+
+
+
+
+
+window.approveStudent = async function(id){
+
+
+
+const studentRef = doc(db,"students",id);
+
+
+
+await updateDoc(studentRef,{
+
+
+status:"approved"
+
+
+});
+
+
+
+alert("Student Approved");
+
+
+location.reload();
+
+
+
+}
+
+
+
+
+
+
+
+
+window.rejectStudent = async function(id){
+
+
+
+const studentRef = doc(db,"students",id);
+
+
+
+await updateDoc(studentRef,{
+
+
+status:"rejected"
+
+
+});
+
+
+
+alert("Student Rejected");
+
+
+location.reload();
+
+
+
+}
+
+
+
+
 
 
 
 loadStudents();
 
 
+
 </script>
+
+
+
 
 
 </body>
