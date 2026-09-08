@@ -7,22 +7,17 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
 <title>SAGATRADING Student Dashboard</title>
 
 
 <style>
 
-
 *{
-
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:Arial,sans-serif;
-
 }
-
 
 
 body{
@@ -37,15 +32,11 @@ color:white;
 .header{
 
 background:#020611;
-
 padding:30px;
-
 text-align:center;
-
 border-bottom:1px solid #00bfff;
 
 }
-
 
 
 .header h1{
@@ -64,17 +55,12 @@ padding:40px 10%;
 
 
 
-
 .card{
 
 background:#071426;
-
 border:1px solid #00bfff;
-
 border-radius:20px;
-
 padding:30px;
-
 margin:25px 0;
 
 }
@@ -84,51 +70,30 @@ margin:25px 0;
 .card h2{
 
 color:#00bfff;
-
 margin-bottom:20px;
 
 }
 
 
 
-.card ul{
+.card li{
 
 line-height:2;
-
-font-size:17px;
+margin:10px;
 
 }
-
 
 
 
 .btn{
 
-
 padding:12px 30px;
-
 background:#00bfff;
-
 color:black;
-
 border-radius:30px;
-
-text-decoration:none;
-
-font-weight:bold;
-
 border:none;
-
+font-weight:bold;
 cursor:pointer;
-
-
-}
-
-
-
-.btn:hover{
-
-background:white;
 
 }
 
@@ -137,8 +102,15 @@ background:white;
 .logout{
 
 background:red;
-
 color:white;
+
+}
+
+
+
+.link{
+
+color:#00ff88;
 
 }
 
@@ -146,19 +118,9 @@ color:white;
 
 .profile{
 
-
 text-align:center;
 
 }
-
-
-
-.profile h2{
-
-color:#00ff88;
-
-}
-
 
 
 </style>
@@ -168,7 +130,6 @@ color:#00ff88;
 
 
 <body>
-
 
 
 
@@ -183,7 +144,6 @@ SAGATRADING STUDENT AREA
 <p>
 Welcome to your learning dashboard
 </p>
-
 
 
 <br>
@@ -208,9 +168,6 @@ LOGOUT
 
 
 
-
-
-
 <div class="card profile">
 
 
@@ -223,7 +180,7 @@ Loading Student...
 
 <p id="studentCourse">
 
-Course Loading...
+Loading Course...
 
 </p>
 
@@ -244,22 +201,16 @@ Course Loading...
 </h2>
 
 
-<ul>
+<ul id="videoList">
 
-<li>Trading Basics Video Lessons</li>
-
-<li>Technical Analysis Classes</li>
-
-<li>Price Action Training</li>
-
-<li>Market Analysis Sessions</li>
-
+<li>
+Loading videos...
+</li>
 
 </ul>
 
 
 </div>
-
 
 
 
@@ -275,14 +226,36 @@ Course Loading...
 </h2>
 
 
-<ul>
+<ul id="pdfList">
 
-<li>Advanced Trading PDF</li>
+<li>
+Loading PDFs...
+</li>
 
-<li>Risk Management Guide</li>
+</ul>
 
-<li>Trading Psychology Notes</li>
 
+</div>
+
+
+
+
+
+
+
+<div class="card">
+
+
+<h2>
+📢 Announcements
+</h2>
+
+
+<ul id="announcementList">
+
+<li>
+Loading announcements...
+</li>
 
 </ul>
 
@@ -303,46 +276,12 @@ Course Loading...
 </h2>
 
 
-<p>
-
-Your Progress
-
-</p>
-
-
 <h1>
-
 0%
-
 </h1>
 
 
 </div>
-
-
-
-
-
-
-
-
-<div class="card">
-
-
-<h2>
-📢 Announcements
-</h2>
-
-
-<p>
-
-New updates will appear here.
-
-</p>
-
-
-</div>
-
 
 
 
@@ -360,9 +299,7 @@ New updates will appear here.
 
 <p>
 
-Need help?
-
-Contact SAGATRADING:
+Contact SAGATRADING WhatsApp
 
 </p>
 
@@ -385,10 +322,7 @@ WhatsApp Support
 
 
 
-
-
 </div>
-
 
 
 
@@ -401,7 +335,7 @@ WhatsApp Support
 <script type="module">
 
 
-import { initializeApp }
+import {initializeApp}
 
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
@@ -441,45 +375,40 @@ from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
 
+const firebaseConfig={
 
-const firebaseConfig = {
 
+apiKey:"AIzaSyD1vUF2PEwbcKsd1EhnxITRs_z_GZ689VQ",
 
-apiKey: "AIzaSyD1vUF2PEwbcKsd1EhnxITRs_z_GZ689VQ",
+authDomain:"sagatrading-mentorship.firebaseapp.com",
 
-authDomain: "sagatrading-mentorship.firebaseapp.com",
+projectId:"sagatrading-mentorship",
 
-projectId: "sagatrading-mentorship",
+storageBucket:"sagatrading-mentorship.firebasestorage.app",
 
-storageBucket: "sagatrading-mentorship.firebasestorage.app",
+messagingSenderId:"832507974614",
 
-messagingSenderId: "832507974614",
-
-appId: "1:832507974614:web:6ad7b3f941d348a7388a77"
+appId:"1:832507974614:web:6ad7b3f941d348a7388a77"
 
 };
 
 
 
 
-
-const app = initializeApp(firebaseConfig);
-
+const app=initializeApp(firebaseConfig);
 
 
-const auth = getAuth(app);
+const auth=getAuth(app);
 
 
-
-const db = getFirestore(app);
+const db=getFirestore(app);
 
 
 
 
 
 
-
-onAuthStateChanged(auth, async(user)=>{
+onAuthStateChanged(auth,async(user)=>{
 
 
 
@@ -497,9 +426,7 @@ return;
 
 
 
-
-
-const q = query(
+const q=query(
 
 collection(db,"students"),
 
@@ -511,9 +438,7 @@ where("email","==",user.email)
 
 
 
-
-const snapshot = await getDocs(q);
-
+const snapshot=await getDocs(q);
 
 
 
@@ -522,19 +447,17 @@ const snapshot = await getDocs(q);
 snapshot.forEach((doc)=>{
 
 
-
-let data = doc.data();
-
+let data=doc.data();
 
 
 
-document.getElementById("studentName").innerHTML =
+document.getElementById("studentName").innerHTML=
 
 "Welcome "+data.name;
 
 
 
-document.getElementById("studentCourse").innerHTML =
+document.getElementById("studentCourse").innerHTML=
 
 data.course;
 
@@ -544,6 +467,11 @@ data.course;
 
 
 
+
+loadMaterials();
+
+
+
 });
 
 
@@ -552,20 +480,94 @@ data.course;
 
 
 
+async function loadMaterials(){
 
 
-window.logoutUser = function(){
-
-
-
-signOut(auth)
+const snapshot=await getDocs(collection(db,"materials"));
 
 
 
-.then(()=>{
+let videos=document.getElementById("videoList");
+
+let pdfs=document.getElementById("pdfList");
+
+let announcements=document.getElementById("announcementList");
 
 
-window.location.href="student-login.html";
+
+videos.innerHTML="";
+
+pdfs.innerHTML="";
+
+announcements.innerHTML="";
+
+
+
+
+snapshot.forEach((doc)=>{
+
+
+let data=doc.data();
+
+
+
+
+
+let item=`
+
+<li>
+
+<b>${data.title}</b>
+
+<br>
+
+${data.description || ""}
+
+<br>
+
+<a class="link" href="${data.link}" target="_blank">
+
+Open Material
+
+</a>
+
+
+</li>
+
+`;
+
+
+
+
+
+if(data.type=="video"){
+
+
+videos.innerHTML += item;
+
+
+}
+
+
+
+else if(data.type=="pdf"){
+
+
+pdfs.innerHTML += item;
+
+
+}
+
+
+
+else if(data.type=="announcement"){
+
+
+announcements.innerHTML += item;
+
+
+}
+
 
 
 });
@@ -577,8 +579,26 @@ window.location.href="student-login.html";
 
 
 
-</script>
 
+
+
+window.logoutUser=function(){
+
+
+signOut(auth).then(()=>{
+
+
+window.location.href="student-login.html";
+
+
+});
+
+
+}
+
+
+
+</script>
 
 
 
