@@ -126,16 +126,7 @@ color:black;
 
 
 
-.reject{
-
-background:red;
-color:white;
-
-}
-
-
-
-.delete{
+.reject,.delete{
 
 background:red;
 color:white;
@@ -209,9 +200,6 @@ Owner Control System
 
 
 
-
-
-
 <div class="card">
 
 
@@ -236,7 +224,6 @@ Owner Control System
 
 <th>Action</th>
 
-
 </tr>
 
 
@@ -256,14 +243,17 @@ Owner Control System
 
 
 <h2>
-📚 Add Course Material
+📚 Upload Course Material
 </h2>
+
 
 
 
 <input 
 id="title"
 placeholder="Material Title">
+
+
 
 
 
@@ -290,11 +280,24 @@ Announcement
 
 
 
+
 <input
 
 id="link"
 
-placeholder="Video / PDF Link">
+placeholder="Video Link (optional)">
+
+
+
+
+
+<input
+
+id="fileUpload"
+
+type="file"
+
+accept=".pdf">
 
 
 
@@ -313,9 +316,13 @@ placeholder="Description">
 
 <button class="add" onclick="addMaterial()">
 
-ADD MATERIAL
+UPLOAD MATERIAL
 
 </button>
+
+
+
+<p id="uploadStatus"></p>
 
 
 </div>
@@ -346,7 +353,6 @@ ADD MATERIAL
 <th>Type</th>
 
 <th>Action</th>
-
 
 </tr>
 
@@ -386,6 +392,22 @@ from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
 
+import {
+
+getStorage,
+
+ref,
+
+uploadBytes,
+
+getDownloadURL
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-storage.js";
+
+
+
 
 
 
@@ -418,6 +440,8 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 
+const storage = getStorage(app);
+
 
 
 
@@ -427,28 +451,20 @@ const db = getFirestore(app);
 async function loadStudents(){
 
 
-
 const snapshot = await getDocs(collection(db,"students"));
 
-
-
 const table = document.getElementById("studentTable");
-
 
 
 snapshot.forEach((student)=>{
 
 
-
 let data = student.data();
-
 
 let id = student.id;
 
 
-
 let row = table.insertRow();
-
 
 
 row.innerHTML = `
@@ -456,22 +472,16 @@ row.innerHTML = `
 
 <td>${data.name || ""}</td>
 
-
 <td>${data.email || ""}</td>
 
-
 <td>${data.course || ""}</td>
-
 
 <td>${data.status || "pending"}</td>
 
 
-
 <td>
 
-
 <button class="approve"
-
 onclick="approveStudent('${id}')">
 
 Approve
@@ -479,9 +489,7 @@ Approve
 </button>
 
 
-
 <button class="reject"
-
 onclick="rejectStudent('${id}')">
 
 Reject
@@ -495,14 +503,10 @@ Reject
 `;
 
 
-
 });
 
 
-
 }
-
-
 
 
 
@@ -526,7 +530,6 @@ status:"approved"
 );
 
 
-
 alert("Student Approved");
 
 
@@ -534,7 +537,6 @@ location.reload();
 
 
 }
-
 
 
 
@@ -558,7 +560,6 @@ status:"rejected"
 );
 
 
-
 alert("Student Rejected");
 
 
@@ -579,16 +580,34 @@ window.addMaterial = async function(){
 
 
 
-let title = document.getElementById("title").value;
+let title =
+document.getElementById("title").value;
 
 
-let type = document.getElementById("type").value;
+
+let type =
+document.getElementById("type").value;
 
 
-let link = document.getElementById("link").value;
+
+let link =
+document.getElementById("link").value;
 
 
-let description = document.getElementById("description").value;
+
+let description =
+document.getElementById("description").value;
+
+
+
+let file =
+document.getElementById("fileUpload").files[0];
+
+
+
+let status =
+document.getElementById("uploadStatus");
+
 
 
 
@@ -604,6 +623,58 @@ return;
 
 
 }
+
+
+
+
+
+try{
+
+
+
+status.innerHTML="Uploading...";
+
+
+
+
+
+
+if(file){
+
+
+
+const storageRef = ref(
+
+storage,
+
+"materials/"+file.name
+
+);
+
+
+
+
+
+await uploadBytes(
+
+storageRef,
+
+file
+
+);
+
+
+
+
+
+
+link = await getDownloadURL(storageRef);
+
+
+
+}
+
+
 
 
 
@@ -634,11 +705,32 @@ description:description
 
 
 
+
+
+status.innerHTML="Upload Complete ✅";
+
+
 alert("Material Added Successfully");
 
 
-
 location.reload();
+
+
+
+}
+
+
+
+catch(error){
+
+
+console.log(error);
+
+
+alert(error.message);
+
+
+}
 
 
 
@@ -655,9 +747,7 @@ location.reload();
 async function loadMaterials(){
 
 
-
 const table = document.getElementById("materialTable");
-
 
 
 const snapshot = await getDocs(
@@ -669,25 +759,20 @@ collection(db,"materials")
 
 
 
-
 snapshot.forEach((item)=>{
 
 
+let data=item.data();
 
-let data = item.data();
-
-
-let id = item.id;
+let id=item.id;
 
 
 
-let row = table.insertRow();
+let row=table.insertRow();
 
 
 
-
-
-row.innerHTML = `
+row.innerHTML=`
 
 
 <td>
@@ -703,7 +788,6 @@ ${data.title}
 ${data.type}
 
 </td>
-
 
 
 
@@ -757,8 +841,8 @@ alert("Material Deleted");
 location.reload();
 
 
-
 }
+
 
 
 
