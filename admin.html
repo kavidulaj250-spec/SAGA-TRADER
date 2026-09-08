@@ -216,7 +216,95 @@ Add course videos, PDFs and announcements here.
 </div>
 
 
+<script type="module">
 
+import { initializeApp }
+
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+
+import { 
+
+getFirestore,
+collection,
+getDocs
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyD1vUF2PEwbcKsd1EhnxITRs_z_GZ689VQ",
+
+authDomain: "sagatrading-mentorship.firebaseapp.com",
+
+projectId: "sagatrading-mentorship",
+
+storageBucket: "sagatrading-mentorship.firebasestorage.app",
+
+messagingSenderId: "832507974614",
+
+appId: "1:832507974614:web:6ad7b3f941d348a7388a77"
+
+};
+
+
+
+const app = initializeApp(firebaseConfig);
+
+
+const db = getFirestore(app);
+
+
+
+async function loadStudents(){
+
+
+const querySnapshot = await getDocs(collection(db,"students"));
+
+
+let table = document.querySelector("table");
+
+
+
+querySnapshot.forEach((doc)=>{
+
+
+let data = doc.data();
+
+
+
+let row = table.insertRow();
+
+
+row.innerHTML = `
+
+<td>${data.name}</td>
+
+<td>${data.email}</td>
+
+<td>${data.course}</td>
+
+<td>${data.status}</td>
+
+`;
+
+
+
+});
+
+
+}
+
+
+
+loadStudents();
+
+
+</script>
 
 
 </body>
