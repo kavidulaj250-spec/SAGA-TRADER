@@ -1,144 +1,252 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>SAGATRADING MENTORSHIP</title>
 
+
 <style>
 
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
 }
+
 
 body{
-    background:#050b18;
-    color:white;
+
+background:#020617;
+color:white;
+
 }
 
-/* NAVBAR */
 
 nav{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:20px 8%;
-    background:#020611;
-    border-bottom:1px solid #123;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 8%;
+background:#020611;
+border-bottom:1px solid #123;
+
 }
+
 
 .logo{
-    font-size:28px;
-    font-weight:bold;
-    color:#00aaff;
+
+font-size:28px;
+font-weight:bold;
+color:#00bfff;
+
 }
+
 
 nav a{
-    color:white;
-    text-decoration:none;
-    margin-left:20px;
+
+color:white;
+text-decoration:none;
+margin-left:20px;
+
 }
 
 
-/* HERO */
 
 .hero{
 
-    min-height:90vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    padding:50px 10%;
+min-height:90vh;
 
-    background:
-    linear-gradient(
-    rgba(0,0,0,.7),
-    rgba(0,0,0,.8)
-    ),
-    url("images/trading-banner.jpg");
+display:flex;
 
-    background-size:cover;
-    background-position:center;
+align-items:center;
+
+justify-content:center;
+
+text-align:center;
+
+padding:40px 10%;
+
+background:
+linear-gradient(
+rgba(0,0,0,.75),
+rgba(0,0,0,.85)
+);
 
 }
+
 
 
 .hero h1{
 
-    font-size:55px;
-    color:#00bfff;
+font-size:55px;
+color:#00bfff;
 
 }
 
 
 .hero h2{
 
-    font-size:35px;
-    margin:20px 0;
+font-size:32px;
+margin:20px 0;
 
 }
 
 
 .hero p{
 
-    font-size:20px;
-    max-width:700px;
-    margin:auto;
-    line-height:1.6;
+font-size:19px;
+line-height:1.8;
+max-width:750px;
 
 }
+
 
 
 .btn{
 
-    display:inline-block;
-    margin-top:30px;
-    padding:15px 35px;
-    background:#00bfff;
-    color:black;
-    font-weight:bold;
-    border-radius:30px;
-    text-decoration:none;
+display:inline-block;
+
+margin-top:25px;
+
+padding:15px 35px;
+
+background:#00bfff;
+
+color:black;
+
+font-weight:bold;
+
+border-radius:30px;
+
+text-decoration:none;
 
 }
+
 
 
 .btn:hover{
 
-    background:white;
+background:white;
 
 }
 
 
-
-/* ABOUT */
 
 .section{
 
-    padding:70px 10%;
-    text-align:center;
+padding:70px 10%;
+
+text-align:center;
 
 }
+
 
 
 .section h2{
 
-    color:#00bfff;
-    font-size:35px;
-    margin-bottom:25px;
+color:#00bfff;
+
+font-size:36px;
+
+margin-bottom:25px;
 
 }
 
 
+
 .section p{
 
-    line-height:1.8;
-    font-size:18px;
+font-size:18px;
+
+line-height:1.8;
+
+}
+
+
+
+
+.course-card{
+
+background:#071426;
+
+border:1px solid #00bfff;
+
+border-radius:25px;
+
+padding:35px;
+
+margin:40px auto;
+
+max-width:850px;
+
+box-shadow:0 0 20px rgba(0,191,255,.15);
+
+}
+
+
+
+.course-card h3{
+
+color:#00ff88;
+
+font-size:28px;
+
+margin:20px;
+
+}
+
+
+
+.course-card ul{
+
+text-align:left;
+
+line-height:2;
+
+font-size:17px;
+
+}
+
+
+
+@media(max-width:700px){
+
+nav{
+
+flex-direction:column;
+
+}
+
+
+nav a{
+
+display:block;
+
+margin:10px;
+
+}
+
+
+.hero h1{
+
+font-size:35px;
+
+}
+
+
+.hero h2{
+
+font-size:25px;
+
+}
+
 
 }
 
@@ -153,22 +261,29 @@ nav a{
 
 <nav>
 
+
 <div class="logo">
+
 SAGATRADING
+
 </div>
 
 
 <div>
 
 <a href="#">Home</a>
+
 <a href="#courses">Courses</a>
+
 <a href="#register">Register</a>
+
 <a href="#contact">Contact</a>
 
 </div>
 
 
 </nav>
+
 
 
 
@@ -179,18 +294,23 @@ SAGATRADING
 
 
 <h1>
+
 SAGATRADING MENTORSHIP
+
 </h1>
 
 
 <h2>
+
 Learn Trading. Build Your Future
+
 </h2>
 
 
 <p>
 
 Professional Trading Education Platform.
+
 Learn Forex, Crypto, Technical Analysis,
 Price Action, Risk Management and Trading Psychology
 with proper guidance and practical market learning.
@@ -201,7 +321,7 @@ with proper guidance and practical market learning.
 <a class="btn"
 href="https://wa.me/94740497974">
 
-Join Now WhatsApp
+JOIN WHATSAPP
 
 </a>
 
@@ -218,7 +338,9 @@ Join Now WhatsApp
 
 
 <h2>
+
 About SAGATRADING INSTITUTE
+
 </h2>
 
 
@@ -229,8 +351,8 @@ Trading Mentorship programs designed to help students
 understand financial markets with discipline,
 knowledge and practical strategies.
 
-Our focus is to guide traders through proper market
-education and personal support.
+Our mission is to guide students through proper
+trading education and personal support.
 
 </p>
 
@@ -239,54 +361,44 @@ education and personal support.
 
 
 
-</body>
-</html> 
-<!-- INDIVIDUAL MENTORSHIP COURSE BANNER -->
+
 
 <section class="section" id="courses">
 
-<h2>SAGATRADING COURSES</h2>
-
-
-<div style="
-background:#020611;
-padding:30px;
-border-radius:20px;
-border:1px solid #00bfff;
-margin-bottom:40px;
-">
-
-
-<img src="images/individual-mentorship.jpg"
-style="
-width:100%;
-max-width:800px;
-border-radius:15px;
-"
-alt="SAGATRADING Individual Mentorship">
-
 
 <h2>
-SAGATRADING INDIVIDUAL MENTORSHIP
+
+Our Courses
+
 </h2>
 
 
-<h3 style="color:#00bfff;">
+
+<div class="course-card">
+
+
+<h2>
+
+SAGATRADING INDIVIDUAL MENTORSHIP
+
+</h2>
+
+
+<h3>
+
 Rs.18,000/-
+
 </h3>
 
 
 <p>
+
 A-Z Trading Learning With Individual Guidance
+
 </p>
 
 
-<ul style="
-text-align:left;
-line-height:2;
-margin-top:20px;
-">
-
+<ul>
 
 <li>✅ Lifetime After-Service Support</li>
 
@@ -308,8 +420,7 @@ margin-top:20px;
 
 <li>✅ Free Rejoin Batch</li>
 
-<li>✅ Advanced PDF Library</li>
-
+<li>✅ Advanced PDF Materials</li>
 
 </ul>
 
@@ -317,45 +428,39 @@ margin-top:20px;
 <a class="btn"
 href="https://wa.me/94740497974">
 
-JOIN INDIVIDUAL MENTORSHIP
+JOIN NOW
 
 </a>
 
 
 </div>
+<!-- BASIC COURSE -->
 
-
-
-
-
-<div style="
-background:#020611;
-padding:30px;
-border-radius:20px;
-border:1px solid #00bfff;
-">
+<div class="course-card">
 
 
 <h2>
+
 SAGATRADING BASIC - ADVANCE MENTORSHIP
+
 </h2>
 
 
-<h3 style="color:#00bfff;">
+<h3>
+
 Rs.10,000/-
+
 </h3>
 
 
 <p>
-Basic to Advanced Trading Education Program
+
+Basic To Advanced Trading Education Program
+
 </p>
 
 
-<ul style="
-text-align:left;
-line-height:2;
-">
-
+<ul>
 
 <li>✅ Lifetime After-Service Support</li>
 
@@ -371,10 +476,9 @@ line-height:2;
 
 <li>✅ Chat Community</li>
 
-<li>✅ Personal Guide</li>
+<li>✅ Personal Guide Support</li>
 
 <li>✅ Advanced PDF Materials</li>
-
 
 </ul>
 
@@ -391,118 +495,111 @@ JOIN NOW
 
 
 </section>
-<!-- REGISTRATION SECTION -->
+
+
+
+
+
+<!-- REGISTRATION -->
+
 
 <section class="section" id="register">
 
+
 <h2>
+
 Student Registration
+
 </h2>
 
 
-<div style="
-background:#020611;
-padding:30px;
-border-radius:20px;
-border:1px solid #00bfff;
-max-width:700px;
-margin:auto;
-">
+
+<div class="course-card">
 
 
 <form>
 
 
-<label>Full Name</label>
-<br>
-<input type="text" 
-placeholder="Enter your name"
-style="width:100%;padding:12px;margin:10px 0;">
-<br>
+<input type="text"
+placeholder="Full Name"
+style="width:100%;padding:12px;margin:10px;">
 
-
-<label>Phone Number</label>
-<br>
 
 <input type="tel"
-placeholder="WhatsApp Number"
-style="width:100%;padding:12px;margin:10px 0;">
-
-<br>
+placeholder="Phone Number"
+style="width:100%;padding:12px;margin:10px;">
 
 
-<label>Email</label>
-<br>
 
 <input type="email"
 placeholder="Email Address"
-style="width:100%;padding:12px;margin:10px 0;">
-
-<br>
+style="width:100%;padding:12px;margin:10px;">
 
 
-
-<label>Select Course</label>
-<br>
 
 <select style="
 width:100%;
 padding:12px;
-margin:10px 0;
+margin:10px;
 ">
 
+
 <option>
-SAGATRADING BASIC - ADVANCE MENTORSHIP Rs.10,000
+
+SAGATRADING BASIC - ADVANCE Rs.10,000
+
 </option>
 
 
 <option>
+
 SAGATRADING INDIVIDUAL MENTORSHIP Rs.18,000
+
 </option>
 
 
 </select>
 
 
-<br>
-
 
 <label>
+
 Payment Receipt Upload
+
 </label>
 
-<br>
 
-<input type="file"
-style="
-width:100%;
-padding:12px;
-margin:10px 0;
-">
+<br><br>
 
 
-<br>
+<input type="file">
+
+
+
+<br><br>
 
 
 <textarea
+
 placeholder="Message"
+
 style="
 width:100%;
-padding:12px;
 height:100px;
-margin:10px 0;
-"></textarea>
+padding:12px;
+margin:10px;
+">
+
+</textarea>
 
 
-<br>
 
+<button class="btn">
 
-<button class="btn"
-type="submit">
-
-Submit Registration
+SUBMIT REGISTRATION
 
 </button>
+
 
 
 </form>
@@ -510,64 +607,62 @@ Submit Registration
 
 </div>
 
+
 </section>
 
 
 
 
 
-<!-- PAYMENT SECTION -->
+
+<!-- BANK PAYMENT -->
 
 
 <section class="section">
 
 
 <h2>
+
 Bank Payment Details
+
 </h2>
 
 
 
-<div style="
-background:#020611;
-padding:30px;
-border-radius:20px;
-border:1px solid #00bfff;
-text-align:left;
-">
+<div class="course-card">
 
 
+<h2>
 
-<h3 style="color:#00bfff;">
 Sampath Bank
-</h3>
+
+</h2>
 
 
 <p>
 
 Account Name:
 <br>
+
 <b>PAMS SAGARA</b>
 
 <br><br>
 
+
 Account Number:
 <br>
+
 <b>101652849571</b>
 
 
 <br><br>
 
-Bank:
-<br>
-<b>Sampath Bank</b>
-
-
-<br><br>
 
 Branch:
 <br>
+
 <b>Gampaha</b>
+
 
 </p>
 
@@ -576,10 +671,15 @@ Branch:
 <hr>
 
 
+<br>
 
-<h3 style="color:#00bfff;">
+
+
+<h2>
+
 Bank of Ceylon (BOC)
-</h3>
+
+</h2>
 
 
 <p>
@@ -591,6 +691,7 @@ Account Name:
 
 
 <br><br>
+
 
 Account Number:
 <br>
@@ -600,13 +701,6 @@ Account Number:
 
 <br><br>
 
-Bank:
-<br>
-
-<b>BOC</b>
-
-
-<br><br>
 
 Branch:
 <br>
@@ -615,7 +709,6 @@ Branch:
 
 
 </p>
-
 
 
 </div>
@@ -635,18 +728,13 @@ Branch:
 
 
 <h2>
+
 Student Login
+
 </h2>
 
 
-<div style="
-background:#020611;
-padding:30px;
-border-radius:20px;
-border:1px solid #00bfff;
-max-width:500px;
-margin:auto;
-">
+<div class="course-card">
 
 
 <input type="email"
@@ -654,8 +742,9 @@ placeholder="Student Email"
 style="
 width:100%;
 padding:12px;
-margin:10px 0;
+margin:10px;
 ">
+
 
 
 <input type="password"
@@ -663,32 +752,27 @@ placeholder="Password"
 style="
 width:100%;
 padding:12px;
-margin:10px 0;
+margin:10px;
 ">
+
 
 
 <button class="btn">
 
-Login
+LOGIN
 
 </button>
 
 
-<br><br>
+
+<h3>
+
+After Login
+
+</h3>
 
 
-<p>
-
-After login students can access:
-
-</p>
-
-
-<ul style="
-text-align:left;
-line-height:2;
-">
-
+<ul>
 
 <li>🎥 Course Videos</li>
 
@@ -709,29 +793,29 @@ line-height:2;
 
 
 </section>
+
+
+
+
+
+
 <!-- TRADING TOPICS -->
+
 
 <section class="section">
 
+
 <h2>
+
 What We Teach
+
 </h2>
 
 
-<div style="
-background:#020611;
-padding:30px;
-border-radius:20px;
-border:1px solid #00bfff;
-">
+<div class="course-card">
 
 
-<ul style="
-text-align:left;
-line-height:2.2;
-font-size:18px;
-">
-
+<ul>
 
 <li>📈 Forex Trading</li>
 
@@ -753,45 +837,37 @@ font-size:18px;
 
 </div>
 
+
 </section>
 
 
 
 
 
-<!-- TRADING CALCULATOR -->
+
+<!-- CALCULATOR -->
+
 
 <section class="section">
 
 
 <h2>
-Crypto / Trading Calculator
+
+Trading Calculator
+
 </h2>
 
 
-
-<div style="
-background:#020611;
-padding:30px;
-border-radius:20px;
-border:1px solid #00bfff;
-max-width:600px;
-margin:auto;
-">
-
-
-<p>
-Search any coin symbol:
-</p>
+<div class="course-card">
 
 
 <input id="coin"
-placeholder="Example: BTC, ETH, XRP"
+
+placeholder="Search Coin (BTC, ETH...)"
 
 style="
 width:100%;
 padding:12px;
-margin:15px 0;
 ">
 
 
@@ -799,18 +875,16 @@ margin:15px 0;
 <button class="btn"
 onclick="searchCoin()">
 
-Search
+SEARCH
 
 </button>
 
 
-<h3 id="result"
-style="
-margin-top:25px;
-color:#00bfff;
-">
+
+<h3 id="result">
 
 </h3>
+
 
 
 </div>
@@ -823,49 +897,44 @@ color:#00bfff;
 
 
 
-<!-- FEEDBACK SECTION -->
+<!-- FEEDBACK -->
 
 
 <section class="section">
 
 
 <h2>
+
 Student Feedback
+
 </h2>
 
 
-
-<div style="
-background:#020611;
-padding:30px;
-border-radius:20px;
-border:1px solid #00bfff;
-max-width:600px;
-margin:auto;
-">
+<div class="course-card">
 
 
-<input 
-placeholder="Your Name"
+<input placeholder="Your Name"
 
 style="
 width:100%;
 padding:12px;
 margin:10px;
 ">
+
 
 
 <textarea
-placeholder="Write your feedback"
+
+placeholder="Your Feedback"
 
 style="
 width:100%;
-padding:12px;
 height:100px;
-margin:10px;
+padding:12px;
 ">
 
 </textarea>
+
 
 
 <br>
@@ -873,7 +942,7 @@ margin:10px;
 
 <button class="btn">
 
-Submit Feedback
+SEND FEEDBACK
 
 </button>
 
@@ -895,9 +964,10 @@ Submit Feedback
 
 
 <h2>
-Contact SAGATRADING
-</h2>
 
+Contact SAGATRADING
+
+</h2>
 
 
 <p>
@@ -907,22 +977,29 @@ Contact SAGATRADING
 
 <b>0740497974</b>
 
+
 <br><br>
 
 
 📧 Email:
+
 <br>
 
-<b>sagatradinginstitute@gmail.com</b>
+<b>
+sagatradinginstitute@gmail.com
+</b>
 
 
 <br><br>
 
 
-🕒 Working Hours:
+🕒 Time:
+
 <br>
 
-<b>07:30 PM - 09:30 PM</b>
+<b>
+07:30 PM - 09:30 PM
+</b>
 
 
 </p>
@@ -934,63 +1011,9 @@ Contact SAGATRADING
 <a class="btn"
 href="https://wa.me/94740497974">
 
-Chat On WhatsApp
+WHATSAPP
 
 </a>
-
-
-</section>
-
-
-
-
-
-
-<!-- SOCIAL MEDIA -->
-
-
-<section class="section">
-
-
-<h2>
-Follow Us
-</h2>
-
-
-<p>
-
-
-<a href="https://www.facebook.com/share/1E3g9hieWw/"
-style="color:#00bfff">
-
-Facebook
-
-</a>
-
-
-<br><br>
-
-
-<a href="https://youtube.com/@sagatechnic"
-style="color:#00bfff">
-
-YouTube
-
-</a>
-
-
-<br><br>
-
-
-<a href="https://www.tiktok.com/@sagatrading"
-style="color:#00bfff">
-
-TikTok
-
-</a>
-
-
-</p>
 
 
 </section>
@@ -1007,27 +1030,31 @@ TikTok
 background:#020611;
 padding:30px;
 text-align:center;
-border-top:1px solid #123;
 ">
 
 
 <h3>
+
 SAGATRADING MENTORSHIP
+
 </h3>
 
 
 <p>
+
 Learn • Plan • Trade • Grow
+
 </p>
 
 
 <p>
+
 © 2026 SAGATRADING INSTITUTE
+
 </p>
 
 
 </footer>
-
 
 
 
@@ -1038,14 +1065,18 @@ Learn • Plan • Trade • Grow
 
 function searchCoin(){
 
+
 let coin =
 document.getElementById("coin").value;
 
 
+
 if(coin==""){
 
+
 document.getElementById("result").innerHTML =
-"Please enter coin name";
+"Enter coin name";
+
 
 }
 
@@ -1054,7 +1085,8 @@ else{
 
 document.getElementById("result").innerHTML =
 coin.toUpperCase()+
-" price search feature will be connected with live market API.";
+" live calculator connection will be added";
+
 
 }
 
@@ -1063,3 +1095,9 @@ coin.toUpperCase()+
 
 
 </script>
+
+
+
+</body>
+
+</html>
