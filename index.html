@@ -21,40 +21,32 @@ font-family:Arial, sans-serif;
 
 
 body{
-
 background:#020617;
 color:white;
-
 }
 
 
 nav{
-
 display:flex;
 justify-content:space-between;
 align-items:center;
 padding:20px 8%;
 background:#020611;
 border-bottom:1px solid #123;
-
 }
 
 
 .logo{
-
 font-size:28px;
 font-weight:bold;
 color:#00bfff;
-
 }
 
 
 nav a{
-
 color:white;
 text-decoration:none;
 margin-left:20px;
-
 }
 
 
@@ -82,10 +74,10 @@ rgba(0,0,0,.85)
 }
 
 
-
 .hero h1{
 
 font-size:55px;
+
 color:#00bfff;
 
 }
@@ -94,6 +86,7 @@ color:#00bfff;
 .hero h2{
 
 font-size:32px;
+
 margin:20px 0;
 
 }
@@ -102,7 +95,9 @@ margin:20px 0;
 .hero p{
 
 font-size:19px;
+
 line-height:1.8;
+
 max-width:750px;
 
 }
@@ -171,7 +166,6 @@ line-height:1.8;
 
 
 
-
 .course-card{
 
 background:#071426;
@@ -211,6 +205,20 @@ text-align:left;
 line-height:2;
 
 font-size:17px;
+
+}
+
+
+
+input,select,textarea{
+
+border-radius:10px;
+
+border:1px solid #00bfff;
+
+background:#020617;
+
+color:white;
 
 }
 
@@ -261,11 +269,8 @@ font-size:25px;
 
 <nav>
 
-
 <div class="logo">
-
 SAGATRADING
-
 </div>
 
 
@@ -281,7 +286,6 @@ SAGATRADING
 
 </div>
 
-
 </nav>
 
 
@@ -289,21 +293,16 @@ SAGATRADING
 
 <section class="hero">
 
-
 <div>
 
 
 <h1>
-
 SAGATRADING MENTORSHIP
-
 </h1>
 
 
 <h2>
-
 Learn Trading. Build Your Future
-
 </h2>
 
 
@@ -328,7 +327,6 @@ JOIN WHATSAPP
 
 </div>
 
-
 </section>
 
 
@@ -338,9 +336,7 @@ JOIN WHATSAPP
 
 
 <h2>
-
 About SAGATRADING INSTITUTE
-
 </h2>
 
 
@@ -350,9 +346,6 @@ SAGATRADING INSTITUTE provides Basic to Advanced
 Trading Mentorship programs designed to help students
 understand financial markets with discipline,
 knowledge and practical strategies.
-
-Our mission is to guide students through proper
-trading education and personal support.
 
 </p>
 
@@ -367,34 +360,25 @@ trading education and personal support.
 
 
 <h2>
-
 Our Courses
-
 </h2>
-
 
 
 <div class="course-card">
 
 
 <h2>
-
 SAGATRADING INDIVIDUAL MENTORSHIP
-
 </h2>
 
 
 <h3>
-
 Rs.18,000/-
-
 </h3>
 
 
 <p>
-
 A-Z Trading Learning With Individual Guidance
-
 </p>
 
 
@@ -425,38 +409,30 @@ A-Z Trading Learning With Individual Guidance
 </ul>
 
 
-<a class="btn"
-href="https://wa.me/94740497974">
-
+<a class="btn" href="https://wa.me/94740497974">
 JOIN NOW
-
 </a>
 
 
 </div>
-<!-- BASIC COURSE -->
+
+
 
 <div class="course-card">
 
 
 <h2>
-
 SAGATRADING BASIC - ADVANCE MENTORSHIP
-
 </h2>
 
 
 <h3>
-
 Rs.10,000/-
-
 </h3>
 
 
 <p>
-
 Basic To Advanced Trading Education Program
-
 </p>
 
 
@@ -483,11 +459,8 @@ Basic To Advanced Trading Education Program
 </ul>
 
 
-<a class="btn"
-href="https://wa.me/94740497974">
-
+<a class="btn" href="https://wa.me/94740497974">
 JOIN NOW
-
 </a>
 
 
@@ -495,49 +468,54 @@ JOIN NOW
 
 
 </section>
-
-
-
-
-
 <!-- REGISTRATION -->
-
 
 <section class="section" id="register">
 
-
 <h2>
-
 Student Registration
-
 </h2>
-
 
 
 <div class="course-card">
 
 
-<form>
+<form onsubmit="registerStudent(); return false;">
 
 
-<input type="text"
+<input id="name"
+type="text"
 placeholder="Full Name"
-style="width:100%;padding:12px;margin:10px;">
+style="
+width:100%;
+padding:12px;
+margin:10px;
+">
 
 
-<input type="tel"
+<input id="phone"
+type="tel"
 placeholder="Phone Number"
-style="width:100%;padding:12px;margin:10px;">
+style="
+width:100%;
+padding:12px;
+margin:10px;
+">
 
 
-
-<input type="email"
+<input id="email"
+type="email"
 placeholder="Email Address"
-style="width:100%;padding:12px;margin:10px;">
+style="
+width:100%;
+padding:12px;
+margin:10px;
+">
 
 
 
-<select style="
+<select id="course"
+style="
 width:100%;
 padding:12px;
 margin:10px;
@@ -545,16 +523,12 @@ margin:10px;
 
 
 <option>
-
 SAGATRADING BASIC - ADVANCE Rs.10,000
-
 </option>
 
 
 <option>
-
 SAGATRADING INDIVIDUAL MENTORSHIP Rs.18,000
-
 </option>
 
 
@@ -563,9 +537,7 @@ SAGATRADING INDIVIDUAL MENTORSHIP Rs.18,000
 
 
 <label>
-
 Payment Receipt Upload
-
 </label>
 
 
@@ -575,14 +547,12 @@ Payment Receipt Upload
 <input type="file">
 
 
-
 <br><br>
 
 
+
 <textarea
-
 placeholder="Message"
-
 style="
 width:100%;
 height:100px;
@@ -622,20 +592,15 @@ SUBMIT REGISTRATION
 
 
 <h2>
-
 Bank Payment Details
-
 </h2>
-
 
 
 <div class="course-card">
 
 
 <h2>
-
 Sampath Bank
-
 </h2>
 
 
@@ -643,42 +608,36 @@ Sampath Bank
 
 Account Name:
 <br>
-
 <b>PAMS SAGARA</b>
 
 <br><br>
 
-
 Account Number:
 <br>
-
 <b>101652849571</b>
-
 
 <br><br>
 
+Bank:
+<br>
+<b>Sampath Bank</b>
+
+<br><br>
 
 Branch:
 <br>
-
 <b>Gampaha</b>
-
 
 </p>
 
 
 
-<hr>
-
-
-<br>
+<hr><br>
 
 
 
 <h2>
-
 Bank of Ceylon (BOC)
-
 </h2>
 
 
@@ -686,25 +645,27 @@ Bank of Ceylon (BOC)
 
 Account Name:
 <br>
-
 <b>PAMS SAGARA</b>
 
 
 <br><br>
 
-
 Account Number:
 <br>
-
 <b>94150925</b>
 
 
 <br><br>
 
+Bank:
+<br>
+<b>BOC</b>
+
+
+<br><br>
 
 Branch:
 <br>
-
 <b>Gampaha</b>
 
 
@@ -728,16 +689,15 @@ Branch:
 
 
 <h2>
-
 Student Login
-
 </h2>
 
 
 <div class="course-card">
 
 
-<input type="email"
+<input
+type="email"
 placeholder="Student Email"
 style="
 width:100%;
@@ -746,15 +706,14 @@ margin:10px;
 ">
 
 
-
-<input type="password"
+<input
+type="password"
 placeholder="Password"
 style="
 width:100%;
 padding:12px;
 margin:10px;
 ">
-
 
 
 <button class="btn">
@@ -764,11 +723,8 @@ LOGIN
 </button>
 
 
-
 <h3>
-
 After Login
-
 </h3>
 
 
@@ -784,9 +740,7 @@ After Login
 
 <li>💬 Feedback</li>
 
-
 </ul>
-
 
 
 </div>
@@ -806,9 +760,7 @@ After Login
 
 
 <h2>
-
 What We Teach
-
 </h2>
 
 
@@ -845,6 +797,7 @@ What We Teach
 
 
 
+
 <!-- CALCULATOR -->
 
 
@@ -852,9 +805,7 @@ What We Teach
 
 
 <h2>
-
 Trading Calculator
-
 </h2>
 
 
@@ -871,7 +822,6 @@ padding:12px;
 ">
 
 
-
 <button class="btn"
 onclick="searchCoin()">
 
@@ -880,11 +830,7 @@ SEARCH
 </button>
 
 
-
-<h3 id="result">
-
-</h3>
-
+<h3 id="result"></h3>
 
 
 </div>
@@ -904,17 +850,15 @@ SEARCH
 
 
 <h2>
-
 Student Feedback
-
 </h2>
 
 
 <div class="course-card">
 
 
-<input placeholder="Your Name"
-
+<input
+placeholder="Your Name"
 style="
 width:100%;
 padding:12px;
@@ -922,11 +866,8 @@ margin:10px;
 ">
 
 
-
 <textarea
-
 placeholder="Your Feedback"
-
 style="
 width:100%;
 height:100px;
@@ -934,7 +875,6 @@ padding:12px;
 ">
 
 </textarea>
-
 
 
 <br>
@@ -964,9 +904,7 @@ SEND FEEDBACK
 
 
 <h2>
-
 Contact SAGATRADING
-
 </h2>
 
 
@@ -974,32 +912,19 @@ Contact SAGATRADING
 
 📞 WhatsApp:
 <br>
-
 <b>0740497974</b>
 
-
 <br><br>
-
 
 📧 Email:
-
 <br>
-
-<b>
-sagatradinginstitute@gmail.com
-</b>
-
+<b>sagatradinginstitute@gmail.com</b>
 
 <br><br>
 
-
-🕒 Time:
-
+🕒 Working Hours:
 <br>
-
-<b>
-07:30 PM - 09:30 PM
-</b>
+<b>07:30 PM - 09:30 PM</b>
 
 
 </p>
@@ -1019,9 +944,15 @@ WHATSAPP
 </section>
 
 
+
+
+
+
 <!-- SOCIAL MEDIA -->
 
+
 <section class="section">
+
 
 <h2>
 Follow SAGATRADING
@@ -1071,7 +1002,8 @@ TikTok
 
 
 
-<!-- FOOTER -->
+
+
 
 
 <footer style="
@@ -1082,23 +1014,17 @@ text-align:center;
 
 
 <h3>
-
 SAGATRADING MENTORSHIP
-
 </h3>
 
 
 <p>
-
 Learn • Plan • Trade • Grow
-
 </p>
 
 
 <p>
-
 © 2026 SAGATRADING INSTITUTE
-
 </p>
 
 
@@ -1108,8 +1034,8 @@ Learn • Plan • Trade • Grow
 
 
 
-<script>
 
+<script>
 
 function searchCoin(){
 
@@ -1118,59 +1044,126 @@ let coin =
 document.getElementById("coin").value;
 
 
-
 if(coin==""){
-
 
 document.getElementById("result").innerHTML =
 "Enter coin name";
-
 
 }
 
 else{
 
-
 document.getElementById("result").innerHTML =
-coin.toUpperCase()+
-" live calculator connection will be added";
-
+coin.toUpperCase()+" search ready";
 
 }
 
 
 }
+
+</script>
+
+
+
+
+
+
+<!-- FIREBASE -->
+
+<script type="module">
+
+
+import { initializeApp } 
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+
+import { getFirestore, collection, addDoc } 
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+
+const firebaseConfig = {
+
+
+apiKey: "AIzaSyD1vUF2PEwbcKsd1EhnxITRs_z_GZ689VQ",
+
+authDomain: "sagatrading-mentorship.firebaseapp.com",
+
+projectId: "sagatrading-mentorship",
+
+storageBucket: "sagatrading-mentorship.firebasestorage.app",
+
+messagingSenderId: "832507974614",
+
+appId: "1:832507974614:web:6ad7b3f941d348a7388a77",
+
+measurementId: "G-BW06QF70MP"
+
+};
+
+
+
+const app = initializeApp(firebaseConfig);
+
+
+const db = getFirestore(app);
+
+
+
+
+
+window.registerStudent = async function(){
+
+
+let name =
+document.getElementById("name").value;
+
+
+let phone =
+document.getElementById("phone").value;
+
+
+let email =
+document.getElementById("email").value;
+
+
+let course =
+document.getElementById("course").value;
+
+
+
+await addDoc(collection(db,"students"),{
+
+
+name:name,
+
+phone:phone,
+
+email:email,
+
+course:course,
+
+status:"pending",
+
+role:"student"
+
+
+});
+
+
+
+alert("Registration Submitted Successfully!");
+
+
+
+}
+
 
 
 </script>
 
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyD1vUF2PEwbcKsd1EhnxITRs_z_GZ689VQ",
-    authDomain: "sagatrading-mentorship.firebaseapp.com",
-    projectId: "sagatrading-mentorship",
-    storageBucket: "sagatrading-mentorship.firebasestorage.app",
-    messagingSenderId: "832507974614",
-    appId: "1:832507974614:web:6ad7b3f941d348a7388a77",
-    measurementId: "G-BW06QF70MP"
-  };
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</scriptimport { 
-getFirestore,
-collection,
-addDoc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";>
 </body>
 
 </html>
