@@ -12,12 +12,16 @@
 
 <style>
 
+
 *{
+
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:Arial,sans-serif;
+
 }
+
 
 
 body{
@@ -39,6 +43,7 @@ border-bottom:1px solid #00bfff;
 }
 
 
+
 .header h1{
 
 color:#00bfff;
@@ -58,9 +63,13 @@ padding:40px 10%;
 .card{
 
 background:#071426;
+
 border:1px solid #00bfff;
+
 border-radius:20px;
+
 padding:30px;
+
 margin:25px 0;
 
 }
@@ -70,6 +79,7 @@ margin:25px 0;
 .card h2{
 
 color:#00bfff;
+
 margin-bottom:20px;
 
 }
@@ -79,6 +89,7 @@ margin-bottom:20px;
 .card li{
 
 line-height:2;
+
 margin:10px;
 
 }
@@ -88,11 +99,17 @@ margin:10px;
 .btn{
 
 padding:12px 30px;
+
 background:#00bfff;
+
 color:black;
+
 border-radius:30px;
+
 border:none;
+
 font-weight:bold;
+
 cursor:pointer;
 
 }
@@ -102,6 +119,7 @@ cursor:pointer;
 .logout{
 
 background:red;
+
 color:white;
 
 }
@@ -111,6 +129,8 @@ color:white;
 .link{
 
 color:#00ff88;
+
+text-decoration:none;
 
 }
 
@@ -123,10 +143,20 @@ text-align:center;
 }
 
 
+
+.empty{
+
+color:#aaa;
+
+}
+
+
+
 </style>
 
 
 </head>
+
 
 
 <body>
@@ -163,7 +193,6 @@ LOGOUT
 
 
 
-
 <div class="container">
 
 
@@ -193,6 +222,7 @@ Loading Course...
 
 
 
+
 <div class="card">
 
 
@@ -203,14 +233,16 @@ Loading Course...
 
 <ul id="videoList">
 
-<li>
-Loading videos...
+<li class="empty">
+Loading Videos...
 </li>
+
 
 </ul>
 
 
 </div>
+
 
 
 
@@ -228,14 +260,16 @@ Loading videos...
 
 <ul id="pdfList">
 
-<li>
+<li class="empty">
 Loading PDFs...
 </li>
+
 
 </ul>
 
 
 </div>
+
 
 
 
@@ -253,14 +287,16 @@ Loading PDFs...
 
 <ul id="announcementList">
 
-<li>
-Loading announcements...
+<li class="empty">
+Loading Announcements...
 </li>
+
 
 </ul>
 
 
 </div>
+
 
 
 
@@ -277,11 +313,14 @@ Loading announcements...
 
 
 <h1>
+
 0%
+
 </h1>
 
 
 </div>
+
 
 
 
@@ -323,19 +362,10 @@ WhatsApp Support
 
 
 </div>
-
-
-
-
-
-
-
-
-
 <script type="module">
 
 
-import {initializeApp}
+import { initializeApp }
 
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
@@ -375,7 +405,7 @@ from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
 
-const firebaseConfig={
+const firebaseConfig = {
 
 
 apiKey:"AIzaSyD1vUF2PEwbcKsd1EhnxITRs_z_GZ689VQ",
@@ -390,26 +420,29 @@ messagingSenderId:"832507974614",
 
 appId:"1:832507974614:web:6ad7b3f941d348a7388a77"
 
+
 };
 
 
 
 
-const app=initializeApp(firebaseConfig);
+
+const app = initializeApp(firebaseConfig);
 
 
-const auth=getAuth(app);
+const auth = getAuth(app);
 
 
-const db=getFirestore(app);
-
-
-
+const db = getFirestore(app);
 
 
 
-onAuthStateChanged(auth,async(user)=>{
 
+
+
+
+
+onAuthStateChanged(auth, async(user)=>{
 
 
 if(!user){
@@ -426,7 +459,10 @@ return;
 
 
 
-const q=query(
+
+
+
+const q = query(
 
 collection(db,"students"),
 
@@ -438,7 +474,10 @@ where("email","==",user.email)
 
 
 
-const snapshot=await getDocs(q);
+
+
+const snapshot = await getDocs(q);
+
 
 
 
@@ -447,23 +486,26 @@ const snapshot=await getDocs(q);
 snapshot.forEach((doc)=>{
 
 
-let data=doc.data();
+let data = doc.data();
 
 
 
-document.getElementById("studentName").innerHTML=
 
-"Welcome "+data.name;
+document.getElementById("studentName").innerHTML =
+
+"Welcome " + data.name;
 
 
 
-document.getElementById("studentCourse").innerHTML=
+
+document.getElementById("studentCourse").innerHTML =
 
 data.course;
 
 
 
 });
+
 
 
 
@@ -480,26 +522,42 @@ loadMaterials();
 
 
 
+
+
 async function loadMaterials(){
 
 
-const snapshot=await getDocs(collection(db,"materials"));
+
+const snapshot = await getDocs(collection(db,"materials"));
 
 
 
-let videos=document.getElementById("videoList");
+let videoList = document.getElementById("videoList");
 
-let pdfs=document.getElementById("pdfList");
+let pdfList = document.getElementById("pdfList");
 
-let announcements=document.getElementById("announcementList");
+let announcementList = document.getElementById("announcementList");
 
 
 
-videos.innerHTML="";
 
-pdfs.innerHTML="";
+videoList.innerHTML="";
 
-announcements.innerHTML="";
+pdfList.innerHTML="";
+
+announcementList.innerHTML="";
+
+
+
+
+let videoCount=0;
+
+let pdfCount=0;
+
+let announcementCount=0;
+
+
+
 
 
 
@@ -507,32 +565,47 @@ announcements.innerHTML="";
 snapshot.forEach((doc)=>{
 
 
-let data=doc.data();
+let data = doc.data();
 
 
 
 
 
-let item=`
+let item = `
+
 
 <li>
 
-<b>${data.title}</b>
+
+<b>${data.title || "Untitled"}</b>
 
 <br>
+
 
 ${data.description || ""}
 
+
 <br>
 
-<a class="link" href="${data.link}" target="_blank">
+
+${data.link ? `
+
+<a class="link"
+
+href="${data.link}"
+
+target="_blank">
 
 Open Material
 
 </a>
 
+` : ""}
+
+
 
 </li>
+
 
 `;
 
@@ -540,30 +613,45 @@ Open Material
 
 
 
-if(data.type=="video"){
 
 
-videos.innerHTML += item;
+if(data.type==="video"){
 
 
-}
+videoList.innerHTML += item;
 
-
-
-else if(data.type=="pdf"){
-
-
-pdfs.innerHTML += item;
+videoCount++;
 
 
 }
 
 
 
-else if(data.type=="announcement"){
 
 
-announcements.innerHTML += item;
+
+else if(data.type==="pdf"){
+
+
+pdfList.innerHTML += item;
+
+pdfCount++;
+
+
+}
+
+
+
+
+
+
+
+else if(data.type==="announcement"){
+
+
+announcementList.innerHTML += item;
+
+announcementCount++;
 
 
 }
@@ -574,7 +662,54 @@ announcements.innerHTML += item;
 
 
 
+
+
+
+
+if(videoCount===0){
+
+
+videoList.innerHTML =
+
+"<li class='empty'>No Videos Available</li>";
+
+
 }
+
+
+
+
+
+
+if(pdfCount===0){
+
+
+pdfList.innerHTML =
+
+"<li class='empty'>No PDFs Available</li>";
+
+
+}
+
+
+
+
+
+
+if(announcementCount===0){
+
+
+announcementList.innerHTML =
+
+"<li class='empty'>No Announcements</li>";
+
+
+}
+
+
+
+}
+
 
 
 
@@ -585,7 +720,10 @@ announcements.innerHTML += item;
 window.logoutUser=function(){
 
 
-signOut(auth).then(()=>{
+
+signOut(auth)
+
+.then(()=>{
 
 
 window.location.href="student-login.html";
@@ -594,7 +732,10 @@ window.location.href="student-login.html";
 });
 
 
+
 }
+
+
 
 
 
