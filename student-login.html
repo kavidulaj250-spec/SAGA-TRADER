@@ -9,7 +9,6 @@
 
 <title>SAGATRADING Student Login</title>
 
-
 <style>
 
 *{
@@ -18,7 +17,6 @@ padding:0;
 box-sizing:border-box;
 font-family:Arial,sans-serif;
 }
-
 
 body{
 
@@ -53,7 +51,6 @@ text-align:center;
 h2{
 
 color:#00bfff;
-
 font-size:30px;
 
 }
@@ -109,16 +106,6 @@ background:white;
 
 
 
-button:disabled{
-
-opacity:.5;
-
-cursor:not-allowed;
-
-}
-
-
-
 #message{
 
 margin-top:20px;
@@ -128,11 +115,10 @@ color:#00ff88;
 }
 
 
-
 </style>
 
-</head>
 
+</head>
 
 
 <body>
@@ -152,27 +138,22 @@ Student Login
 </h3>
 
 
-<input
 
+<input 
 id="email"
-
 type="email"
-
 placeholder="Student Email">
 
 
 
-<input
-
+<input 
 id="password"
-
 type="password"
-
 placeholder="Password">
 
 
 
-<button id="loginBtn">
+<button onclick="loginStudent()">
 
 LOGIN
 
@@ -184,18 +165,12 @@ LOGIN
 
 
 </div>
-
-
-
-
-
 <script type="module">
 
 
 import { initializeApp }
 
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-
 
 
 import {
@@ -207,7 +182,6 @@ signInWithEmailAndPassword
 }
 
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
-
 
 
 import {
@@ -265,16 +239,7 @@ const db = getFirestore(app);
 
 
 
-const loginBtn = document.getElementById("loginBtn");
-
-
-const message = document.getElementById("message");
-
-
-
-
-
-loginBtn.addEventListener("click", async ()=>{
+window.loginStudent = async function(){
 
 
 
@@ -286,6 +251,9 @@ let email = document.getElementById("email").value.trim();
 
 
 let password = document.getElementById("password").value.trim();
+
+
+let message = document.getElementById("message");
 
 
 
@@ -304,10 +272,10 @@ return;
 
 
 
-loginBtn.disabled=true;
+
+message.innerHTML="Checking...";
 
 
-message.innerHTML="Checking Login...";
 
 
 
@@ -316,8 +284,7 @@ message.innerHTML="Checking Login...";
 try{
 
 
-
-await signInWithEmailAndPassword(
+const userCredential = await signInWithEmailAndPassword(
 
 auth,
 
@@ -327,6 +294,10 @@ password
 
 );
 
+
+
+
+console.log("Firebase Login OK");
 
 
 
@@ -345,20 +316,17 @@ where("email","==",email)
 
 
 
-const result = await getDocs(q);
+const snapshot = await getDocs(q);
 
 
 
 
 
 
-if(result.empty){
+if(snapshot.empty){
 
 
 message.innerHTML="Student record not found";
-
-
-loginBtn.disabled=false;
 
 
 return;
@@ -371,16 +339,16 @@ return;
 
 
 
-let studentData=null;
+let student = null;
 
 
 
 
 
-result.forEach((doc)=>{
+snapshot.forEach((doc)=>{
 
 
-studentData = doc.data();
+student = doc.data();
 
 
 });
@@ -391,7 +359,15 @@ studentData = doc.data();
 
 
 
-if(studentData.status==="approved"){
+console.log(student);
+
+
+
+
+
+
+
+if(student.status === "approved"){
 
 
 
@@ -414,10 +390,7 @@ window.location.href="student-dashboard.html";
 else{
 
 
-message.innerHTML="Waiting for Admin Approval";
-
-
-loginBtn.disabled=false;
+message.innerHTML="Waiting For Admin Approval";
 
 
 }
@@ -426,6 +399,8 @@ loginBtn.disabled=false;
 
 
 }
+
+
 
 catch(error){
 
@@ -435,27 +410,22 @@ console.log(error);
 
 
 
-message.innerHTML=
+message.innerHTML =
 
 "Login Failed : "+error.code;
 
-
-
-loginBtn.disabled=false;
 
 
 }
 
 
 
-});
-
+}
 
 
 
 
 </script>
-
 
 
 </body>
