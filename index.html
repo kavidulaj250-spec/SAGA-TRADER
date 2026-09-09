@@ -768,6 +768,7 @@ Trading Topics
 
 
 
+
 <!-- CALCULATOR -->
 
 
@@ -782,119 +783,78 @@ Trading Calculator
 
 
 <label>Coin / Trading Pair</label>
-<input id="coin" type="text" placeholder="Example: BTCUSDT / ETHUSDT / XAUUSD">
+<input id="coin" type="text" placeholder="BTCUSDT / ETHUSDT / XAUUSD">
+
+
+<label>Trade Direction</label>
+
+<select id="direction">
+
+<option value="LONG">LONG 📈</option>
+
+<option value="SHORT">SHORT 📉</option>
+
+</select>
+
 
 <label>Account Capital ($)</label>
-
-<input 
-id="capital"
-type="number"
-placeholder="Example 1000">
-
+<input id="capital" type="number" placeholder="Example: 1000">
 
 
 <label>Risk Percentage (%)</label>
-
-<input 
-id="risk"
-type="number"
-placeholder="Example 1">
-
+<input id="risk" type="number" placeholder="Example: 1">
 
 
 <label>Leverage (X)</label>
-
-<input 
-id="leverage"
-type="number"
-placeholder="Example 10">
-
+<input id="leverage" type="number" placeholder="Example: 10">
 
 
 <hr>
 
 
-
 <label>Entry Price</label>
-
-<input 
-id="entry"
-type="number"
-placeholder="Entry Price">
-
+<input id="entry" type="number" placeholder="Entry Price">
 
 
 <label>Stop Loss Price</label>
-
-<input 
-id="stoploss"
-type="number"
-placeholder="Stop Loss">
-
+<input id="stoploss" type="number" placeholder="Stop Loss Price">
 
 
 <label>Target Price</label>
-
-<input 
-id="target"
-type="number"
-placeholder="Target Price">
-
+<input id="target" type="number" placeholder="Target Price">
 
 
 <button class="btn" onclick="calculateTrade()">
-
 CALCULATE
-
 </button>
 
 
+<div class="course-card">
 
-<div id="tradeResult">
+<h3>Trade Result</h3>
 
+<p>Coin: <b><span id="coinResult">-</span></b></p>
 
-<h3>Results</h3>
-<p>Coin: <span id="coinResult">-</span></p>
+<p>Direction: <b><span id="directionResult">-</span></b></p>
 
+<p>Risk Amount: <b><span id="riskAmount">$0</span></b></p>
 
-<p>
-Risk Amount:
-<span id="riskAmount">0</span>
-</p>
+<p>Recommended Position Size: <b><span id="positionSize">0</span></b></p>
 
+<p>Required Margin: <b><span id="margin">$0</span></b></p>
 
-<p>
-Position Size:
-<span id="positionSize">0</span>
-</p>
+<p>Capital Used For Trade: <b><span id="capitalUsed">$0</span></b></p>
 
+<p>Potential Profit: <b><span id="profit">$0</span></b></p>
 
-<p>
-Required Margin:
-<span id="margin">0</span>
-</p>
-
-
-<p>
-Profit:
-<span id="profit">0</span>
-</p>
-
-
-<p>
-Risk Reward:
-<span id="rr">0</span>
-</p>
-
+<p>Risk Reward: <b><span id="rr">0</span></b></p>
 
 </div>
 
 
 </div>
-
 
 </section>
-
 
 
 <!-- FEEDBACK -->
@@ -1260,34 +1220,108 @@ alert("Registration Submitted Successfully!");
 window.calculateTrade = function(){
 
 let coin = document.getElementById("coin").value.trim();
+
+let direction = document.getElementById("direction").value;
+
 let capital = Number(document.getElementById("capital").value);
+
 let risk = Number(document.getElementById("risk").value);
+
 let leverage = Number(document.getElementById("leverage").value);
+
 let entry = Number(document.getElementById("entry").value);
+
 let stoploss = Number(document.getElementById("stoploss").value);
+
 let target = Number(document.getElementById("target").value);
 
+
 if(!capital || !risk || !leverage || !entry || !stoploss || !target){
+
 alert("Please enter all values");
+
 return;
-}
-
-let riskAmount = capital * (risk/100);
-let slDistance = Math.abs(entry-stoploss);
-
-let positionSize = riskAmount / slDistance;
-let margin = positionSize / leverage;
-let profit = Math.abs(target-entry) * positionSize;
-let rr = Math.abs(target-entry) / slDistance;
-
-document.getElementById("coinResult").innerHTML = coin.toUpperCase() || "-";
-document.getElementById("riskAmount").innerHTML = "$ " + riskAmount.toFixed(2);
-document.getElementById("positionSize").innerHTML = positionSize.toFixed(4);
-document.getElementById("margin").innerHTML = "$ " + margin.toFixed(2);
-document.getElementById("profit").innerHTML = "$ " + profit.toFixed(2);
-document.getElementById("rr").innerHTML = "1 : " + rr.toFixed(2);
 
 }
+
+
+let riskMoney = capital * (risk / 100);
+
+
+// price movement for stop loss
+
+let stopDistance = Math.abs(entry - stoploss);
+
+
+if(stopDistance <= 0){
+
+alert("Invalid Stop Loss");
+
+return;
+
+}
+
+
+// quantity based on allowed risk
+
+let positionSize = riskMoney / stopDistance;
+
+
+// leverage margin needed
+
+let margin = (positionSize * entry) / leverage;
+
+
+// Do not use more than capital
+
+let capitalUsed = Math.min(margin, capital);
+
+
+// profit calculation
+
+let profit = Math.abs(target - entry) * positionSize;
+
+
+// risk reward
+
+let rewardRisk = Math.abs(target-entry) / stopDistance;
+
+
+
+document.getElementById("coinResult").innerHTML =
+coin.toUpperCase() || "-";
+
+
+document.getElementById("directionResult").innerHTML =
+direction;
+
+
+document.getElementById("riskAmount").innerHTML =
+"$ " + riskMoney.toFixed(2);
+
+
+document.getElementById("positionSize").innerHTML =
+positionSize.toFixed(4);
+
+
+document.getElementById("margin").innerHTML =
+"$ " + margin.toFixed(2);
+
+
+document.getElementById("capitalUsed").innerHTML =
+"$ " + capitalUsed.toFixed(2);
+
+
+document.getElementById("profit").innerHTML =
+"$ " + profit.toFixed(2);
+
+
+document.getElementById("rr").innerHTML =
+"1 : " + rewardRisk.toFixed(2);
+
+
+}
+
 </script>
 
 
