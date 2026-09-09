@@ -4,12 +4,14 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>SAGATRADING ADMIN PANEL</title>
 
 
 <style>
+
 
 *{
 margin:0;
@@ -27,6 +29,7 @@ color:white;
 }
 
 
+
 .header{
 
 background:#020611;
@@ -35,6 +38,7 @@ text-align:center;
 border-bottom:1px solid #00bfff;
 
 }
+
 
 
 .header h1{
@@ -94,9 +98,13 @@ border-radius:10px;
 button{
 
 padding:10px 20px;
+
 border:none;
+
 border-radius:20px;
+
 cursor:pointer;
+
 font-weight:bold;
 
 }
@@ -138,6 +146,7 @@ border-collapse:collapse;
 }
 
 
+
 th,td{
 
 padding:12px;
@@ -147,6 +156,7 @@ text-align:center;
 }
 
 
+
 th{
 
 color:#00ff88;
@@ -154,10 +164,11 @@ color:#00ff88;
 }
 
 
+
 </style>
 
-</head>
 
+</head>
 
 
 <body>
@@ -166,15 +177,23 @@ color:#00ff88;
 
 <div class="header">
 
+
 <h1>
+
 SAGATRADING ADMIN PANEL
+
 </h1>
 
+
 <p>
+
 Owner Control System
+
 </p>
 
+
 </div>
+
 
 
 
@@ -185,22 +204,33 @@ Owner Control System
 
 <div class="card">
 
+
 <h2>
+
 👨‍🎓 Student Registrations
+
 </h2>
+
 
 
 <table id="studentTable">
 
+
 <tr>
 
 <th>Name</th>
+
 <th>Email</th>
+
 <th>Course</th>
+
 <th>Status</th>
+
 <th>Action</th>
 
+
 </tr>
+
 
 </table>
 
@@ -215,43 +245,45 @@ Owner Control System
 
 
 <h2>
+
 📚 Upload Course Material
+
 </h2>
 
 
 
-<input 
-id="title"
-placeholder="Material Title">
+<input id="title" placeholder="Material Title">
+
+
+<input id="category" placeholder="Video Category (Forex, Crypto)">
 
 
 
-<input
-id="category"
-placeholder="Video Category (Forex, Crypto)">
-
-
-
-<input
-id="lesson"
-placeholder="Lesson Number (Lesson 01)">
+<input id="lesson" placeholder="Lesson Number (Lesson 01)">
 
 
 
 <select id="type">
 
+
 <option value="video">
+
 Video
+
 </option>
 
 
 <option value="pdf">
+
 PDF
+
 </option>
 
 
 <option value="announcement">
+
 Announcement
+
 </option>
 
 
@@ -259,24 +291,15 @@ Announcement
 
 
 
-
-<input
-id="link"
-placeholder="Video Link (optional)">
+<input id="link" placeholder="Video Link (optional)">
 
 
 
-<input
-id="fileUpload"
-type="file"
-accept=".pdf">
+<input id="fileUpload" type="file" accept=".pdf">
 
 
 
-<textarea
-id="description"
-placeholder="Description">
-</textarea>
+<textarea id="description" placeholder="Description"></textarea>
 
 
 
@@ -291,6 +314,38 @@ UPLOAD MATERIAL
 
 
 </div>
+<div class="card">
+
+
+<h2>
+
+📂 Uploaded Materials
+
+</h2>
+
+
+
+<table id="materialTable">
+
+
+<tr>
+
+<th>Title</th>
+
+<th>Type</th>
+
+<th>Action</th>
+
+
+</tr>
+
+
+</table>
+
+
+</div>
+
+
 
 
 
@@ -300,24 +355,41 @@ UPLOAD MATERIAL
 
 
 <h2>
-📂 Uploaded Materials
+
+📝 Student Feedback
+
 </h2>
 
 
-<table id="materialTable">
+
+<table id="feedbackTable">
 
 
 <tr>
 
-<th>Title</th>
-<th>Type</th>
-<th>Action</th>
+<th>Student Email</th>
+
+<th>Message</th>
+
+<th>Time</th>
+
 
 </tr>
 
 
 </table>
 
+
+
+</div>
+
+
+
+
+
+
+
+</div>
 <script type="module">
 
 
@@ -329,11 +401,17 @@ from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 import {
 
 getFirestore,
+
 collection,
+
 getDocs,
+
 addDoc,
+
 doc,
+
 updateDoc,
+
 deleteDoc
 
 }
@@ -344,13 +422,18 @@ from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 import {
 
 getStorage,
+
 ref,
+
 uploadBytes,
+
 getDownloadURL
 
 }
 
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-storage.js";
+
+
 
 
 
@@ -371,7 +454,10 @@ messagingSenderId:"832507974614",
 
 appId:"1:832507974614:web:6ad7b3f941d348a7388a77"
 
+
 };
+
+
 
 
 
@@ -379,9 +465,15 @@ appId:"1:832507974614:web:6ad7b3f941d348a7388a77"
 
 const app = initializeApp(firebaseConfig);
 
+
 const db = getFirestore(app);
 
+
 const storage = getStorage(app);
+
+
+
+
 
 
 
@@ -391,22 +483,30 @@ const storage = getStorage(app);
 async function loadStudents(){
 
 
+
 const snapshot = await getDocs(
+
 collection(db,"students")
+
 );
 
 
-const table =
-document.getElementById("studentTable");
+
+const table = document.getElementById("studentTable");
+
+
 
 
 
 snapshot.forEach((student)=>{
 
 
+
 let data = student.data();
 
+
 let id = student.id;
+
 
 
 let row = table.insertRow();
@@ -418,11 +518,15 @@ row.innerHTML = `
 
 <td>${data.name || ""}</td>
 
+
 <td>${data.email || ""}</td>
+
 
 <td>${data.course || ""}</td>
 
+
 <td>${data.status || "pending"}</td>
+
 
 
 <td>
@@ -453,7 +557,9 @@ Reject
 `;
 
 
+
 });
+
 
 
 }
@@ -464,7 +570,10 @@ Reject
 
 
 
+
+
 window.approveStudent = async function(id){
+
 
 
 await updateDoc(
@@ -480,9 +589,12 @@ status:"approved"
 );
 
 
+
 alert("Student Approved");
 
+
 location.reload();
+
 
 
 }
@@ -493,7 +605,10 @@ location.reload();
 
 
 
+
+
 window.rejectStudent = async function(id){
+
 
 
 await updateDoc(
@@ -509,12 +624,16 @@ status:"rejected"
 );
 
 
+
 alert("Student Rejected");
+
 
 location.reload();
 
 
+
 }
+
 
 
 
@@ -527,61 +646,26 @@ window.addMaterial = async function(){
 
 
 
-let title =
-document.getElementById("title").value;
+let title=document.getElementById("title").value;
 
+let category=document.getElementById("category").value;
 
-let category =
-document.getElementById("category").value;
+let lesson=document.getElementById("lesson").value;
 
+let type=document.getElementById("type").value;
 
-let lesson =
-document.getElementById("lesson").value;
+let link=document.getElementById("link").value;
 
+let description=document.getElementById("description").value;
 
-let type =
-document.getElementById("type").value;
+let file=document.getElementById("fileUpload").files[0];
 
-
-let link =
-document.getElementById("link").value;
-
-
-let description =
-document.getElementById("description").value;
-
-
-let file =
-document.getElementById("fileUpload").files[0];
-
-
-let status =
-document.getElementById("uploadStatus");
-
-
-
-
-if(title===""){
-
-
-alert("Enter Material Title");
-
-return;
-
-
-}
-
-
-
-try{
-
-
-status.innerHTML="Uploading...";
 
 
 
 
 if(file){
+
 
 
 const storageRef = ref(
@@ -613,6 +697,7 @@ link = await getDownloadURL(storageRef);
 
 
 
+
 await addDoc(
 
 collection(db,"materials"),
@@ -639,29 +724,10 @@ description:description
 
 
 
-
-status.innerHTML="Upload Complete ✅";
-
-
 alert("Material Added Successfully");
 
 
 location.reload();
-
-
-
-}
-
-
-catch(error){
-
-
-console.log(error);
-
-alert(error.message);
-
-
-}
 
 
 
@@ -679,12 +745,11 @@ async function loadMaterials(){
 
 
 
-const table =
-document.getElementById("materialTable");
+const table=document.getElementById("materialTable");
 
 
 
-const snapshot = await getDocs(
+const snapshot=await getDocs(
 
 collection(db,"materials")
 
@@ -693,7 +758,9 @@ collection(db,"materials")
 
 
 
+
 snapshot.forEach((item)=>{
+
 
 
 let data=item.data();
@@ -702,12 +769,11 @@ let id=item.id;
 
 
 
-let row = table.insertRow();
+let row=table.insertRow();
 
 
 
-
-row.innerHTML = `
+row.innerHTML=`
 
 
 <td>
@@ -715,7 +781,6 @@ row.innerHTML = `
 ${data.title}
 
 </td>
-
 
 
 <td>
@@ -758,6 +823,7 @@ Delete
 
 
 
+
 window.deleteMaterial = async function(id){
 
 
@@ -786,9 +852,89 @@ location.reload();
 
 
 
+
+async function loadFeedback(){
+
+
+
+const table=document.getElementById("feedbackTable");
+
+
+
+const snapshot = await getDocs(
+
+collection(db,"feedback")
+
+);
+
+
+
+
+
+snapshot.forEach((item)=>{
+
+
+
+let data=item.data();
+
+
+
+let row=table.insertRow();
+
+
+
+row.innerHTML=`
+
+
+<td>
+
+${data.studentEmail || ""}
+
+</td>
+
+
+
+<td>
+
+${data.message || ""}
+
+</td>
+
+
+
+<td>
+
+${data.time ? data.time.toDate().toLocaleString() : ""}
+
+</td>
+
+
+
+`;
+
+
+
+});
+
+
+
+}
+
+
+
+
+
+
+
+
+
 loadStudents();
 
+
 loadMaterials();
+
+
+loadFeedback();
 
 
 
@@ -798,4 +944,3 @@ loadMaterials();
 </body>
 
 </html>
-</div>
