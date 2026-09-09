@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAGATRADING Student Login</title>
+<style>
+body{
+margin:0;height:100vh;display:flex;justify-content:center;align-items:center;
+background:#020617;color:white;font-family:Arial;
+}
+.login-box{
+width:350px;padding:40px;background:#071426;border:1px solid #00bfff;
+border-radius:20px;text-align:center;
+}
+h1{color:#00bfff;}
+input{
+width:100%;padding:12px;margin:10px 0;box-sizing:border-box;
+background:#020617;border:1px solid #00bfff;border-radius:10px;color:white;
+}
+button{
+margin-top:15px;padding:12px 40px;border:0;border-radius:30px;
+background:#00bfff;font-weight:bold;cursor:pointer;
+}
+#message{margin-top:20px;color:#00ff88;}
+</style>
+</head>
+
+<body>
+
+<div class="login-box">
+<h1>SAGATRADING</h1>
+<h3>Student Login</h3>
+
+<input id="email" type="email" placeholder="Student Email">
+<input id="password" type="password" placeholder="Password">
+
+<button id="loginBtn">LOGIN</button>
+
+<p id="message"></p>
+</div>
+
+
+<script type="module">
+
+import {initializeApp}
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+import {
+getAuth,
+signInWithEmailAndPassword
+}
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+import {
+getFirestore,
+collection,
+query,
+where,
+getDocs
+}
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+const firebaseConfig={
+apiKey:"AIzaSyD1vUF2PEwbcKsd1EhnxITRs_z_GZ689VQ",
+authDomain:"sagatrading-mentorship.firebaseapp.com",
+projectId:"sagatrading-mentorship",
+storageBucket:"sagatrading-mentorship.firebasestorage.app",
+messagingSenderId:"832507974614",
+appId:"1:832507974614:web:6ad7b3f941d348a7388a77"
+};
+
+
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
+
+
+document.getElementById("loginBtn").addEventListener("click",async()=>{
+
+const email=document.getElementById("email").value.trim().toLowerCase();
+const password=document.getElementById("password").value;
+const message=document.getElementById("message");
+
+
+if(!email || !password){
+message.innerHTML="Enter email and password";
+return;
+}
+
+
+try{
+
+message.innerHTML="Checking...";
+
+const userCredential=await signInWithEmailAndPassword(
+auth,email,password
+);
+
+console.log("LOGIN SUCCESS",userCredential.user.email);
+
+
+const q=query(
+collection(db,"students"),
+where("email","==",email)
+);
+
+
+const snap=await getDocs(q);
+
+
+if(snap.empty){
+message.innerHTML="Student profile not found";
+return;
+}
+
+
+let student;
+
+snap.forEach(doc=>{
+student=doc.data();
+});
+
+
+if(student.status && student.status!=="approved"){
+message.innerHTML="Account waiting approval";
+return;
+}
+
+
+message.innerHTML="Login Successful ✅";
+
+console.log("GOING TO DASHBOARD");
+
+
+setTimeout(()=>{
+
+window.location.replace("./student-dashboard.html");
+
+},800);
+
+
+}
+
+catch(error){
+
+console.log("LOGIN ERROR:",error.code);
+
+message.innerHTML="Login Failed : "+error.code;
+
+}
+
+});
+
+</script>
+
+</body>
+</html>
