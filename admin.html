@@ -1,3 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SAGATRADING ADMIN PANEL</title>
+
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+
+body{
+
+background:#020617;
+color:white;
+
+}
+
+
+.header{
+
+background:#020611;
+padding:30px;
+text-align:center;
+border-bottom:1px solid #00bfff;
+
+}
+
+
+.header h1{
+
+color:#00bfff;
+
+}
+
+
+
+.container{
+
+padding:40px 8%;
+
+}
+
+
+
+.card{
+
+background:#071426;
+border:1px solid #00bfff;
+border-radius:20px;
+padding:30px;
+margin-bottom:30px;
+
+}
+
+
+
+h2{
+
+color:#00bfff;
+margin-bottom:20px;
+
+}
+
+
+
+input,select,textarea{
+
+width:100%;
+padding:12px;
+margin:10px 0;
+
+background:#020617;
+color:white;
+
+border:1px solid #00bfff;
+
+border-radius:10px;
+
+}
+
+
+
+button{
+
+padding:10px 20px;
+border:none;
+border-radius:20px;
+cursor:pointer;
+font-weight:bold;
+
+}
+
+
+
+.add{
+
+background:#00bfff;
+color:black;
+
+}
+
+
+
+.approve{
+
+background:#00ff88;
+color:black;
+
+}
+
+
+
+.reject,.delete{
+
+background:red;
+color:white;
+
+}
+
+
+
+table{
+
+width:100%;
+border-collapse:collapse;
+
+}
+
+
+th,td{
+
+padding:12px;
+border:1px solid #00bfff;
+text-align:center;
+
+}
+
+
+th{
+
+color:#00ff88;
+
+}
+
+
+</style>
+
+</head>
+
+
+
+<body>
+
+
+
+<div class="header">
+
+<h1>
+SAGATRADING ADMIN PANEL
+</h1>
+
+<p>
+Owner Control System
+</p>
+
+</div>
+
+
+
+
+<div class="container">
+
+
+
+<div class="card">
+
+<h2>
+👨‍🎓 Student Registrations
+</h2>
+
+
+<table id="studentTable">
+
+<tr>
+
+<th>Name</th>
+<th>Email</th>
+<th>Course</th>
+<th>Status</th>
+<th>Action</th>
+
+</tr>
+
+</table>
+
+
+</div>
+
+
+
+
+
 <div class="card">
 
 
@@ -7,56 +220,38 @@
 
 
 
-
 <input 
 id="title"
 placeholder="Material Title">
 
 
 
-
-
 <input
-
 id="category"
-
-placeholder="Video Category (Forex, Crypto, etc.)">
-
-
+placeholder="Video Category (Forex, Crypto)">
 
 
 
 <input
-
 id="lesson"
-
 placeholder="Lesson Number (Lesson 01)">
-
-
 
 
 
 <select id="type">
 
-
 <option value="video">
-
 Video
-
 </option>
 
 
 <option value="pdf">
-
 PDF
-
 </option>
 
 
 <option value="announcement">
-
 Announcement
-
 </option>
 
 
@@ -65,40 +260,23 @@ Announcement
 
 
 
-
 <input
-
 id="link"
-
 placeholder="Video Link (optional)">
 
 
 
-
-
-
 <input
-
 id="fileUpload"
-
 type="file"
-
 accept=".pdf">
 
 
 
-
-
-
 <textarea
-
 id="description"
-
 placeholder="Description">
-
 </textarea>
-
-
 
 
 
@@ -109,11 +287,37 @@ UPLOAD MATERIAL
 </button>
 
 
-
 <p id="uploadStatus"></p>
 
 
 </div>
+
+
+
+
+
+<div class="card">
+
+
+<h2>
+📂 Uploaded Materials
+</h2>
+
+
+<table id="materialTable">
+
+
+<tr>
+
+<th>Title</th>
+<th>Type</th>
+<th>Action</th>
+
+</tr>
+
+
+</table>
+
 <script type="module">
 
 
@@ -125,17 +329,11 @@ from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 import {
 
 getFirestore,
-
 collection,
-
 getDocs,
-
 addDoc,
-
 doc,
-
 updateDoc,
-
 deleteDoc
 
 }
@@ -146,11 +344,8 @@ from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 import {
 
 getStorage,
-
 ref,
-
 uploadBytes,
-
 getDownloadURL
 
 }
@@ -176,7 +371,6 @@ messagingSenderId:"832507974614",
 
 appId:"1:832507974614:web:6ad7b3f941d348a7388a77"
 
-
 };
 
 
@@ -185,12 +379,9 @@ appId:"1:832507974614:web:6ad7b3f941d348a7388a77"
 
 const app = initializeApp(firebaseConfig);
 
-
 const db = getFirestore(app);
 
-
 const storage = getStorage(app);
-
 
 
 
@@ -200,10 +391,13 @@ const storage = getStorage(app);
 async function loadStudents(){
 
 
-const snapshot = await getDocs(collection(db,"students"));
+const snapshot = await getDocs(
+collection(db,"students")
+);
 
 
-const table = document.getElementById("studentTable");
+const table =
+document.getElementById("studentTable");
 
 
 
@@ -216,6 +410,7 @@ let id = student.id;
 
 
 let row = table.insertRow();
+
 
 
 row.innerHTML = `
@@ -232,7 +427,9 @@ row.innerHTML = `
 
 <td>
 
+
 <button class="approve"
+
 onclick="approveStudent('${id}')">
 
 Approve
@@ -240,7 +437,9 @@ Approve
 </button>
 
 
+
 <button class="reject"
+
 onclick="rejectStudent('${id}')">
 
 Reject
@@ -254,13 +453,10 @@ Reject
 `;
 
 
-
 });
 
 
 }
-
-
 
 
 
@@ -286,12 +482,10 @@ status:"approved"
 
 alert("Student Approved");
 
-
 location.reload();
 
 
 }
-
 
 
 
@@ -317,12 +511,10 @@ status:"rejected"
 
 alert("Student Rejected");
 
-
 location.reload();
 
 
 }
-
 
 
 
@@ -363,11 +555,8 @@ let file =
 document.getElementById("fileUpload").files[0];
 
 
-
 let status =
 document.getElementById("uploadStatus");
-
-
 
 
 
@@ -377,13 +566,10 @@ if(title===""){
 
 alert("Enter Material Title");
 
-
 return;
 
 
 }
-
-
 
 
 
@@ -395,10 +581,7 @@ status.innerHTML="Uploading...";
 
 
 
-
-
 if(file){
-
 
 
 const storageRef = ref(
@@ -408,8 +591,6 @@ storage,
 "materials/"+file.name
 
 );
-
-
 
 
 
@@ -423,15 +604,10 @@ file
 
 
 
-
-
 link = await getDownloadURL(storageRef);
 
 
-
 }
-
-
 
 
 
@@ -464,7 +640,6 @@ description:description
 
 
 
-
 status.innerHTML="Upload Complete ✅";
 
 
@@ -478,12 +653,10 @@ location.reload();
 }
 
 
-
 catch(error){
 
 
 console.log(error);
-
 
 alert(error.message);
 
@@ -506,7 +679,8 @@ async function loadMaterials(){
 
 
 
-const table = document.getElementById("materialTable");
+const table =
+document.getElementById("materialTable");
 
 
 
@@ -519,23 +693,21 @@ collection(db,"materials")
 
 
 
-
-
 snapshot.forEach((item)=>{
 
 
 let data=item.data();
 
-
 let id=item.id;
 
 
 
-let row=table.insertRow();
+let row = table.insertRow();
 
 
 
-row.innerHTML=`
+
+row.innerHTML = `
 
 
 <td>
@@ -604,7 +776,9 @@ alert("Material Deleted");
 location.reload();
 
 
+
 }
+
 
 
 
@@ -614,9 +788,14 @@ location.reload();
 
 loadStudents();
 
-
 loadMaterials();
 
 
 
 </script>
+
+
+</body>
+
+</html>
+</div>
