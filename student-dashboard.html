@@ -295,7 +295,45 @@ Loading Lessons...
 </div>
 
 
+<div class="card">
 
+<h2>
+🎥 Video Lessons
+</h2>
+
+<div id="videoList">
+
+</div>
+
+</div>
+
+
+
+<div class="card">
+
+<h2>
+📄 PDF Materials
+</h2>
+
+<div id="pdfList">
+
+</div>
+
+</div>
+
+
+
+<div class="card">
+
+<h2>
+📢 Announcements
+</h2>
+
+<div id="announcementList">
+
+</div>
+
+</div>
 
 
 
@@ -613,7 +651,7 @@ data.image
 
 await loadProgress();
 
-await loadLessons();
+await loadMaterials();
 
 await loadReplies();
 
@@ -717,12 +755,117 @@ totalLessons
 
 
 
+async function loadMaterials(){
+
+
+let video=document.getElementById("videoList");
+
+let pdf=document.getElementById("pdfList");
+
+let announce=document.getElementById("announcementList");
+
+
+
+video.innerHTML="";
+
+pdf.innerHTML="";
+
+announce.innerHTML="";
+
+
+
+const snap=await getDocs(
+
+collection(db,"materials")
+
+);
+
+
+
+snap.forEach((item)=>{
+
+
+let data=item.data();
+
+
+
+if(data.type==="video"){
+
+
+video.innerHTML+=`
+
+<div class="lesson-card">
+
+<h3>${data.title}</h3>
+
+<a class="link"
+href="${data.link}"
+target="_blank">
+
+▶ Watch Online
+
+</a>
+
+</div>
+
+`;
+
+}
+
+
+
+if(data.type==="pdf"){
+
+
+pdf.innerHTML+=`
+
+<div class="lesson-card">
+
+<h3>${data.title}</h3>
+
+<a class="link"
+href="${data.link}"
+target="_blank">
+
+📄 View PDF
+
+</a>
+
+</div>
+
+`;
+
+}
+
+
+
+if(data.type==="announcement"){
+
+
+announce.innerHTML+=`
+
+<div class="lesson-card">
+
+<h3>${data.title}</h3>
+
+<p>${data.description || ""}</p>
+
+</div>
+
+`;
+
+}
+
+
+});
+
+
+}
 
 
 
 
 
-async function loadLessons(){
 
 
 let box=document.getElementById("videoList");
