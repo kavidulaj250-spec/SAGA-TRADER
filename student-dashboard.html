@@ -148,6 +148,28 @@ font-weight:bold;
 
 
 
+.complete-btn{
+
+margin-top:15px;
+
+padding:10px 20px;
+
+background:#00ff88;
+
+color:black;
+
+border:none;
+
+border-radius:20px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+}
+
+
+
 .profile{
 
 text-align:center;
@@ -159,6 +181,24 @@ text-align:center;
 .empty{
 
 color:#aaa;
+
+}
+
+
+
+.progress-box{
+
+text-align:center;
+
+}
+
+
+
+#progressPercent{
+
+color:#00ff88;
+
+font-size:40px;
 
 }
 
@@ -234,7 +274,6 @@ Loading Course...
 
 
 
-
 <div class="card">
 
 
@@ -246,7 +285,9 @@ Loading Course...
 <ul id="videoList">
 
 <li class="empty">
+
 Loading Videos...
+
 </li>
 
 
@@ -254,7 +295,6 @@ Loading Videos...
 
 
 </div>
-
 
 
 
@@ -273,7 +313,9 @@ Loading Videos...
 <ul id="pdfList">
 
 <li class="empty">
+
 Loading PDFs...
+
 </li>
 
 
@@ -281,7 +323,6 @@ Loading PDFs...
 
 
 </div>
-
 
 
 
@@ -300,7 +341,9 @@ Loading PDFs...
 <ul id="announcementList">
 
 <li class="empty">
+
 Loading Announcements...
+
 </li>
 
 
@@ -315,8 +358,7 @@ Loading Announcements...
 
 
 
-
-<div class="card">
+<div class="card progress-box">
 
 
 <h2>
@@ -324,13 +366,21 @@ Loading Announcements...
 </h2>
 
 
-<h1>
+<h1 id="progressPercent">
+
 0%
+
 </h1>
 
 
-</div>
+<p id="progressText">
 
+Completed Lessons: 0 / 0
+
+</p>
+
+
+</div>
 
 
 
@@ -347,7 +397,9 @@ Loading Announcements...
 
 
 <p>
+
 Contact SAGATRADING WhatsApp
+
 </p>
 
 
@@ -403,7 +455,13 @@ query,
 
 where,
 
-getDocs
+getDocs,
+
+doc,
+
+getDoc,
+
+setDoc
 
 }
 
@@ -429,9 +487,7 @@ messagingSenderId:"832507974614",
 
 appId:"1:832507974614:web:6ad7b3f941d348a7388a77"
 
-
 };
-
 
 
 
@@ -447,6 +503,15 @@ const db = getFirestore(app);
 
 
 
+let currentEmail = "";
+
+let completedLessons = [];
+
+let totalLessons = 0;
+
+
+
+
 
 
 
@@ -457,15 +522,15 @@ onAuthStateChanged(auth, async(user)=>{
 
 if(!user){
 
-
 window.location.href="student-login.html";
-
 
 return;
 
-
 }
 
+
+
+currentEmail = user.email;
 
 
 
@@ -483,9 +548,7 @@ where("email","==",user.email)
 
 
 
-
 const snapshot = await getDocs(q);
-
 
 
 
@@ -495,8 +558,6 @@ snapshot.forEach((doc)=>{
 
 
 let data = doc.data();
-
-
 
 
 document.getElementById("studentName").innerHTML =
@@ -510,11 +571,13 @@ document.getElementById("studentCourse").innerHTML =
 data.course;
 
 
-
 });
 
 
 
+
+
+await loadProgress();
 
 
 loadMaterials();
@@ -523,6 +586,107 @@ loadMaterials();
 
 });
 
+
+
+
+
+
+
+
+
+async function loadProgress(){
+
+
+const progressRef = doc(
+
+db,
+
+"progress",
+
+currentEmail
+
+);
+
+
+
+const progressSnap = await getDoc(progressRef);
+
+
+
+
+if(progressSnap.exists()){
+
+
+completedLessons = progressSnap.data().completedLessons || [];
+
+
+}
+
+
+
+updateProgress();
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+function updateProgress(){
+
+
+
+let percent = 0;
+
+
+
+if(totalLessons > 0){
+
+
+percent = Math.round(
+
+(completedLessons.length / totalLessons) * 100
+
+);
+
+
+}
+
+
+
+
+document.getElementById("progressPercent").innerHTML =
+
+percent + "%";
+
+
+
+document.getElementById("progressText").innerHTML =
+
+"Completed Lessons: "
+
++
+
+completedLessons.length
+
++
+
+" / "
+
++
+
+totalLessons;
+
+
+
+}
 
 
 
@@ -545,13 +709,11 @@ collection(db,"materials")
 
 
 
-
 let videoList = document.getElementById("videoList");
 
 let pdfList = document.getElementById("pdfList");
 
 let announcementList = document.getElementById("announcementList");
-
 
 
 
@@ -566,27 +728,23 @@ announcementList.innerHTML="";
 
 
 
-let videoCount=0;
+snapshot.forEach((item)=>{
 
-let pdfCount=0;
 
-let announcementCount=0;
-
+let data=item.data();
 
 
 
 
+if(data.type==="video"){
 
-snapshot.forEach((doc)=>{
 
-
-let data = doc.data();
-
+totalLessons++;
 
 
 
 
-let item = `
+videoList.innerHTML += `
 
 
 <li>
@@ -596,7 +754,7 @@ let item = `
 
 ${data.lesson || ""}
 
-${data.title || "Untitled"}
+${data.title}
 
 </b>
 
@@ -609,30 +767,30 @@ ${data.title || "Untitled"}
 ${data.category || "General"}
 
 
-
-<br>
-
+<br><br>
 
 
-${data.description || ""}
+<a class="link"
 
+href="${data.link}"
+
+target="_blank">
+
+▶ Watch Video
+
+</a>
 
 
 <br><br>
 
 
+<button class="complete-btn"
 
-<a class="link"
+onclick="completeLesson('${data.title}')">
 
-href="${data.link || '#'}"
+✅ Complete Lesson
 
-target="_blank">
-
-
-${data.type==="pdf" ? "📥 Download PDF" : "▶ Watch Video"}
-
-
-</a>
+</button>
 
 
 
@@ -641,19 +799,6 @@ ${data.type==="pdf" ? "📥 Download PDF" : "▶ Watch Video"}
 
 `;
 
-
-
-
-
-
-
-if(data.type==="video"){
-
-
-videoList.innerHTML += item;
-
-
-videoCount++;
 
 
 }
@@ -666,10 +811,41 @@ videoCount++;
 else if(data.type==="pdf"){
 
 
-pdfList.innerHTML += item;
+
+pdfList.innerHTML += `
 
 
-pdfCount++;
+<li>
+
+
+<b>${data.title}</b>
+
+
+<br>
+
+
+${data.description || ""}
+
+
+<br><br>
+
+
+<a class="link"
+
+href="${data.link}"
+
+target="_blank">
+
+📥 Download PDF
+
+</a>
+
+
+</li>
+
+
+`;
+
 
 
 }
@@ -679,14 +855,30 @@ pdfCount++;
 
 
 
-
 else if(data.type==="announcement"){
 
 
-announcementList.innerHTML += item;
+
+announcementList.innerHTML += `
 
 
-announcementCount++;
+<li>
+
+
+<b>${data.title}</b>
+
+
+<br>
+
+
+${data.description || ""}
+
+
+</li>
+
+
+`;
+
 
 
 }
@@ -699,14 +891,32 @@ announcementCount++;
 
 
 
+updateProgress();
 
 
-if(videoCount===0){
 
 
-videoList.innerHTML =
 
-"<li class='empty'>No Videos Available</li>";
+
+
+}
+
+
+
+
+
+
+
+
+
+window.completeLesson = async function(title){
+
+
+
+if(!completedLessons.includes(title)){
+
+
+completedLessons.push(title);
 
 
 }
@@ -714,32 +924,34 @@ videoList.innerHTML =
 
 
 
-if(pdfCount===0){
+
+await setDoc(
+
+doc(db,"progress",currentEmail),
+
+{
 
 
-pdfList.innerHTML =
+studentEmail:currentEmail,
 
-"<li class='empty'>No PDFs Available</li>";
-
-
-}
-
-
-
-
-if(announcementCount===0){
-
-
-announcementList.innerHTML =
-
-"<li class='empty'>No Announcements</li>";
+completedLessons:completedLessons
 
 
 }
 
+);
+
+
+
+alert("Lesson Completed ✅");
+
+
+updateProgress();
+
 
 
 }
+
 
 
 
@@ -751,7 +963,6 @@ announcementList.innerHTML =
 window.logoutUser=function(){
 
 
-
 signOut(auth)
 
 .then(()=>{
@@ -761,7 +972,6 @@ window.location.href="student-login.html";
 
 
 });
-
 
 
 }
