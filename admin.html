@@ -138,9 +138,37 @@ color:white;
 
 
 
+.replyBtn{
+
+background:#00ff88;
+color:black;
+
+}
+
+
+
+.replyBox{
+
+width:100%;
+
+padding:10px;
+
+background:#020617;
+
+color:white;
+
+border:1px solid #00bfff;
+
+border-radius:10px;
+
+}
+
+
+
 table{
 
 width:100%;
+
 border-collapse:collapse;
 
 }
@@ -150,7 +178,9 @@ border-collapse:collapse;
 th,td{
 
 padding:12px;
+
 border:1px solid #00bfff;
+
 text-align:center;
 
 }
@@ -162,7 +192,6 @@ th{
 color:#00ff88;
 
 }
-
 
 
 </style>
@@ -197,7 +226,6 @@ Owner Control System
 
 
 
-
 <div class="container">
 
 
@@ -210,7 +238,6 @@ Owner Control System
 👨‍🎓 Student Registrations
 
 </h2>
-
 
 
 <table id="studentTable">
@@ -236,11 +263,6 @@ Owner Control System
 
 
 </div>
-
-
-
-
-
 <div class="card">
 
 
@@ -314,6 +336,14 @@ UPLOAD MATERIAL
 
 
 </div>
+
+
+
+
+
+
+
+
 <div class="card">
 
 
@@ -371,6 +401,8 @@ UPLOAD MATERIAL
 
 <th>Message</th>
 
+<th>Admin Reply</th>
+
 <th>Time</th>
 
 
@@ -398,6 +430,7 @@ import { initializeApp }
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
 
+
 import {
 
 getFirestore,
@@ -417,6 +450,7 @@ deleteDoc
 }
 
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
 
 
 import {
@@ -454,10 +488,7 @@ messagingSenderId:"832507974614",
 
 appId:"1:832507974614:web:6ad7b3f941d348a7388a77"
 
-
 };
-
-
 
 
 
@@ -479,9 +510,7 @@ const storage = getStorage(app);
 
 
 
-
 async function loadStudents(){
-
 
 
 const snapshot = await getDocs(
@@ -492,41 +521,33 @@ collection(db,"students")
 
 
 
-const table = document.getElementById("studentTable");
-
-
+const table=document.getElementById("studentTable");
 
 
 
 snapshot.forEach((student)=>{
 
 
+let data=student.data();
 
-let data = student.data();
-
-
-let id = student.id;
+let id=student.id;
 
 
 
-let row = table.insertRow();
+let row=table.insertRow();
 
 
 
-row.innerHTML = `
+row.innerHTML=`
 
 
 <td>${data.name || ""}</td>
 
-
 <td>${data.email || ""}</td>
-
 
 <td>${data.course || ""}</td>
 
-
 <td>${data.status || "pending"}</td>
-
 
 
 <td>
@@ -539,7 +560,6 @@ onclick="approveStudent('${id}')">
 Approve
 
 </button>
-
 
 
 <button class="reject"
@@ -561,7 +581,6 @@ Reject
 });
 
 
-
 }
 
 
@@ -572,8 +591,7 @@ Reject
 
 
 
-window.approveStudent = async function(id){
-
+window.approveStudent=async function(id){
 
 
 await updateDoc(
@@ -592,9 +610,7 @@ status:"approved"
 
 alert("Student Approved");
 
-
 location.reload();
-
 
 
 }
@@ -607,8 +623,7 @@ location.reload();
 
 
 
-window.rejectStudent = async function(id){
-
+window.rejectStudent=async function(id){
 
 
 await updateDoc(
@@ -627,108 +642,7 @@ status:"rejected"
 
 alert("Student Rejected");
 
-
 location.reload();
-
-
-
-}
-
-
-
-
-
-
-
-
-
-window.addMaterial = async function(){
-
-
-
-let title=document.getElementById("title").value;
-
-let category=document.getElementById("category").value;
-
-let lesson=document.getElementById("lesson").value;
-
-let type=document.getElementById("type").value;
-
-let link=document.getElementById("link").value;
-
-let description=document.getElementById("description").value;
-
-let file=document.getElementById("fileUpload").files[0];
-
-
-
-
-
-if(file){
-
-
-
-const storageRef = ref(
-
-storage,
-
-"materials/"+file.name
-
-);
-
-
-
-await uploadBytes(
-
-storageRef,
-
-file
-
-);
-
-
-
-link = await getDownloadURL(storageRef);
-
-
-}
-
-
-
-
-
-
-await addDoc(
-
-collection(db,"materials"),
-
-{
-
-
-title:title,
-
-category:category,
-
-lesson:lesson,
-
-type:type,
-
-link:link,
-
-description:description
-
-
-}
-
-);
-
-
-
-alert("Material Added Successfully");
-
-
-location.reload();
-
 
 
 }
@@ -742,7 +656,6 @@ location.reload();
 
 
 async function loadMaterials(){
-
 
 
 const table=document.getElementById("materialTable");
@@ -762,7 +675,6 @@ collection(db,"materials")
 snapshot.forEach((item)=>{
 
 
-
 let data=item.data();
 
 let id=item.id;
@@ -776,19 +688,10 @@ let row=table.insertRow();
 row.innerHTML=`
 
 
-<td>
-
-${data.title}
-
-</td>
+<td>${data.title}</td>
 
 
-<td>
-
-${data.type}
-
-</td>
-
+<td>${data.type}</td>
 
 
 <td>
@@ -813,7 +716,6 @@ Delete
 });
 
 
-
 }
 
 
@@ -824,8 +726,7 @@ Delete
 
 
 
-window.deleteMaterial = async function(id){
-
+window.deleteMaterial=async function(id){
 
 
 await deleteDoc(
@@ -840,7 +741,6 @@ alert("Material Deleted");
 
 
 location.reload();
-
 
 
 }
@@ -861,7 +761,7 @@ const table=document.getElementById("feedbackTable");
 
 
 
-const snapshot = await getDocs(
+const snapshot=await getDocs(
 
 collection(db,"feedback")
 
@@ -874,12 +774,16 @@ collection(db,"feedback")
 snapshot.forEach((item)=>{
 
 
-
 let data=item.data();
+
+
+let id=item.id;
 
 
 
 let row=table.insertRow();
+
+
 
 
 
@@ -894,11 +798,47 @@ ${data.studentEmail || ""}
 
 
 
+
 <td>
 
 ${data.message || ""}
 
 </td>
+
+
+
+
+
+<td>
+
+
+<input
+
+class="replyBox"
+
+id="reply-${id}"
+
+placeholder="Write reply"
+
+value="${data.reply || ""}">
+
+
+<br>
+
+
+<button class="replyBtn"
+
+onclick="sendReply('${id}')">
+
+SEND REPLY
+
+</button>
+
+
+
+</td>
+
+
 
 
 
@@ -915,6 +855,55 @@ ${data.time ? data.time.toDate().toLocaleString() : ""}
 
 
 });
+
+
+
+}
+
+
+
+
+
+
+
+
+
+window.sendReply = async function(id){
+
+
+
+let reply = document.getElementById(
+
+"reply-"+id
+
+).value;
+
+
+
+
+
+await updateDoc(
+
+doc(db,"feedback",id),
+
+{
+
+
+reply:reply
+
+}
+
+);
+
+
+
+
+
+alert("Reply Sent Successfully ✅");
+
+
+
+location.reload();
 
 
 
