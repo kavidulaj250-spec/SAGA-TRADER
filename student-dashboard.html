@@ -1152,6 +1152,129 @@ error
 }
 );
 
+async function loadVideos(){
+
+let box=document.getElementById("videoList");
+
+if(!box)return;
+
+box.innerHTML="";
+
+
+const snap=await getDocs(collection(db,"materials"));
+
+
+snap.forEach((item)=>{
+
+let data=item.data();
+
+
+if(data.type==="video"){
+
+box.innerHTML += `
+
+<div class="lesson-card">
+
+<b>${data.title}</b><br>
+
+<a href="${data.link}" target="_blank">
+▶ Watch Video
+</a>
+
+</div>
+
+`;
+
+}
+
+});
+
+}
+
+
+
+async function loadPDFs(){
+
+let box=document.getElementById("pdfList");
+
+if(!box)return;
+
+
+box.innerHTML="";
+
+
+const snap=await getDocs(collection(db,"materials"));
+
+
+snap.forEach((item)=>{
+
+let data=item.data();
+
+
+if(data.type==="pdf"){
+
+box.innerHTML += `
+
+<div class="lesson-card">
+
+<b>${data.title}</b><br>
+
+<a href="${data.link}" target="_blank">
+📄 View PDF
+</a>
+
+</div>
+
+`;
+
+}
+
+});
+
+}
+
+
+
+
+async function loadAnnouncements(){
+
+let box=document.getElementById("announcementList");
+
+if(!box)return;
+
+
+box.innerHTML="";
+
+
+const snap=await getDocs(collection(db,"materials"));
+
+
+snap.forEach((item)=>{
+
+let data=item.data();
+
+
+if(data.type==="announcement"){
+
+box.innerHTML += `
+
+<div class="lesson-card">
+
+${data.title}
+
+</div>
+
+`;
+
+}
+
+});
+
+}
+
+
+
+  
 </script>
 
 </body>
