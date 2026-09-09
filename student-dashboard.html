@@ -645,10 +645,6 @@ const db = getFirestore(app);
 
 
 
-setPersistence(auth,browserLocalPersistence);
-
-
-
 let currentEmail="";
 
 let completedLessons=[];
@@ -663,7 +659,15 @@ onAuthStateChanged(auth, async(user)=>{
 
 if(!user){
 
-console.log("No user");
+console.log("AUTH USER NULL");
+
+
+setTimeout(()=>{
+
+location.reload();
+
+},1000);
+
 
 return;
 
