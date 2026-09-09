@@ -773,7 +773,6 @@ Trading Topics
 
 <section class="section">
 
-
 <h2>
 Trading Calculator
 </h2>
@@ -782,30 +781,115 @@ Trading Calculator
 <div class="course-card">
 
 
+<label>Account Capital ($)</label>
+
 <input 
-id="coin"
-placeholder="Search Coin (BTC, ETH...)">
+id="capital"
+type="number"
+placeholder="Example 1000">
 
 
-<button class="btn" onclick="searchCoin()">
 
-SEARCH
+<label>Risk Percentage (%)</label>
+
+<input 
+id="risk"
+type="number"
+placeholder="Example 1">
+
+
+
+<label>Leverage (X)</label>
+
+<input 
+id="leverage"
+type="number"
+placeholder="Example 10">
+
+
+
+<hr>
+
+
+
+<label>Entry Price</label>
+
+<input 
+id="entry"
+type="number"
+placeholder="Entry Price">
+
+
+
+<label>Stop Loss Price</label>
+
+<input 
+id="stoploss"
+type="number"
+placeholder="Stop Loss">
+
+
+
+<label>Target Price</label>
+
+<input 
+id="target"
+type="number"
+placeholder="Target Price">
+
+
+
+<button class="btn" onclick="calculateTrade()">
+
+CALCULATE
 
 </button>
 
 
-<h3 id="result"></h3>
+
+<div id="tradeResult">
+
+
+<h3>Results</h3>
+
+
+<p>
+Risk Amount:
+<span id="riskAmount">0</span>
+</p>
+
+
+<p>
+Position Size:
+<span id="positionSize">0</span>
+</p>
+
+
+<p>
+Required Margin:
+<span id="margin">0</span>
+</p>
+
+
+<p>
+Profit:
+<span id="profit">0</span>
+</p>
+
+
+<p>
+Risk Reward:
+<span id="rr">0</span>
+</p>
+
+
+</div>
 
 
 </div>
 
 
 </section>
-
-
-
-
-
 
 
 
@@ -1167,6 +1251,137 @@ alert("Registration Submitted Successfully!");
 });
 
 
+// TRADING CALCULATOR FUNCTION
+
+
+window.calculateTrade = function(){
+
+
+let capital = Number(
+document.getElementById("capital").value
+);
+
+
+let risk = Number(
+document.getElementById("risk").value
+);
+
+
+let leverage = Number(
+document.getElementById("leverage").value
+);
+
+
+let entry = Number(
+document.getElementById("entry").value
+);
+
+
+let stoploss = Number(
+document.getElementById("stoploss").value
+);
+
+
+let target = Number(
+document.getElementById("target").value
+);
+
+
+
+if(
+capital<=0 ||
+risk<=0 ||
+entry<=0 ||
+stoploss<=0 ||
+target<=0
+){
+
+alert("Please enter all values");
+
+return;
+
+}
+
+
+
+// Risk money
+
+let riskAmount = 
+capital * (risk/100);
+
+
+
+
+// Stop loss distance
+
+let slDistance =
+Math.abs(entry-stoploss);
+
+
+
+// Position size
+
+let positionSize =
+riskAmount / slDistance;
+
+
+
+
+// Margin
+
+let margin =
+positionSize / leverage;
+
+
+
+
+// Profit calculation
+
+let profit =
+Math.abs(target-entry) * positionSize;
+
+
+
+// Risk Reward
+
+let rewardRisk =
+Math.abs(target-entry) /
+Math.abs(entry-stoploss);
+
+
+
+
+
+document.getElementById("riskAmount").innerHTML =
+"$ " + riskAmount.toFixed(2);
+
+
+
+document.getElementById("positionSize").innerHTML =
+positionSize.toFixed(4);
+
+
+
+document.getElementById("margin").innerHTML =
+"$ " + margin.toFixed(2);
+
+
+
+document.getElementById("profit").innerHTML =
+"$ " + profit.toFixed(2);
+
+
+
+document.getElementById("rr").innerHTML =
+"1 : " + rewardRisk.toFixed(2);
+
+
+
+}
+
+
+
+  
 
 </script>
 
