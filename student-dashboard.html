@@ -237,6 +237,22 @@ font-weight:bold;
 }
 
 
+.reply-box{
+
+background:#020617;
+
+border:1px solid #00bfff;
+
+border-radius:15px;
+
+padding:15px;
+
+margin:10px 0;
+
+}
+
+
+
 </style>
 
 
@@ -268,6 +284,8 @@ LOGOUT
 
 
 </div>
+
+
 
 
 
@@ -461,6 +479,35 @@ SEND FEEDBACK
 
 
 <h2>
+📨 Admin Replies
+</h2>
+
+
+<div id="replyList">
+
+
+<p class="empty">
+
+No Replies Yet...
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="card">
+
+
+<h2>
 💬 Student Support
 </h2>
 
@@ -491,13 +538,15 @@ WhatsApp Support
 
 
 
+
 </div>
-  <script type="module">
+<script type="module">
 
 
 import { initializeApp }
 
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
 
 
 import {
@@ -545,6 +594,7 @@ from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
 
+
 const firebaseConfig = {
 
 
@@ -567,6 +617,7 @@ appId:"1:832507974614:web:6ad7b3f941d348a7388a77"
 
 
 
+
 const app = initializeApp(firebaseConfig);
 
 
@@ -577,11 +628,14 @@ const db = getFirestore(app);
 
 
 
+
+
 let currentEmail="";
 
 let completedLessons=[];
 
 let totalLessons=0;
+
 
 
 
@@ -651,14 +705,125 @@ data.course;
 
 
 
+
 await loadProgress();
 
 
 loadMaterials();
 
 
+loadReplies();
+
+
 
 });
+
+
+
+
+
+
+
+
+
+async function loadReplies(){
+
+
+
+const replyList=document.getElementById("replyList");
+
+
+
+replyList.innerHTML="";
+
+
+
+
+
+const q=query(
+
+collection(db,"feedback"),
+
+where("studentEmail","==",currentEmail)
+
+);
+
+
+
+
+
+const snapshot=await getDocs(q);
+
+
+
+
+
+if(snapshot.empty){
+
+
+replyList.innerHTML=
+
+"<p class='empty'>No Replies Yet...</p>";
+
+
+return;
+
+
+}
+
+
+
+
+
+snapshot.forEach((item)=>{
+
+
+
+let data=item.data();
+
+
+
+
+if(data.reply){
+
+
+
+replyList.innerHTML += `
+
+
+<div class="reply-box">
+
+
+<b>
+
+Admin Reply:
+
+</b>
+
+
+<br><br>
+
+
+${data.reply}
+
+
+
+</div>
+
+
+`;
+
+
+
+}
+
+
+
+});
+
+
+
+}
 
 
 
@@ -691,7 +856,7 @@ const progressSnap=await getDoc(progressRef);
 if(progressSnap.exists()){
 
 
-completedLessons =
+completedLessons=
 
 progressSnap.data().completedLessons || [];
 
@@ -717,6 +882,7 @@ updateProgress();
 function updateProgress(){
 
 
+
 let percent=0;
 
 
@@ -726,12 +892,14 @@ if(totalLessons>0){
 
 percent=Math.round(
 
-(completedLessons.length / totalLessons)*100
+(completedLessons.length/totalLessons)*100
 
 );
 
 
 }
+
+
 
 
 
@@ -784,12 +952,12 @@ let announcementList=document.getElementById("announcementList");
 
 
 
+
 videoList.innerHTML="";
 
 pdfList.innerHTML="";
 
 announcementList.innerHTML="";
-
 
 
 
@@ -816,8 +984,7 @@ totalLessons++;
 
 
 
-
-videoList.innerHTML+=`
+videoList.innerHTML += `
 
 
 <li>
@@ -838,6 +1005,7 @@ ${data.title}
 📂 Category:
 
 ${data.category || "General"}
+
 
 
 <br><br>
@@ -866,6 +1034,7 @@ onclick="completeLesson('${data.title}')">
 </button>
 
 
+
 </li>
 
 
@@ -884,7 +1053,7 @@ else if(data.type==="pdf"){
 
 
 
-pdfList.innerHTML+=`
+pdfList.innerHTML += `
 
 
 <li>
@@ -927,11 +1096,12 @@ target="_blank">
 
 
 
+
 else if(data.type==="announcement"){
 
 
 
-announcementList.innerHTML+=`
+announcementList.innerHTML += `
 
 
 <li>
@@ -1032,11 +1202,7 @@ window.sendFeedback=async function(){
 
 
 
-let text=document
-.getElementById("feedbackText")
-.value
-.trim();
-
+let text=document.getElementById("feedbackText").value.trim();
 
 
 let msg=document.getElementById("feedbackMessage");
@@ -1060,9 +1226,6 @@ return;
 
 
 
-try{
-
-
 await addDoc(
 
 collection(db,"feedback"),
@@ -1074,11 +1237,15 @@ studentEmail:currentEmail,
 
 message:text,
 
+reply:"",
+
 time:serverTimestamp()
+
 
 }
 
 );
+
 
 
 
@@ -1093,23 +1260,6 @@ document.getElementById("feedbackText").value="";
 
 
 
-catch(error){
-
-
-console.log(error);
-
-
-msg.innerHTML="Error: "+error.code;
-
-
-}
-
-
-
-}
-
-
-
 
 
 
@@ -1117,6 +1267,7 @@ msg.innerHTML="Error: "+error.code;
 
 
 window.logoutUser=function(){
+
 
 
 signOut(auth)
@@ -1135,7 +1286,6 @@ window.location.href="student-login.html";
 
 
 </script>
-
 
 
 </body>
