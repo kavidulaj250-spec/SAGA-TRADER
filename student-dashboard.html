@@ -49,7 +49,6 @@ from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 const firebaseConfig = {
 
-
 apiKey:"AIzaSyD1vUF2PEwbcKsd1EhnxITRs_z_GZ689VQ",
 
 authDomain:"sagatrading-mentorship.firebaseapp.com",
@@ -70,9 +69,7 @@ measurementId:"G-BW06QF70MP"
 
 const app = initializeApp(firebaseConfig);
 
-
 const auth=getAuth(app);
-
 
 const db=getFirestore(app);
 
@@ -86,7 +83,40 @@ let totalLessons=0;
 
 
 
-onAuthStateChanged(auth, async(user)=>{
+
+function setText(id,text){
+
+let el=document.getElementById(id);
+
+if(el){
+
+el.innerHTML=text;
+
+}
+
+}
+
+
+
+
+function setImage(id,url){
+
+let el=document.getElementById(id);
+
+if(el){
+
+el.src=url;
+
+}
+
+}
+
+
+
+
+
+
+onAuthStateChanged(auth,async(user)=>{
 
 
 if(!user){
@@ -100,7 +130,6 @@ return;
 
 
 currentEmail=user.email;
-
 
 
 console.log("USER:",currentEmail);
@@ -128,60 +157,96 @@ let data=item.data();
 
 
 
-document.getElementById("studentName").innerHTML=
+setText(
 
-"Welcome "+(data.name || "Student");
+"studentName",
 
+"Welcome "+(data.name || "Student")
 
-
-document.getElementById("studentEmail").innerHTML=
-
-data.email || currentEmail;
+);
 
 
 
-document.getElementById("studentCourse").innerHTML=
+setText(
 
-data.course || "No Course";
+"studentEmail",
 
+data.email || currentEmail
 
-
-document.getElementById("studentPhone").innerHTML=
-
-data.phone || "Not Added";
+);
 
 
 
-document.getElementById("studentDate").innerHTML=
+setText(
 
-data.date || "Not Available";
+"studentCourse",
+
+data.course || "No Course"
+
+);
+
+
+
+setText(
+
+"studentPhone",
+
+data.phone || "Not Added"
+
+);
+
+
+
+setText(
+
+"studentDate",
+
+data.date || "Not Available"
+
+);
 
 
 
 if(data.image){
 
-document.getElementById("studentImage").src=data.image;
+setImage(
+
+"studentImage",
+
+data.image
+
+);
 
 }
 
 
+
 });
+
 
 
 
 await loadProgress();
 
-loadLessons();
+await loadLessons();
 
-loadReplies();
+await loadReplies();
 
 
 
 });
+
+
+
+
+
+
+
+
 async function loadProgress(){
 
 
-const progressRef = doc(
+const ref=doc(
 
 db,
 
@@ -193,14 +258,14 @@ currentEmail
 
 
 
-const snap = await getDoc(progressRef);
+const snap=await getDoc(ref);
 
 
 
 if(snap.exists()){
 
 
-completedLessons =
+completedLessons=
 
 snap.data().completedLessons || [];
 
@@ -212,7 +277,11 @@ snap.data().completedLessons || [];
 updateProgress();
 
 
+
 }
+
+
+
 
 
 
@@ -221,16 +290,16 @@ updateProgress();
 function updateProgress(){
 
 
-let percent = 0;
+let percent=0;
 
 
 
-if(totalLessons > 0){
+if(totalLessons>0){
 
 
-percent = Math.round(
+percent=Math.round(
 
-(completedLessons.length / totalLessons) * 100
+(completedLessons.length/totalLessons)*100
 
 );
 
@@ -239,14 +308,19 @@ percent = Math.round(
 
 
 
+setText(
 
-document.getElementById("progressPercent").innerHTML =
+"progressPercent",
 
-percent+"%";
+percent+"%"
+
+);
 
 
 
-document.getElementById("progressText").innerHTML =
+setText(
+
+"progressText",
 
 "Completed Lessons: "
 
@@ -254,11 +328,14 @@ document.getElementById("progressText").innerHTML =
 
 " / "
 
-+totalLessons;
++totalLessons
+
+);
 
 
 
 }
+
 
 
 
@@ -270,7 +347,17 @@ async function loadLessons(){
 
 
 
-const snapshot = await getDocs(
+let box=document.getElementById("videoList");
+
+
+if(!box)return;
+
+
+
+box.innerHTML="";
+
+
+const snap=await getDocs(
 
 collection(db,"materials")
 
@@ -278,21 +365,11 @@ collection(db,"materials")
 
 
 
-const box = document.getElementById("videoList");
-
-
-
-box.innerHTML="";
-
-
-
 totalLessons=0;
 
 
 
-
-
-snapshot.forEach((item)=>{
+snap.forEach((item)=>{
 
 
 let data=item.data();
@@ -302,12 +379,10 @@ let data=item.data();
 if(data.type==="video"){
 
 
-
 totalLessons++;
 
 
-
-let completed =
+let done=
 
 completedLessons.includes(data.title);
 
@@ -315,10 +390,10 @@ completedLessons.includes(data.title);
 
 
 
-box.innerHTML += `
+box.innerHTML+=`
 
 
-<div class="lesson-card ${completed ? "completed":""}">
+<div class="lesson-card ${done?"completed":""}">
 
 
 <div class="lesson-title">
@@ -330,7 +405,6 @@ ${data.lesson || "Lesson"}
 ${data.title}
 
 </div>
-
 
 
 <br>
@@ -351,19 +425,13 @@ target="_blank">
 <br><br>
 
 
-
 <button class="lesson-btn"
 
-onclick="completeLesson('${data.title}')"
+onclick="completeLesson('${data.title}')">
 
-${completed ? "disabled":""}>
-
-
-${completed ? "✅ Completed":"Complete Lesson"}
-
+${done?"✅ Completed":"Complete Lesson"}
 
 </button>
-
 
 
 </div>
@@ -381,22 +449,10 @@ ${completed ? "✅ Completed":"Complete Lesson"}
 
 
 
-
-if(totalLessons===0){
-
-
-box.innerHTML=
-
-"<p class='empty'>No Lessons Available</p>";
-
-
-}
-
-
-
 updateProgress();
 
 
+
 }
 
 
@@ -406,7 +462,7 @@ updateProgress();
 
 
 
-window.completeLesson = async function(title){
+window.completeLesson=async function(title){
 
 
 
@@ -420,18 +476,15 @@ completedLessons.push(title);
 
 
 
-
 await setDoc(
 
 doc(db,"progress",currentEmail),
 
 {
 
-
 studentEmail:currentEmail,
 
 completedLessons:completedLessons
-
 
 }
 
@@ -440,7 +493,6 @@ completedLessons:completedLessons
 
 
 alert("Lesson Completed ✅");
-
 
 
 loadLessons();
@@ -460,13 +512,14 @@ async function loadReplies(){
 
 
 
-const box=document.getElementById("replyList");
+let box=document.getElementById("replyList");
+
+
+if(!box)return;
 
 
 
 box.innerHTML="";
-
-
 
 
 
@@ -480,11 +533,7 @@ where("studentEmail","==",currentEmail)
 
 
 
-
-
 const snap=await getDocs(q);
-
-
 
 
 
@@ -495,13 +544,9 @@ box.innerHTML=
 
 "<p class='empty'>No Replies Yet...</p>";
 
-
 return;
 
-
 }
-
-
 
 
 
@@ -515,28 +560,19 @@ let data=item.data();
 if(data.reply){
 
 
-
-box.innerHTML += `
-
+box.innerHTML+=`
 
 <div class="reply-box">
 
-
 <b>Admin Reply:</b>
-
 
 <br><br>
 
-
 ${data.reply}
-
 
 </div>
 
-
 `;
-
-
 
 }
 
@@ -555,38 +591,33 @@ ${data.reply}
 
 
 
-
-window.sendFeedback = async function(){
-
+window.sendFeedback=async function(){
 
 
-let text = document
 
-.getElementById("feedbackText")
-
-.value
-
-.trim();
-
-
+let box=document.getElementById("feedbackText");
 
 let msg=document.getElementById("feedbackMessage");
 
 
+
+if(!box)return;
+
+
+
+let text=box.value.trim();
 
 
 
 if(text===""){
 
 
-msg.innerHTML="Write your feedback first";
-
+if(msg)msg.innerHTML="Write your feedback first";
 
 return;
 
 
 }
-
 
 
 
@@ -597,7 +628,6 @@ collection(db,"feedback"),
 
 {
 
-
 studentEmail:currentEmail,
 
 message:text,
@@ -606,20 +636,19 @@ reply:"",
 
 time:serverTimestamp()
 
-
 }
 
 );
 
 
 
-
+if(msg)
 
 msg.innerHTML="Feedback Sent Successfully ✅";
 
 
 
-document.getElementById("feedbackText").value="";
+box.value="";
 
 
 
@@ -633,7 +662,6 @@ document.getElementById("feedbackText").value="";
 
 
 window.logoutUser=function(){
-
 
 
 signOut(auth)
@@ -652,8 +680,3 @@ window.location.href="student-login.html";
 
 
 </script>
-
-
-</body>
-
-</html>
