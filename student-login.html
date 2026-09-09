@@ -159,12 +159,12 @@ type="password"
 placeholder="Password">
 
 
-
-<button onclick="loginStudent()">
+<button id="loginBtn">
 
 LOGIN
 
 </button>
+
 
 
 
@@ -236,7 +236,14 @@ measurementId:"G-BW06QF70MP"
 
 };
 
+window.loginStudent = async function(){
 
+console.log("LOGIN FUNCTION STARTED");
+
+
+let email=document.getElementById("email").value.trim();
+
+let password=document.getElementById("password").value;
 
 
 
@@ -250,6 +257,12 @@ const db = getFirestore(app);
 
 
 window.loginStudent = async function(){
+  
+document
+  
+.getElementById("loginBtn")
+  
+.addEventListener("click", loginStudent);
   
 console.log("LOGIN FUNCTION STARTED");
   
