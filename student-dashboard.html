@@ -204,6 +204,39 @@ font-size:40px;
 
 
 
+textarea{
+
+width:100%;
+
+height:120px;
+
+padding:15px;
+
+background:#020617;
+
+color:white;
+
+border:1px solid #00bfff;
+
+border-radius:15px;
+
+resize:none;
+
+}
+
+
+
+#feedbackMessage{
+
+margin-top:15px;
+
+color:#00ff88;
+
+font-weight:bold;
+
+}
+
+
 </style>
 
 
@@ -241,15 +274,8 @@ LOGOUT
 
 
 
-
-
-
-
 <div class="container">
-
-
-
-<div class="card profile">
+  <div class="card profile">
 
 
 <h2 id="studentName">
@@ -392,6 +418,54 @@ Completed Lessons: 0 / 0
 
 
 <h2>
+📝 Student Feedback
+</h2>
+
+
+
+<textarea
+
+id="feedbackText"
+
+placeholder="Write your feedback here...">
+
+</textarea>
+
+
+
+<br><br>
+
+
+
+<button class="btn"
+
+onclick="sendFeedback()">
+
+SEND FEEDBACK
+
+</button>
+
+
+
+<p id="feedbackMessage">
+
+</p>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="card">
+
+
+<h2>
 💬 Student Support
 </h2>
 
@@ -421,6 +495,7 @@ WhatsApp Support
 
 
 
+
 </div>
 <script type="module">
 
@@ -428,7 +503,6 @@ WhatsApp Support
 import { initializeApp }
 
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-
 
 
 import {
@@ -461,7 +535,11 @@ doc,
 
 getDoc,
 
-setDoc
+setDoc,
+
+addDoc,
+
+serverTimestamp
 
 }
 
@@ -503,11 +581,11 @@ const db = getFirestore(app);
 
 
 
-let currentEmail = "";
+let currentEmail="";
 
-let completedLessons = [];
+let completedLessons=[];
 
-let totalLessons = 0;
+let totalLessons=0;
 
 
 
@@ -530,13 +608,13 @@ return;
 
 
 
-currentEmail = user.email;
+currentEmail=user.email;
 
 
 
 
 
-const q = query(
+const q=query(
 
 collection(db,"students"),
 
@@ -548,7 +626,7 @@ where("email","==",user.email)
 
 
 
-const snapshot = await getDocs(q);
+const snapshot=await getDocs(q);
 
 
 
@@ -557,16 +635,16 @@ const snapshot = await getDocs(q);
 snapshot.forEach((doc)=>{
 
 
-let data = doc.data();
+let data=doc.data();
 
 
-document.getElementById("studentName").innerHTML =
+document.getElementById("studentName").innerHTML=
 
-"Welcome " + data.name;
+"Welcome "+data.name;
 
 
 
-document.getElementById("studentCourse").innerHTML =
+document.getElementById("studentCourse").innerHTML=
 
 data.course;
 
@@ -583,7 +661,6 @@ await loadProgress();
 loadMaterials();
 
 
-
 });
 
 
@@ -597,7 +674,7 @@ loadMaterials();
 async function loadProgress(){
 
 
-const progressRef = doc(
+const ref=doc(
 
 db,
 
@@ -609,15 +686,15 @@ currentEmail
 
 
 
-const progressSnap = await getDoc(progressRef);
+const snap=await getDoc(ref);
 
 
 
 
-if(progressSnap.exists()){
+if(snap.exists()){
 
 
-completedLessons = progressSnap.data().completedLessons || [];
+completedLessons=snap.data().completedLessons || [];
 
 
 }
@@ -627,9 +704,7 @@ completedLessons = progressSnap.data().completedLessons || [];
 updateProgress();
 
 
-
 }
-
 
 
 
@@ -643,16 +718,16 @@ function updateProgress(){
 
 
 
-let percent = 0;
+let percent=0;
 
 
 
-if(totalLessons > 0){
+if(totalLessons>0){
 
 
-percent = Math.round(
+percent=Math.round(
 
-(completedLessons.length / totalLessons) * 100
+(completedLessons.length/totalLessons)*100
 
 );
 
@@ -662,27 +737,21 @@ percent = Math.round(
 
 
 
-document.getElementById("progressPercent").innerHTML =
+document.getElementById("progressPercent").innerHTML=
 
-percent + "%";
+percent+"%";
 
 
 
-document.getElementById("progressText").innerHTML =
+document.getElementById("progressText").innerHTML=
 
 "Completed Lessons: "
 
-+
-
-completedLessons.length
-
-+
++completedLessons.length+
 
 " / "
 
-+
-
-totalLessons;
++totalLessons;
 
 
 
@@ -700,7 +769,7 @@ async function loadMaterials(){
 
 
 
-const snapshot = await getDocs(
+const snapshot=await getDocs(
 
 collection(db,"materials")
 
@@ -709,11 +778,11 @@ collection(db,"materials")
 
 
 
-let videoList = document.getElementById("videoList");
+let videoList=document.getElementById("videoList");
 
-let pdfList = document.getElementById("pdfList");
+let pdfList=document.getElementById("pdfList");
 
-let announcementList = document.getElementById("announcementList");
+let announcementList=document.getElementById("announcementList");
 
 
 
@@ -728,10 +797,12 @@ announcementList.innerHTML="";
 
 
 
+
 snapshot.forEach((item)=>{
 
 
 let data=item.data();
+
 
 
 
@@ -743,8 +814,7 @@ totalLessons++;
 
 
 
-
-videoList.innerHTML += `
+videoList.innerHTML+=`
 
 
 <li>
@@ -793,7 +863,6 @@ onclick="completeLesson('${data.title}')">
 </button>
 
 
-
 </li>
 
 
@@ -812,7 +881,7 @@ else if(data.type==="pdf"){
 
 
 
-pdfList.innerHTML += `
+pdfList.innerHTML+=`
 
 
 <li>
@@ -855,11 +924,12 @@ target="_blank">
 
 
 
+
 else if(data.type==="announcement"){
 
 
 
-announcementList.innerHTML += `
+announcementList.innerHTML+=`
 
 
 <li>
@@ -895,10 +965,6 @@ updateProgress();
 
 
 
-
-
-
-
 }
 
 
@@ -909,7 +975,7 @@ updateProgress();
 
 
 
-window.completeLesson = async function(title){
+window.completeLesson=async function(title){
 
 
 
@@ -920,7 +986,6 @@ completedLessons.push(title);
 
 
 }
-
 
 
 
@@ -948,6 +1013,72 @@ alert("Lesson Completed ✅");
 
 updateProgress();
 
+
+
+}
+
+
+
+
+
+
+
+
+
+window.sendFeedback=async function(){
+
+
+
+let text=document.getElementById("feedbackText").value.trim();
+
+
+let msg=document.getElementById("feedbackMessage");
+
+
+
+
+
+if(text===""){
+
+
+msg.innerHTML="Write your feedback first";
+
+
+return;
+
+
+}
+
+
+
+
+
+await addDoc(
+
+collection(db,"feedback"),
+
+{
+
+
+studentEmail:currentEmail,
+
+message:text,
+
+time:serverTimestamp()
+
+
+}
+
+);
+
+
+
+
+
+msg.innerHTML="Feedback Sent Successfully ✅";
+
+
+document.getElementById("feedbackText").value="";
 
 
 }
