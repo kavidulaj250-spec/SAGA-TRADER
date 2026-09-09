@@ -47,17 +47,17 @@ measurementId:"G-BW06QF70MP"
 
 const app = initializeApp(firebaseConfig);
 
-const auth=getAuth(app);
+const auth = getAuth(app);
 
-const db=getFirestore(app);
+const db = getFirestore(app);
 
 
 
-let currentEmail="";
+let currentEmail = "";
 
-let completedLessons=[];
+let completedLessons = [];
 
-let totalLessons=0;
+let totalLessons = 0;
 
 
 
@@ -95,7 +95,7 @@ console.log("DASHBOARD SCRIPT LOADED");
 
 
 
-onAuthStateChanged(auth,async(user)=>{
+onAuthStateChanged(auth, async(user)=>{
 
 
 try{
@@ -108,6 +108,7 @@ window.location.href="student-login.html";
 return;
 
 }
+
 
 
 currentEmail=user.email;
@@ -126,33 +127,20 @@ collection(db,"students"),
 where("email","==",currentEmail)
 
 );
-console.log("STUDENT FOUND:", snap.size);
 
-snap.forEach((item)=>{
-    console.log("STUDENT DATA:", item.data());
-});
 
 
 const snap=await getDocs(q);
 
 
 
-if(snap.empty){
-
-
-text(
-"studentName",
-"Student profile not found"
-);
-
-
-return;
-
-}
+console.log("STUDENT FOUND:",snap.size);
 
 
 
 snap.forEach((item)=>{
+
+console.log("STUDENT DATA:",item.data());
 
 
 let data=item.data();
@@ -204,8 +192,27 @@ data.image
 }
 
 
-
 });
+
+
+
+
+
+if(snap.empty){
+
+
+text(
+"studentName",
+"Student profile not found"
+);
+
+
+return;
+
+
+}
+
+
 
 
 
@@ -219,14 +226,19 @@ await loadReplies();
 
 }
 
+
+
 catch(error){
 
-console.log(error);
+
+console.log("DASHBOARD ERROR:",error);
+
 
 text(
 "studentName",
 "Loading Error"
 );
+
 
 }
 
@@ -284,6 +296,7 @@ updateProgress();
 
 
 
+
 function updateProgress(){
 
 
@@ -299,6 +312,7 @@ percent=Math.round(
 
 );
 
+
 }
 
 
@@ -312,10 +326,15 @@ percent+"%"
 
 text(
 "progressText",
+
 "Completed Lessons: "
+
 +completedLessons.length+
+
 " / "
+
 +totalLessons
+
 );
 
 
@@ -379,6 +398,7 @@ completedLessons.includes(data.title);
 
 box.innerHTML+=`
 
+
 <div class="lesson-card ${done?"completed":""}">
 
 
@@ -393,11 +413,14 @@ ${data.title || ""}
 </div>
 
 
+
 <br>
 
 
 <a class="link"
+
 href="${data.link || "#"}"
+
 target="_blank">
 
 ▶ Watch Lesson
@@ -405,18 +428,24 @@ target="_blank">
 </a>
 
 
+
 <br><br>
 
 
+
 <button class="lesson-btn"
+
 onclick="completeLesson('${data.title}')">
 
+
 ${done?"✅ Completed":"Complete Lesson"}
+
 
 </button>
 
 
 </div>
+
 
 `;
 
@@ -430,12 +459,14 @@ ${done?"✅ Completed":"Complete Lesson"}
 
 
 
+
 if(totalLessons===0){
 
 
 box.innerHTML=
 
 "<p class='empty'>No Lessons Available</p>";
+
 
 }
 
@@ -458,9 +489,12 @@ updateProgress();
 window.completeLesson=async function(title){
 
 
+
 if(!completedLessons.includes(title)){
 
+
 completedLessons.push(title);
+
 
 }
 
@@ -490,6 +524,7 @@ loadLessons();
 
 
 }
+
 
 
 
@@ -537,6 +572,7 @@ box.innerHTML=
 
 return;
 
+
 }
 
 
@@ -553,17 +589,24 @@ if(data.reply){
 
 box.innerHTML+=`
 
+
 <div class="reply-box">
+
 
 <b>Admin Reply:</b>
 
+
 <br><br>
+
 
 ${data.reply}
 
+
 </div>
 
+
 `;
+
 
 }
 
@@ -580,11 +623,12 @@ ${data.reply}
 
 
 
+
 window.sendFeedback=async function(){
 
 
-let box=document.getElementById("feedbackText");
 
+let box=document.getElementById("feedbackText");
 
 let msg=document.getElementById("feedbackMessage");
 
@@ -598,6 +642,7 @@ if(textValue===""){
 
 
 msg.innerHTML="Write your feedback first";
+
 
 return;
 
@@ -642,6 +687,7 @@ box.value="";
 
 
 
+
 window.logoutUser=function(){
 
 
@@ -649,7 +695,9 @@ signOut(auth)
 
 .then(()=>{
 
+
 window.location.href="student-login.html";
+
 
 });
 
