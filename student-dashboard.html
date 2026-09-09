@@ -126,7 +126,11 @@ collection(db,"students"),
 where("email","==",currentEmail)
 
 );
+console.log("STUDENT FOUND:", snap.size);
 
+snap.forEach((item)=>{
+    console.log("STUDENT DATA:", item.data());
+});
 
 
 const snap=await getDocs(q);
