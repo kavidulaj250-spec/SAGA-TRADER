@@ -244,10 +244,7 @@ font-weight:bold;
 
 
 <body>
-
-
-
-<div class="header">
+ <div class="header">
 
 
 <h1>
@@ -274,8 +271,13 @@ LOGOUT
 
 
 
+
+
 <div class="container">
-  <div class="card profile">
+
+
+
+<div class="card profile">
 
 
 <h2 id="studentName">
@@ -408,6 +410,12 @@ Completed Lessons: 0 / 0
 
 </div>
 
+
+
+
+
+
+
 <div class="card">
 
 
@@ -425,7 +433,9 @@ placeholder="Write your feedback here...">
 </textarea>
 
 
+
 <br><br>
+
 
 
 <button class="btn" onclick="sendFeedback()">
@@ -435,50 +445,11 @@ SEND FEEDBACK
 </button>
 
 
+
 <p id="feedbackMessage"></p>
 
 
 </div>
-
-
-
-
-
-
-
-
-<textarea
-
-id="feedbackText"
-
-placeholder="Write your feedback here...">
-
-</textarea>
-
-
-
-<br><br>
-
-
-
-<button class="btn"
-
-onclick="sendFeedback()">
-
-SEND FEEDBACK
-
-</button>
-
-
-
-<p id="feedbackMessage">
-
-</p>
-
-
-
-</div>
-
 
 
 
@@ -521,7 +492,7 @@ WhatsApp Support
 
 
 </div>
-<script type="module">
+  <script type="module">
 
 
 import { initializeApp }
@@ -595,6 +566,7 @@ appId:"1:832507974614:web:6ad7b3f941d348a7388a77"
 
 
 
+
 const app = initializeApp(firebaseConfig);
 
 
@@ -610,7 +582,6 @@ let currentEmail="";
 let completedLessons=[];
 
 let totalLessons=0;
-
 
 
 
@@ -662,6 +633,7 @@ snapshot.forEach((doc)=>{
 let data=doc.data();
 
 
+
 document.getElementById("studentName").innerHTML=
 
 "Welcome "+data.name;
@@ -685,6 +657,7 @@ await loadProgress();
 loadMaterials();
 
 
+
 });
 
 
@@ -698,7 +671,7 @@ loadMaterials();
 async function loadProgress(){
 
 
-const ref=doc(
+const progressRef=doc(
 
 db,
 
@@ -710,15 +683,17 @@ currentEmail
 
 
 
-const snap=await getDoc(ref);
+const progressSnap=await getDoc(progressRef);
 
 
 
 
-if(snap.exists()){
+if(progressSnap.exists()){
 
 
-completedLessons=snap.data().completedLessons || [];
+completedLessons =
+
+progressSnap.data().completedLessons || [];
 
 
 }
@@ -726,6 +701,7 @@ completedLessons=snap.data().completedLessons || [];
 
 
 updateProgress();
+
 
 
 }
@@ -741,7 +717,6 @@ updateProgress();
 function updateProgress(){
 
 
-
 let percent=0;
 
 
@@ -751,13 +726,12 @@ if(totalLessons>0){
 
 percent=Math.round(
 
-(completedLessons.length/totalLessons)*100
+(completedLessons.length / totalLessons)*100
 
 );
 
 
 }
-
 
 
 
@@ -810,13 +784,17 @@ let announcementList=document.getElementById("announcementList");
 
 
 
-
 videoList.innerHTML="";
 
 pdfList.innerHTML="";
 
 announcementList.innerHTML="";
 
+
+
+
+
+totalLessons=0;
 
 
 
@@ -835,6 +813,7 @@ if(data.type==="video"){
 
 
 totalLessons++;
+
 
 
 
@@ -948,7 +927,6 @@ target="_blank">
 
 
 
-
 else if(data.type==="announcement"){
 
 
@@ -1014,6 +992,7 @@ completedLessons.push(title);
 
 
 
+
 await setDoc(
 
 doc(db,"progress",currentEmail),
@@ -1053,7 +1032,11 @@ window.sendFeedback=async function(){
 
 
 
-let text=document.getElementById("feedbackText").value.trim();
+let text=document
+.getElementById("feedbackText")
+.value
+.trim();
+
 
 
 let msg=document.getElementById("feedbackMessage");
@@ -1077,6 +1060,9 @@ return;
 
 
 
+try{
+
+
 await addDoc(
 
 collection(db,"feedback"),
@@ -1090,11 +1076,9 @@ message:text,
 
 time:serverTimestamp()
 
-
 }
 
 );
-
 
 
 
@@ -1103,6 +1087,23 @@ msg.innerHTML="Feedback Sent Successfully ✅";
 
 
 document.getElementById("feedbackText").value="";
+
+
+}
+
+
+
+catch(error){
+
+
+console.log(error);
+
+
+msg.innerHTML="Error: "+error.code;
+
+
+}
+
 
 
 }
