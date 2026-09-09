@@ -127,15 +127,10 @@ LOGIN
 
 
 
-
-
 <script type="module">
 
-
 import { initializeApp }
-
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-
 
 
 import {
@@ -148,6 +143,22 @@ signInWithEmailAndPassword
 
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
+
+import {
+
+getFirestore,
+
+collection,
+
+query,
+
+where,
+
+getDocs
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
 
@@ -172,64 +183,160 @@ appId: "1:832507974614:web:6ad7b3f941d348a7388a77"
 
 
 
-
 const app = initializeApp(firebaseConfig);
 
 
 const auth = getAuth(app);
 
 
+const db = getFirestore(app);
 
 
 
-window.adminLogin = function(){
 
+window.adminLogin = async function(){
 
 
 let email =
-document.getElementById("email").value;
-
+document.getElementById("email").value.trim();
 
 
 let password =
-document.getElementById("password").value;
+document.getElementById("password").value.trim();
+
+
+let msg =
+document.getElementById("msg");
+
+
+
+if(email==="" || password===""){
+
+msg.innerHTML="Enter email and password";
+
+return;
+
+}
+
+
+
+try{
+
+
+msg.innerHTML="Checking...";
+
+
+
+// Firebase login
+
+await signInWithEmailAndPassword(
+
+auth,
+
+email,
+
+password
+
+);
 
 
 
 
-
-signInWithEmailAndPassword(auth,email,password)
-
+// Check admins collection
 
 
-.then(()=>{
+const q=query(
 
+collection(db,"admin"),
 
-window.location.href="admin.html";
+where("email","==",email)
 
-
-})
+);
 
 
 
-.catch(()=>{
+const snap=await getDocs(q);
 
 
-document.getElementById("msg").innerHTML =
-"Login Failed";
+
+if(snap.empty){
 
 
-});
+msg.innerHTML=
+"Access Denied ❌";
 
+
+return;
 
 
 }
 
 
 
+let adminData=null;
+
+
+
+snap.forEach((doc)=>{
+
+adminData=doc.data();
+
+});
+
+
+
+
+
+if(adminData.role!=="admin"){
+
+
+msg.innerHTML=
+"Not an Admin Account";
+
+
+return;
+
+
+}
+
+
+
+
+
+msg.innerHTML=
+"Login Successful ✅";
+
+
+
+setTimeout(()=>{
+
+
+window.location.href="admin.html";
+
+
+},1000);
+
+
+
+}
+
+catch(error){
+
+
+console.log(error);
+
+
+msg.innerHTML=
+"Login Failed";
+
+
+}
+
+
+
+}
+
+
 </script>
 
 
-</body>
-
-</html>
