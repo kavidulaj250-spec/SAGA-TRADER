@@ -885,7 +885,13 @@ target="_blank">
 
 <button onclick="completeLesson('${data.title}')">
 
-Complete Lesson
+${
+completedLessons.includes(data.title)
+?
+"✅ Completed"
+:
+"Complete Lesson"
+}
 
 </button>
 
