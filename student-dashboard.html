@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -14,178 +15,200 @@ box-sizing:border-box;
 font-family:Arial,sans-serif;
 }
 
+
 body{
+
 margin:0;
 padding:20px;
+
 background:#020617;
+
 color:white;
+
 }
+
+
 
 .header{
+
 display:flex;
+
 justify-content:space-between;
+
 align-items:center;
-gap:20px;
+
 margin-bottom:20px;
+
 }
+
+
 
 .header h1{
-margin:0;
+
 color:#00bfff;
+
 }
 
+
+
 button{
+
 background:#00bfff;
+
 color:black;
+
 border:none;
-padding:11px 24px;
+
+padding:12px 25px;
+
 border-radius:25px;
+
 font-weight:bold;
+
 cursor:pointer;
+
 }
+
+
 
 button:hover{
-opacity:.9;
+
+background:white;
+
 }
 
+
+
 .card{
+
 background:#071426;
+
 border:1px solid #00bfff;
+
 border-radius:20px;
+
 padding:20px;
-margin:18px 0;
+
+margin-bottom:20px;
+
 }
+
+
 
 .card h2{
-margin-top:0;
+
 color:#00bfff;
+
 }
+
+
 
 .profile{
+
 text-align:center;
+
 }
+
+
 
 #studentImage{
-width:110px;
-height:110px;
+
+width:120px;
+
+height:120px;
+
 border-radius:50%;
-border:3px solid #00bfff;
+
 object-fit:cover;
-background:#0b1d35;
+
+border:3px solid #00bfff;
+
 }
+
+
 
 .student-line{
-margin:10px 0;
+
+margin:10px;
+
 }
+
+
 
 .progress-bar{
+
+height:20px;
+
 width:100%;
-height:18px;
+
 background:#020617;
-border:1px solid #00bfff;
+
 border-radius:20px;
+
+border:1px solid #00bfff;
+
 overflow:hidden;
-margin:15px 0;
+
 }
+
+
 
 #progressFill{
+
 height:100%;
+
 width:0%;
+
 background:#00bfff;
-transition:width .3s ease;
+
 }
+
+
 
 .material-card{
+
 background:#0b1d35;
-padding:16px;
+
+padding:15px;
+
 margin:12px 0;
+
 border-radius:15px;
+
 }
 
-.material-card.completed{
-border:1px solid #00ff88;
-}
+
 
 .material-title{
+
 font-size:18px;
+
 font-weight:bold;
+
 }
+
+
 
 .link{
+
 display:inline-block;
-margin-top:10px;
-color:#00ff88;
-text-decoration:none;
-}
 
-.link:hover{
-text-decoration:underline;
-}
-
-textarea{
-width:100%;
-height:120px;
-resize:vertical;
-background:#020617;
-color:white;
-border:1px solid #00bfff;
-border-radius:10px;
-padding:12px;
-}
-
-.reply-box{
-background:#102a43;
-padding:15px;
-border-radius:15px;
-margin:10px 0;
-}
-
-.empty{
-color:#aaa;
-}
-
-#feedbackMessage{
-color:#00ff88;
 margin-top:12px;
-}
 
-@media(max-width:700px){
-
-body{
-padding:12px;
-}
-
-.header{
-align-items:flex-start;
-flex-direction:column;
-}
-
-.header h1{
-font-size:26px;
-}
-
-.card{
-padding:16px;
-}
-
-button{
-width:auto;
-}
-
-}
-
-.link{
-
-display:inline-block;
-margin-top:10px;
 padding:8px 18px;
+
 background:#00bfff;
-color:black;
+
+color:black !important;
+
 border-radius:20px;
+
 text-decoration:none;
+
 font-weight:bold;
 
 }
+
 
 
 .link:hover{
@@ -196,131 +219,319 @@ background:white;
 
 
 
+.reply-box{
+
+background:#102a43;
+
+padding:15px;
+
+border-radius:15px;
+
+margin:10px 0;
+
+}
 
 
-  
+
+textarea{
+
+width:100%;
+
+height:120px;
+
+background:#020617;
+
+color:white;
+
+border:1px solid #00bfff;
+
+border-radius:10px;
+
+padding:12px;
+
+}
+
+
+
+.empty{
+
+color:#aaa;
+
+}
+
+
+
+@media(max-width:700px){
+
+body{
+
+padding:10px;
+
+}
+
+
+.header{
+
+flex-direction:column;
+
+gap:15px;
+
+}
+
+}
+
+
+
 </style>
+
 </head>
+
 
 <body>
 
+
+
 <div class="header">
-<h1>SAGATRADING Dashboard</h1>
-<button id="logoutBtn">Logout</button>
+
+<h1>
+SAGATRADING Dashboard
+</h1>
+
+
+<button id="logoutBtn">
+Logout
+</button>
+
+
 </div>
+
+
+
+
 
 <div class="card profile">
 
+
 <img id="studentImage"
-src="https://ui-avatars.com/api/?name=Student&background=071426&color=00bfff&size=200"
-alt="Student">
 
-<h2 id="studentName">Loading...</h2>
+src="https://ui-avatars.com/api/?name=Student"
 
-<p class="student-line">
+>
+
+
+
+<h2 id="studentName">
+
+Loading...
+
+</h2>
+
+
+
+<p>
 📧 <span id="studentEmail"></span>
 </p>
 
-<p class="student-line">
+
+<p>
 📚 <span id="studentCourse"></span>
 </p>
 
-<p class="student-line">
+
+<p>
 📞 <span id="studentPhone"></span>
 </p>
 
-<p class="student-line">
+
+<p>
 📅 <span id="studentDate"></span>
 </p>
 
+
+
 </div>
+
+
+
+
 
 <div class="card">
 
-<h2>Course Progress</h2>
 
-<h1 id="progressPercent">0%</h1>
+<h2>
+Course Progress
+</h2>
+
+
+<h1 id="progressPercent">
+0%
+</h1>
+
+
 
 <div class="progress-bar">
+
 <div id="progressFill"></div>
-</div>
-
-<p id="progressText">Loading...</p>
 
 </div>
+
+
+
+<p id="progressText">
+Loading...
+</p>
+
+
+</div>
+
+
+
+
 
 <div class="card">
 
-<h2>🎥 Video Lessons</h2>
+<h2>
+🎥 Video Lessons
+</h2>
+
 
 <div id="videoList">
-<p class="empty">Loading videos...</p>
-</div>
+
+<p class="empty">
+Loading videos...
+</p>
+
 
 </div>
+
+
+</div>
+
+
+
+
 
 <div class="card">
 
-<h2>📄 PDF Materials</h2>
+
+<h2>
+📄 PDF Materials
+</h2>
+
 
 <div id="pdfList">
-<p class="empty">Loading PDFs...</p>
-</div>
+
+<p class="empty">
+Loading PDFs...
+</p>
+
 
 </div>
+
+
+</div>
+
+
+
+
 
 <div class="card">
 
-<h2>📢 Announcements</h2>
+
+<h2>
+📢 Announcements
+</h2>
+
 
 <div id="announcementList">
-<p class="empty">Loading announcements...</p>
-</div>
+
+<p class="empty">
+Loading announcements...
+</p>
+
 
 </div>
+
+
+</div>
+
+
+
+
 
 <div class="card">
 
-<h2>Admin Replies</h2>
+
+<h2>
+Admin Replies
+</h2>
+
 
 <div id="replyList">
-<p class="empty">Loading replies...</p>
-</div>
+
+<p class="empty">
+Loading replies...
+</p>
+
 
 </div>
+
+
+</div>
+
+
+
+
 
 <div class="card">
 
-<h2>Send Feedback</h2>
 
-<textarea
-id="feedbackText"
-placeholder="Write your feedback here...">
+<h2>
+Send Feedback
+</h2>
+
+
+<textarea id="feedbackText"
+
+placeholder="Write your feedback">
+
 </textarea>
+
 
 <br><br>
 
+
 <button id="feedbackBtn">
+
 Send Feedback
+
 </button>
+
 
 <p id="feedbackMessage"></p>
 
-</div>
 
+</div>
 <script type="module">
 
 import { initializeApp }
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
+
 import {
+
 getAuth,
 onAuthStateChanged,
 signOut
+
 }
+
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
+
+
 import {
+
 getFirestore,
 collection,
 query,
@@ -331,8 +542,12 @@ getDoc,
 setDoc,
 addDoc,
 serverTimestamp
+
 }
+
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
 
 
 const firebaseConfig = {
@@ -354,48 +569,41 @@ measurementId:"G-BW06QF70MP"
 };
 
 
+
+
 const app = initializeApp(firebaseConfig);
 
-const auth = getAuth(app);
+const auth=getAuth(app);
 
-const db = getFirestore(app);
-
-
-let currentEmail = "";
-
-let completedLessons = [];
-
-let totalLessons = 0;
+const db=getFirestore(app);
 
 
-function setText(id,value){
 
-const el=document.getElementById(id);
+let currentEmail="";
 
-if(el){
-el.textContent=value;
-}
+let completedLessons=[];
 
-}
+let totalLessons=0;
 
 
-function setImage(id,value){
 
-const el=document.getElementById(id);
+function text(id,value){
 
-if(el && value){
-el.src=value;
+let e=document.getElementById(id);
+
+if(e){
+
+e.textContent=value;
+
 }
 
 }
 
 
-console.log("DASHBOARD SCRIPT LOADED");
 
 
-onAuthStateChanged(auth, async(user)=>{
+onAuthStateChanged(auth,async(user)=>{
 
-try{
 
 if(!user){
 
@@ -406,12 +614,14 @@ return;
 }
 
 
-currentEmail=user.email || "";
+currentEmail=user.email;
+
 
 console.log("USER:",currentEmail);
 
 
-const studentQuery=query(
+
+const q=query(
 
 collection(db,"students"),
 
@@ -420,73 +630,73 @@ where("email","==",currentEmail)
 );
 
 
-const studentSnap=await getDocs(studentQuery);
+
+const snap=await getDocs(q);
 
 
-console.log("STUDENT FOUND:",studentSnap.size);
+
+console.log("STUDENT FOUND:",snap.size);
 
 
-if(studentSnap.empty){
 
-setText("studentName","Student profile not found");
-setText("studentEmail",currentEmail);
+if(snap.empty){
+
+text("studentName","Student Not Found");
 
 return;
 
 }
 
 
-let studentData=null;
+
+let data;
 
 
-studentSnap.forEach((item)=>{
+snap.forEach((item)=>{
 
-studentData=item.data();
+data=item.data();
 
 });
 
 
-console.log("STUDENT DATA:",studentData);
 
-
-setText(
+text(
 "studentName",
-"Welcome "+(studentData.name || "Student")
+"Welcome "+(data.name || "Student")
 );
 
 
-setText(
+text(
 "studentEmail",
-studentData.email || currentEmail
+data.email || currentEmail
 );
 
 
-setText(
+text(
 "studentCourse",
-studentData.course || "No Course"
+data.course || "No Course"
 );
 
 
-setText(
+text(
 "studentPhone",
-studentData.phone || "Not Added"
+data.phone || "Not Added"
 );
 
 
-setText(
+text(
 "studentDate",
-studentData.date || "Not Available"
+data.date || "Not Available"
 );
 
 
-if(studentData.image){
 
-setImage(
-"studentImage",
-studentData.image
-);
+if(data.image){
+
+document.getElementById("studentImage").src=data.image;
 
 }
+
 
 
 await loadProgress();
@@ -495,35 +705,19 @@ await loadMaterials();
 
 await loadReplies();
 
-await loadVideos();
-
-await loadPDFs();
-
-await loadAnnouncements();
-
-  
-
-}
-
-catch(error){
-
-console.error("DASHBOARD ERROR:",error);
-
-setText(
-"studentName",
-"Loading Error"
-);
-
-}
 
 });
 
 
+
+
+
+
+
 async function loadProgress(){
 
-try{
 
-const progressRef=doc(
+const ref=doc(
 
 db,
 
@@ -534,40 +728,35 @@ currentEmail
 );
 
 
-const progressSnap=await getDoc(progressRef);
+const snap=await getDoc(ref);
 
 
-if(progressSnap.exists()){
+
+if(snap.exists()){
+
 
 completedLessons=
-progressSnap.data().completedLessons || [];
+
+snap.data().completedLessons || [];
+
 
 }
-else{
 
-completedLessons=[];
-
-}
 
 
 updateProgress();
 
-}
-
-catch(error){
-
-console.error("PROGRESS ERROR:",error);
-
-completedLessons=[];
-
-updateProgress();
 
 }
 
-}
+
+
+
+
 
 
 function updateProgress(){
+
 
 let percent=0;
 
@@ -576,62 +765,72 @@ if(totalLessons>0){
 
 percent=Math.round(
 
-(completedLessons.length / totalLessons) * 100
+(completedLessons.length/totalLessons)*100
 
 );
 
 }
 
 
-if(percent>100){
-percent=100;
-}
 
-
-setText(
+text(
 "progressPercent",
 percent+"%"
 );
 
 
-setText(
+text(
 "progressText",
-"Completed Lessons: "+
-completedLessons.length+
-" / "+
-totalLessons
+
+"Completed Lessons: "
+
++completedLessons.length+
+
+" / "
+
++totalLessons
+
 );
 
 
-const fill=document.getElementById("progressFill");
 
-if(fill){
+document.getElementById("progressFill")
+.style.width=percent+"%";
 
-fill.style.width=percent+"%";
-
-}
 
 }
+
+
+
+
+
+
+
 
 
 async function loadMaterials(){
 
-const videoBox=
-document.getElementById("videoList");
-
-const pdfBox=
-document.getElementById("pdfList");
-
-const announcementBox=
-document.getElementById("announcementList");
 
 
-videoBox.innerHTML="";
-pdfBox.innerHTML="";
-announcementBox.innerHTML="";
+let video=document.getElementById("videoList");
+
+let pdf=document.getElementById("pdfList");
+
+let announcement=document.getElementById("announcementList");
 
 
-try{
+
+video.innerHTML="";
+
+pdf.innerHTML="";
+
+announcement.innerHTML="";
+
+
+
+totalLessons=0;
+
+
 
 const snap=await getDocs(
 
@@ -640,294 +839,178 @@ collection(db,"materials")
 );
 
 
-totalLessons=0;
-
-let videoCount=0;
-let pdfCount=0;
-let announcementCount=0;
-
 
 snap.forEach((item)=>{
 
-const data=item.data();
 
-const type=(data.type || "")
-.toLowerCase()
-.trim();
+let data=item.data();
+
+
+let type=(data.type || "")
+.toLowerCase();
+
 
 
 if(type==="video"){
 
-videoCount++;
+
 totalLessons++;
 
 
-const title=
-data.title || "Video Lesson";
+video.innerHTML+=`
+
+<div class="material-card">
 
 
-const done=
-completedLessons.includes(title);
+<div class="material-title">
+
+${data.title || "Video Lesson"}
+
+</div>
 
 
-const card=document.createElement("div");
+<a class="link"
 
-card.className=
-"material-card"+
-(done ? " completed" : "");
+href="${data.link || '#'}"
 
+target="_blank">
 
-const titleEl=
-document.createElement("div");
+▶ Watch Video
 
-titleEl.className="material-title";
-
-titleEl.textContent=
-data.lesson
-? data.lesson+" - "+title
-: title;
+</a>
 
 
-card.appendChild(titleEl);
+<br><br>
 
 
-if(data.link){
+<button onclick="completeLesson('${data.title}')">
 
-const link=
-document.createElement("a");
+Complete Lesson
 
-link.className="link";
-link.href=data.link;
-link.target="_blank";
-link.rel="noopener noreferrer";
-link.textContent="▶ Watch Online";
+</button>
 
-card.appendChild(link);
+
+</div>
+
+`;
 
 }
 
 
-const break1=
-document.createElement("br");
-
-const break2=
-document.createElement("br");
-
-card.appendChild(break1);
-card.appendChild(break2);
 
 
-const btn=
-document.createElement("button");
-
-btn.textContent=
-done
-? "✅ Completed"
-: "Complete Lesson";
+if(type==="pdf"){
 
 
-btn.addEventListener(
-"click",
-()=>completeLesson(title)
-);
+pdf.innerHTML+=`
+
+<div class="material-card">
 
 
-card.appendChild(btn);
+<div class="material-title">
+
+${data.title || "PDF"}
+
+</div>
 
 
-videoBox.appendChild(card);
+<a class="link"
 
-}
+href="${data.link || '#'}"
 
+target="_blank">
 
-else if(type==="pdf"){
+📄 View PDF
 
-pdfCount++;
-
-
-const card=
-document.createElement("div");
-
-card.className="material-card";
+</a>
 
 
-const titleEl=
-document.createElement("div");
+</div>
 
-titleEl.className="material-title";
-
-titleEl.textContent=
-data.title || "PDF Material";
-
-
-card.appendChild(titleEl);
-
-
-if(data.link){
-
-const link=
-document.createElement("a");
-
-link.className="link";
-
-link.href=data.link;
-
-link.target="_blank";
-
-link.rel="noopener noreferrer";
-
-link.textContent="📄 View PDF Online";
-
-card.appendChild(link);
-
-}
-else{
-
-const p=
-document.createElement("p");
-
-p.className="empty";
-
-p.textContent=
-"PDF link not available";
-
-card.appendChild(p);
+`;
 
 }
 
 
-pdfBox.appendChild(card);
+
+
+if(type==="announcement"){
+
+
+announcement.innerHTML+=`
+
+<div class="material-card">
+
+
+<div class="material-title">
+
+${data.title || "Announcement"}
+
+</div>
+
+
+<p>
+
+${data.description || data.message || ""}
+
+</p>
+
+
+</div>
+
+`;
 
 }
 
 
-else if(type==="announcement"){
-
-announcementCount++;
-
-
-const card=
-document.createElement("div");
-
-card.className="material-card";
-
-
-const titleEl=
-document.createElement("div");
-
-titleEl.className="material-title";
-
-titleEl.textContent=
-data.title || "Announcement";
-
-
-card.appendChild(titleEl);
-
-
-const message=
-data.description ||
-data.message ||
-data.content ||
-"";
-
-
-if(message){
-
-const p=
-document.createElement("p");
-
-p.textContent=message;
-
-card.appendChild(p);
-
-}
-
-
-if(data.link){
-
-const link=
-document.createElement("a");
-
-link.className="link";
-
-link.href=data.link;
-
-link.target="_blank";
-
-link.rel="noopener noreferrer";
-
-link.textContent="Open Link";
-
-card.appendChild(link);
-
-}
-
-
-announcementBox.appendChild(card);
-
-}
 
 });
 
 
-if(videoCount===0){
 
-videoBox.innerHTML=
-"<p class='empty'>No Video Lessons Available</p>";
+if(video.innerHTML===""){
 
-}
-
-
-if(pdfCount===0){
-
-pdfBox.innerHTML=
-"<p class='empty'>No PDF Materials Available</p>";
+video.innerHTML="<p class='empty'>No Videos</p>";
 
 }
 
 
-if(announcementCount===0){
+if(pdf.innerHTML===""){
 
-announcementBox.innerHTML=
-"<p class='empty'>No Announcements Yet</p>";
+pdf.innerHTML="<p class='empty'>No PDFs</p>";
 
 }
+
+
+if(announcement.innerHTML===""){
+
+announcement.innerHTML="<p class='empty'>No Announcements</p>";
+
+}
+
 
 
 updateProgress();
 
-}
-
-catch(error){
-
-console.error("MATERIAL ERROR:",error);
-
-
-videoBox.innerHTML=
-"<p class='empty'>Unable to load videos</p>";
-
-
-pdfBox.innerHTML=
-"<p class='empty'>Unable to load PDFs</p>";
-
-
-announcementBox.innerHTML=
-"<p class='empty'>Unable to load announcements</p>";
-
-}
 
 }
 
 
-async function completeLesson(title){
 
-try{
+
+
+
+
+
+window.completeLesson=async function(title){
+
 
 if(!completedLessons.includes(title)){
 
 completedLessons.push(title);
 
 }
+
 
 
 await setDoc(
@@ -947,153 +1030,129 @@ completedLessons:completedLessons
 );
 
 
-await loadMaterials();
+
+alert("Lesson Completed ✅");
+
+
+loadMaterials();
+
 
 }
 
-catch(error){
 
-console.error(
-"COMPLETE LESSON ERROR:",
-error
-);
 
-alert(
-"Could not save lesson progress."
-);
 
-}
 
-}
+
+
 
 
 async function loadReplies(){
 
-const box=
-document.getElementById("replyList");
+
+
+let box=document.getElementById("replyList");
 
 
 box.innerHTML="";
 
 
-try{
-
-const feedbackQuery=query(
+const q=query(
 
 collection(db,"feedback"),
 
-where(
-"studentEmail",
-"==",
-currentEmail
-)
+where("studentEmail","==",currentEmail)
 
 );
 
 
-const snap=
-await getDocs(feedbackQuery);
+
+const snap=await getDocs(q);
 
 
-let replyCount=0;
+
+let found=false;
+
 
 
 snap.forEach((item)=>{
 
-const data=item.data();
+
+let data=item.data();
 
 
-if(
-data.reply &&
-data.reply.trim()!==""
-){
-
-replyCount++;
+if(data.reply){
 
 
-const reply=
-document.createElement("div");
-
-reply.className="reply-box";
+found=true;
 
 
-const heading=
-document.createElement("b");
+box.innerHTML+=`
 
-heading.textContent=
-"Admin Reply:";
+<div class="reply-box">
 
+<b>Admin Reply:</b>
 
-const message=
-document.createElement("p");
+<br><br>
 
-message.textContent=
-data.reply;
+${data.reply}
 
+</div>
 
-reply.appendChild(heading);
-
-reply.appendChild(message);
-
-box.appendChild(reply);
+`;
 
 }
+
 
 });
 
 
-if(replyCount===0){
+
+if(!found){
 
 box.innerHTML=
-"<p class='empty'>No Replies Yet...</p>";
 
-}
-
-}
-
-catch(error){
-
-console.error(
-"REPLIES ERROR:",
-error
-);
-
-
-box.innerHTML=
-"<p class='empty'>Unable to load replies</p>";
-
-}
+"<p class='empty'>No Replies Yet</p>";
 
 }
 
 
-async function sendFeedback(){
 
-const box=
-document.getElementById("feedbackText");
-
-const msg=
-document.getElementById("feedbackMessage");
+}
 
 
-const value=
-box.value.trim();
+
+
+
+
+
+
+
+document
+
+.getElementById("feedbackBtn")
+
+.onclick=async()=>{
+
+
+let box=document.getElementById("feedbackText");
+
+
+let msg=document.getElementById("feedbackMessage");
+
+
+let value=box.value.trim();
+
 
 
 if(value===""){
 
-msg.textContent=
-"Write your feedback first";
+msg.textContent="Write feedback first";
 
 return;
 
 }
 
-
-try{
-
-msg.textContent=
-"Sending...";
 
 
 await addDoc(
@@ -1115,192 +1174,42 @@ time:serverTimestamp()
 );
 
 
-msg.textContent=
-"Feedback Sent Successfully ✅";
+
+msg.textContent="Feedback Sent Successfully ✅";
 
 
 box.value="";
 
 
-await loadReplies();
-
-}
-
-catch(error){
-
-console.error(
-"FEEDBACK ERROR:",
-error
-);
+};
 
 
-msg.textContent=
-"Could not send feedback";
 
-}
 
-}
+
+
 
 
 document
-.getElementById("feedbackBtn")
-.addEventListener(
-"click",
-sendFeedback
-);
 
-
-document
 .getElementById("logoutBtn")
-.addEventListener(
-"click",
-async()=>{
 
-try{
+.onclick=async()=>{
+
 
 await signOut(auth);
 
-window.location.href=
-"student-login.html";
 
-}
+window.location.href="student-login.html";
 
-catch(error){
 
-console.error(
-"LOGOUT ERROR:",
-error
-);
+};
 
-}
 
-}
-);
 
-async function loadVideos(){
-
-let box=document.getElementById("videoList");
-
-if(!box)return;
-
-box.innerHTML="";
-
-
-const snap=await getDocs(collection(db,"materials"));
-
-
-snap.forEach((item)=>{
-
-let data=item.data();
-
-
-if(data.type==="video"){
-
-box.innerHTML += `
-
-<div class="lesson-card">
-
-<b>${data.title}</b><br>
-
-<a href="${data.link}" target="_blank">
-▶ Watch Video
-</a>
-
-</div>
-
-`;
-
-}
-
-});
-
-}
-
-
-
-async function loadPDFs(){
-
-let box=document.getElementById("pdfList");
-
-if(!box)return;
-
-
-box.innerHTML="";
-
-
-const snap=await getDocs(collection(db,"materials"));
-
-
-snap.forEach((item)=>{
-
-let data=item.data();
-
-
-if(data.type==="pdf"){
-
-box.innerHTML += `
-
-<div class="lesson-card">
-
-<b>${data.title}</b><br>
-
-<a href="${data.link}" target="_blank">
-📄 View PDF
-</a>
-
-</div>
-
-`;
-
-}
-
-});
-
-}
-
-
-
-
-async function loadAnnouncements(){
-
-let box=document.getElementById("announcementList");
-
-if(!box)return;
-
-
-box.innerHTML="";
-
-
-const snap=await getDocs(collection(db,"materials"));
-
-
-snap.forEach((item)=>{
-
-let data=item.data();
-
-
-if(data.type==="announcement"){
-
-box.innerHTML += `
-
-<div class="lesson-card">
-
-${data.title}
-
-</div>
-
-`;
-
-}
-
-});
-
-}
-
-
-
-  
 </script>
 
+
 </body>
+
 </html>
