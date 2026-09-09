@@ -249,12 +249,15 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 
-
-
-
-
-
 window.loginStudent = async function(){
+
+console.log("LOGIN BUTTON CLICKED");
+
+let email=document.getElementById("email").value.trim();
+
+let password=document.getElementById("password").value;
+
+console.log("EMAIL:",email);
 
 
 
