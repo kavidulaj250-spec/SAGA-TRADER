@@ -9,6 +9,7 @@
 
 <title>SAGATRADING Student Login</title>
 
+
 <style>
 
 *{
@@ -18,10 +19,12 @@ box-sizing:border-box;
 font-family:Arial,sans-serif;
 }
 
+
 body{
 
 background:#020617;
 color:white;
+
 height:100vh;
 
 display:flex;
@@ -29,6 +32,7 @@ justify-content:center;
 align-items:center;
 
 }
+
 
 
 .login-box{
@@ -48,12 +52,23 @@ text-align:center;
 }
 
 
+
 h2{
 
 color:#00bfff;
+
 font-size:30px;
 
 }
+
+
+
+h3{
+
+margin-top:10px;
+
+}
+
 
 
 input{
@@ -115,6 +130,7 @@ color:#00ff88;
 }
 
 
+
 </style>
 
 
@@ -129,26 +145,36 @@ color:#00ff88;
 
 
 <h2>
+
 SAGATRADING
+
 </h2>
 
 
 <h3>
+
 Student Login
+
 </h3>
 
 
 
-<input 
+<input
+
 id="email"
+
 type="email"
+
 placeholder="Student Email">
 
 
 
-<input 
+<input
+
 id="password"
+
 type="password"
+
 placeholder="Password">
 
 
@@ -164,8 +190,10 @@ LOGIN
 <p id="message"></p>
 
 
+
 </div>
-<script type="module">
+
+  <script type="module">
 
 
 import { initializeApp }
@@ -173,15 +201,21 @@ import { initializeApp }
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
 
+
 import {
 
 getAuth,
 
-signInWithEmailAndPassword
+signInWithEmailAndPassword,
+
+setPersistence,
+
+browserLocalPersistence
 
 }
 
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
 
 
 import {
@@ -204,10 +238,11 @@ from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
 
+
 const firebaseConfig = {
 
 
-apiKey:"AIzaSyD1vUF2PEwbcKsd1EhnxITRs_z_GZ689VQ",
+apiKey:"AIzaD1vUF2PEwbcKsd1EhnxITRs_z_GZ689VQ",
 
 authDomain:"sagatrading-mentorship.firebaseapp.com",
 
@@ -219,8 +254,8 @@ messagingSenderId:"832507974614",
 
 appId:"1:832507974614:web:6ad7b3f941d348a7388a77"
 
-
 };
+
 
 
 
@@ -236,14 +271,32 @@ const db = getFirestore(app);
 
 
 
-alert("SCRIPT LOADED");
+
+// Keep user logged in
+
+setPersistence(auth,browserLocalPersistence)
+
+.then(()=>{
+
+console.log("Auth Persistence Enabled");
+
+})
+
+.catch((error)=>{
+
+console.log(error);
+
+});
+
+
+
+
+
+
+
 
 
 window.loginStudent = async function(){
-
-
-
-console.log("LOGIN BUTTON CLICKED");
 
 
 
@@ -273,6 +326,7 @@ return;
 
 
 
+
 message.innerHTML="Checking...";
 
 
@@ -280,8 +334,8 @@ message.innerHTML="Checking...";
 
 
 
-
 try{
+
 
 
 const userCredential = await signInWithEmailAndPassword(
@@ -297,13 +351,21 @@ password
 
 
 
-console.log("Firebase Login OK");
+console.log(
+
+"Firebase Login OK",
+
+userCredential.user.email
+
+);
 
 
 
 
 
-const q = query(
+
+
+const q=query(
 
 collection(db,"students"),
 
@@ -315,8 +377,7 @@ where("email","==",email)
 
 
 
-
-const snapshot = await getDocs(q);
+const snapshot=await getDocs(q);
 
 
 
@@ -338,17 +399,14 @@ return;
 
 
 
-
-let student = null;
-
-
+let student;
 
 
 
 snapshot.forEach((doc)=>{
 
 
-student = doc.data();
+student=doc.data();
 
 
 });
@@ -358,20 +416,18 @@ student = doc.data();
 
 
 
-
-console.log(student);
-
-
-
-
-
-
-
-if(student.status === "approved"){
+if(student.status==="approved"){
 
 
 
 message.innerHTML="Login Successful ✅";
+
+
+
+// make sure auth is saved
+
+await auth.currentUser.reload();
+
 
 
 
@@ -381,20 +437,23 @@ setTimeout(()=>{
 window.location.href="student-dashboard.html";
 
 
-},1000);
+},500);
 
 
 
 }
 
+
+
 else{
+
 
 
 message.innerHTML="Waiting For Admin Approval";
 
 
-}
 
+}
 
 
 
@@ -410,7 +469,7 @@ console.log(error);
 
 
 
-message.innerHTML =
+message.innerHTML=
 
 "Login Failed : "+error.code;
 
@@ -424,8 +483,8 @@ message.innerHTML =
 
 
 
-
 </script>
+
 
 
 </body>
