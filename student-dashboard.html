@@ -23,6 +23,7 @@ font-family:Arial,sans-serif;
 }
 
 
+
 body{
 
 background:#020617;
@@ -62,13 +63,9 @@ padding:40px 10%;
 .card{
 
 background:#071426;
-
 border:1px solid #00bfff;
-
 border-radius:20px;
-
 padding:30px;
-
 margin:25px 0;
 
 }
@@ -78,26 +75,7 @@ margin:25px 0;
 .card h2{
 
 color:#00bfff;
-
 margin-bottom:20px;
-
-}
-
-
-
-.card li{
-
-list-style:none;
-
-background:#020617;
-
-padding:15px;
-
-margin:15px 0;
-
-border-radius:15px;
-
-border:1px solid #00bfff;
 
 }
 
@@ -106,19 +84,12 @@ border:1px solid #00bfff;
 .btn{
 
 padding:12px 30px;
-
 background:#00bfff;
-
 color:black;
-
 border-radius:30px;
-
 border:none;
-
 font-weight:bold;
-
 cursor:pointer;
-
 text-decoration:none;
 
 }
@@ -128,18 +99,58 @@ text-decoration:none;
 .logout{
 
 background:red;
-
 color:white;
 
 }
 
 
 
-.link{
+.profile{
+
+text-align:center;
+
+}
+
+
+
+.profile p{
+
+margin:12px 0;
+
+}
+
+
+
+.profile span{
 
 color:#00ff88;
+font-weight:bold;
 
-text-decoration:none;
+}
+
+
+
+.lesson-card{
+
+background:#020617;
+
+border:1px solid #00bfff;
+
+border-radius:15px;
+
+padding:20px;
+
+margin:15px 0;
+
+}
+
+
+
+.lesson-title{
+
+font-size:18px;
+
+color:#00ff88;
 
 font-weight:bold;
 
@@ -147,7 +158,15 @@ font-weight:bold;
 
 
 
-.complete-btn{
+.lesson-info{
+
+margin-top:10px;
+
+}
+
+
+
+.lesson-btn{
 
 margin-top:15px;
 
@@ -169,29 +188,49 @@ cursor:pointer;
 
 
 
-.profile{
+.completed{
 
-text-align:center;
-
-}
-
-
-
-.profile p{
-
-margin:12px 0;
-
-font-size:16px;
+border:2px solid #00ff88;
 
 }
 
 
 
-.profile span{
+.completed .lesson-btn{
+
+background:#555;
+
+color:white;
+
+}
+
+
+
+.link{
 
 color:#00ff88;
 
+text-decoration:none;
+
 font-weight:bold;
+
+}
+
+
+
+.card li{
+
+list-style:none;
+
+background:#020617;
+
+padding:15px;
+
+margin:15px 0;
+
+border-radius:15px;
+
+border:1px solid #00bfff;
 
 }
 
@@ -239,20 +278,6 @@ border:1px solid #00bfff;
 
 border-radius:15px;
 
-resize:none;
-
-}
-
-
-
-#feedbackMessage{
-
-margin-top:15px;
-
-color:#00ff88;
-
-font-weight:bold;
-
 }
 
 
@@ -263,40 +288,31 @@ background:#020617;
 
 border:1px solid #00bfff;
 
-border-radius:15px;
-
 padding:15px;
+
+border-radius:15px;
 
 margin:10px 0;
 
 }
 
 
-
 </style>
-
 
 </head>
 
 
 <body>
-
-
-
-<div class="header">
+  <div class="header">
 
 
 <h1>
-
 SAGATRADING STUDENT AREA
-
 </h1>
 
 
 <p>
-
 Welcome to your learning dashboard
-
 </p>
 
 
@@ -311,7 +327,14 @@ LOGOUT
 
 
 </div>
+
+
+
+
+
 <div class="container">
+
+
 
 
 
@@ -344,7 +367,6 @@ Loading Student...
 
 
 
-
 <p>
 📧 Email:
 
@@ -355,7 +377,6 @@ Loading...
 </span>
 
 </p>
-
 
 
 
@@ -372,7 +393,6 @@ Loading...
 
 
 
-
 <p>
 📱 Phone:
 
@@ -383,7 +403,6 @@ Loading...
 </span>
 
 </p>
-
 
 
 
@@ -410,20 +429,25 @@ Loading...
 
 <div class="card">
 
+
 <h2>
-🎥 Course Videos
+🎥 Course Lessons
 </h2>
 
 
-<ul id="videoList">
 
-<li class="empty">
+<div id="videoList">
 
-Loading Videos...
 
-</li>
+<p class="empty">
 
-</ul>
+Loading Lessons...
+
+</p>
+
+
+</div>
+
 
 </div>
 
@@ -435,12 +459,15 @@ Loading Videos...
 
 <div class="card">
 
+
 <h2>
 📚 PDF Materials
 </h2>
 
 
+
 <ul id="pdfList">
+
 
 <li class="empty">
 
@@ -448,7 +475,9 @@ Loading PDFs...
 
 </li>
 
+
 </ul>
+
 
 </div>
 
@@ -460,12 +489,15 @@ Loading PDFs...
 
 <div class="card">
 
+
 <h2>
 📢 Announcements
 </h2>
 
 
+
 <ul id="announcementList">
+
 
 <li class="empty">
 
@@ -473,7 +505,9 @@ Loading Announcements...
 
 </li>
 
+
 </ul>
+
 
 </div>
 
@@ -496,6 +530,7 @@ Loading Announcements...
 0%
 
 </h1>
+
 
 
 <p id="progressText">
@@ -521,11 +556,15 @@ Completed Lessons: 0 / 0
 </h2>
 
 
+
 <textarea id="feedbackText"
+
 placeholder="Write your feedback here..."></textarea>
 
 
+
 <br><br>
+
 
 
 <button class="btn" onclick="sendFeedback()">
@@ -533,6 +572,7 @@ placeholder="Write your feedback here..."></textarea>
 SEND FEEDBACK
 
 </button>
+
 
 
 <p id="feedbackMessage"></p>
@@ -554,7 +594,9 @@ SEND FEEDBACK
 </h2>
 
 
+
 <div id="replyList">
+
 
 <p class="empty">
 
@@ -589,7 +631,9 @@ Contact SAGATRADING WhatsApp
 </p>
 
 
+
 <br>
+
 
 
 <a class="btn"
@@ -601,7 +645,12 @@ WhatsApp Support
 </a>
 
 
+
 </div>
+
+
+
+
 
 
 </div>
@@ -611,6 +660,7 @@ WhatsApp Support
 import { initializeApp }
 
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
 
 
 import {
@@ -661,7 +711,7 @@ from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 const firebaseConfig = {
 
 
-apiKey:"AIzaSyD1vUF2PEwbcKsd1EhnxITRs_z_GZ689VQ",
+apiKey:"AIzaD1vUF2PEwbcKsd1EhnxITRs_z_GZ689VQ",
 
 authDomain:"sagatrading-mentorship.firebaseapp.com",
 
@@ -689,11 +739,14 @@ const db = getFirestore(app);
 
 
 
+
+
 let currentEmail="";
 
 let completedLessons=[];
 
 let totalLessons=0;
+
 
 
 
@@ -748,7 +801,7 @@ let data=doc.data();
 
 document.getElementById("studentName").innerHTML=
 
-"Welcome " + (data.name || "Student");
+"Welcome "+(data.name || "Student");
 
 
 
@@ -778,9 +831,7 @@ data.date || "Not Available";
 
 if(data.image){
 
-
 document.getElementById("studentImage").src=data.image;
-
 
 }
 
@@ -795,7 +846,7 @@ document.getElementById("studentImage").src=data.image;
 await loadProgress();
 
 
-loadMaterials();
+loadLessons();
 
 
 loadReplies();
@@ -812,104 +863,7 @@ loadReplies();
 
 
 
-async function loadReplies(){
-
-
-const replyList=document.getElementById("replyList");
-
-
-replyList.innerHTML="";
-
-
-
-const q=query(
-
-collection(db,"feedback"),
-
-where("studentEmail","==",currentEmail)
-
-);
-
-
-
-
-const snapshot=await getDocs(q);
-
-
-
-
-if(snapshot.empty){
-
-
-replyList.innerHTML=
-
-"<p class='empty'>No Replies Yet...</p>";
-
-
-return;
-
-
-}
-
-
-
-snapshot.forEach((item)=>{
-
-
-let data=item.data();
-
-
-
-if(data.reply){
-
-
-
-replyList.innerHTML+=`
-
-
-<div class="reply-box">
-
-
-<b>
-
-Admin Reply:
-
-</b>
-
-
-<br><br>
-
-
-${data.reply}
-
-
-</div>
-
-
-`;
-
-
-
-}
-
-
-
-});
-
-
-
-}
-
-
-
-
-
-
-
-
-
 async function loadProgress(){
-
 
 
 const progressRef=doc(
@@ -924,16 +878,16 @@ currentEmail
 
 
 
-const progressSnap=await getDoc(progressRef);
+const snap=await getDoc(progressRef);
 
 
 
-if(progressSnap.exists()){
+if(snap.exists()){
 
 
 completedLessons=
 
-progressSnap.data().completedLessons || [];
+snap.data().completedLessons || [];
 
 
 }
@@ -941,7 +895,6 @@ progressSnap.data().completedLessons || [];
 
 
 updateProgress();
-
 
 
 }
@@ -957,6 +910,7 @@ updateProgress();
 function updateProgress(){
 
 
+
 let percent=0;
 
 
@@ -966,7 +920,7 @@ if(totalLessons>0){
 
 percent=Math.round(
 
-(completedLessons.length/totalLessons)*100
+(completedLessons.length / totalLessons)*100
 
 );
 
@@ -1003,7 +957,7 @@ document.getElementById("progressText").innerHTML=
 
 
 
-async function loadMaterials(){
+async function loadLessons(){
 
 
 
@@ -1015,20 +969,11 @@ collection(db,"materials")
 
 
 
-
 let videoList=document.getElementById("videoList");
-
-let pdfList=document.getElementById("pdfList");
-
-let announcementList=document.getElementById("announcementList");
 
 
 
 videoList.innerHTML="";
-
-pdfList.innerHTML="";
-
-announcementList.innerHTML="";
 
 
 
@@ -1045,31 +990,41 @@ let data=item.data();
 
 
 
-
-
 if(data.type==="video"){
+
 
 
 totalLessons++;
 
 
 
-videoList.innerHTML+=`
+let done = completedLessons.includes(data.title);
 
 
-<li>
+
+videoList.innerHTML += `
 
 
-<b>
+<div class="lesson-card ${done ? "completed":""}">
 
-${data.lesson || ""}
 
-${data.title}
+<div class="lesson-title">
 
-</b>
+
+${data.lesson || "Lesson"}
 
 
 <br>
+
+
+${data.title}
+
+
+</div>
+
+
+
+<div class="lesson-info">
 
 
 📂 Category:
@@ -1081,112 +1036,40 @@ ${data.category || "General"}
 <br><br>
 
 
+
 <a class="link"
 
 href="${data.link}"
 
 target="_blank">
 
-▶ Watch Video
+▶ Watch Lesson
 
 </a>
 
 
-<br><br>
+
+</div>
 
 
-<button class="complete-btn"
 
-onclick="completeLesson('${data.title}')">
 
-✅ Complete Lesson
+
+<button class="lesson-btn"
+
+onclick="completeLesson('${data.title}')"
+
+${done ? "disabled":""}>
+
+
+${done ? "✅ Completed":"Complete Lesson"}
+
 
 </button>
 
 
-</li>
 
-
-`;
-
-
-
-}
-
-
-
-
-
-
-
-else if(data.type==="pdf"){
-
-
-
-pdfList.innerHTML+=`
-
-
-<li>
-
-
-<b>${data.title}</b>
-
-
-<br>
-
-
-${data.description || ""}
-
-
-<br><br>
-
-
-<a class="link"
-
-href="${data.link}"
-
-target="_blank">
-
-📥 Download PDF
-
-</a>
-
-
-</li>
-
-
-`;
-
-
-
-}
-
-
-
-
-
-
-
-else if(data.type==="announcement"){
-
-
-
-announcementList.innerHTML+=`
-
-
-<li>
-
-
-<b>${data.title}</b>
-
-
-<br>
-
-
-${data.description || ""}
-
-
-</li>
+</div>
 
 
 `;
@@ -1200,6 +1083,18 @@ ${data.description || ""}
 });
 
 
+
+
+
+if(totalLessons===0){
+
+
+videoList.innerHTML=
+
+"<p class='empty'>No Lessons Available</p>";
+
+
+}
 
 
 
@@ -1231,6 +1126,8 @@ completedLessons.push(title);
 
 
 
+
+
 await setDoc(
 
 doc(db,"progress",currentEmail),
@@ -1252,7 +1149,100 @@ completedLessons:completedLessons
 alert("Lesson Completed ✅");
 
 
-updateProgress();
+
+loadLessons();
+
+
+}
+
+
+
+
+
+
+
+
+
+async function loadReplies(){
+
+
+
+const replyList=document.getElementById("replyList");
+
+
+replyList.innerHTML="";
+
+
+
+const q=query(
+
+collection(db,"feedback"),
+
+where("studentEmail","==",currentEmail)
+
+);
+
+
+
+
+const snapshot=await getDocs(q);
+
+
+
+if(snapshot.empty){
+
+
+replyList.innerHTML=
+
+"<p class='empty'>No Replies Yet...</p>";
+
+
+return;
+
+
+}
+
+
+
+
+
+snapshot.forEach((item)=>{
+
+
+let data=item.data();
+
+
+
+if(data.reply){
+
+
+replyList.innerHTML += `
+
+
+<div class="reply-box">
+
+
+<b>Admin Reply:</b>
+
+
+<br><br>
+
+
+${data.reply}
+
+
+</div>
+
+
+`;
+
+
+
+}
+
+
+
+});
 
 
 
@@ -1314,8 +1304,6 @@ time:serverTimestamp()
 
 
 
-
-
 msg.innerHTML="Feedback Sent Successfully ✅";
 
 
@@ -1345,6 +1333,7 @@ window.location.href="student-login.html";
 
 
 });
+
 
 
 }
