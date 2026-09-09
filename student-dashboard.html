@@ -88,9 +88,17 @@ margin-bottom:20px;
 
 .card li{
 
-line-height:2;
+list-style:none;
 
-margin:10px;
+background:#020617;
+
+padding:15px;
+
+margin:15px 0;
+
+border-radius:15px;
+
+border:1px solid #00bfff;
 
 }
 
@@ -112,6 +120,8 @@ font-weight:bold;
 
 cursor:pointer;
 
+text-decoration:none;
+
 }
 
 
@@ -131,6 +141,8 @@ color:white;
 color:#00ff88;
 
 text-decoration:none;
+
+font-weight:bold;
 
 }
 
@@ -156,7 +168,6 @@ color:#aaa;
 
 
 </head>
-
 
 
 <body>
@@ -187,6 +198,7 @@ LOGOUT
 
 
 </div>
+
 
 
 
@@ -313,9 +325,7 @@ Loading Announcements...
 
 
 <h1>
-
 0%
-
 </h1>
 
 
@@ -337,9 +347,7 @@ Loading Announcements...
 
 
 <p>
-
 Contact SAGATRADING WhatsApp
-
 </p>
 
 
@@ -405,6 +413,7 @@ from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
 
+
 const firebaseConfig = {
 
 
@@ -422,6 +431,7 @@ appId:"1:832507974614:web:6ad7b3f941d348a7388a77"
 
 
 };
+
 
 
 
@@ -461,7 +471,6 @@ return;
 
 
 
-
 const q = query(
 
 collection(db,"students"),
@@ -469,7 +478,6 @@ collection(db,"students"),
 where("email","==",user.email)
 
 );
-
 
 
 
@@ -494,7 +502,6 @@ let data = doc.data();
 document.getElementById("studentName").innerHTML =
 
 "Welcome " + data.name;
-
 
 
 
@@ -524,11 +531,18 @@ loadMaterials();
 
 
 
+
 async function loadMaterials(){
 
 
 
-const snapshot = await getDocs(collection(db,"materials"));
+const snapshot = await getDocs(
+
+collection(db,"materials")
+
+);
+
+
 
 
 
@@ -537,6 +551,7 @@ let videoList = document.getElementById("videoList");
 let pdfList = document.getElementById("pdfList");
 
 let announcementList = document.getElementById("announcementList");
+
 
 
 
@@ -550,12 +565,12 @@ announcementList.innerHTML="";
 
 
 
+
 let videoCount=0;
 
 let pdfCount=0;
 
 let announcementCount=0;
-
 
 
 
@@ -577,30 +592,47 @@ let item = `
 <li>
 
 
-<b>${data.title || "Untitled"}</b>
+<b>
+
+${data.lesson || ""}
+
+${data.title || "Untitled"}
+
+</b>
+
 
 <br>
+
+
+📂 Category:
+
+${data.category || "General"}
+
+
+
+<br>
+
 
 
 ${data.description || ""}
 
 
-<br>
+
+<br><br>
 
 
-${data.link ? `
 
 <a class="link"
 
-href="${data.link}"
+href="${data.link || '#'}"
 
 target="_blank">
 
-Open Material
+
+${data.type==="pdf" ? "📥 Download PDF" : "▶ Watch Video"}
+
 
 </a>
-
-` : ""}
 
 
 
@@ -620,6 +652,7 @@ if(data.type==="video"){
 
 videoList.innerHTML += item;
 
+
 videoCount++;
 
 
@@ -634,6 +667,7 @@ else if(data.type==="pdf"){
 
 
 pdfList.innerHTML += item;
+
 
 pdfCount++;
 
@@ -650,6 +684,7 @@ else if(data.type==="announcement"){
 
 
 announcementList.innerHTML += item;
+
 
 announcementCount++;
 
@@ -679,8 +714,6 @@ videoList.innerHTML =
 
 
 
-
-
 if(pdfCount===0){
 
 
@@ -690,8 +723,6 @@ pdfList.innerHTML =
 
 
 }
-
-
 
 
 
@@ -734,8 +765,6 @@ window.location.href="student-login.html";
 
 
 }
-
-
 
 
 
