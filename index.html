@@ -1271,7 +1271,74 @@ document.getElementById("rr").innerHTML =
 
 </script>
 
+<script type="module">
 
+import { initializeApp } 
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+import {
+getAuth,
+signInWithEmailAndPassword
+}
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+const firebaseConfig = {
+
+apiKey:"AIzaSyD1vUF2PEwbcKsd1EhnxITRs_z_GZ689VQ",
+authDomain:"sagatrading-mentorship.firebaseapp.com",
+projectId:"sagatrading-mentorship",
+storageBucket:"sagatrading-mentorship.firebasestorage.app",
+messagingSenderId:"832507974614",
+appId:"1:832507974614:web:6ad7b3f941d348a7388a77"
+
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const auth=getAuth(app);
+
+
+
+const btn=document.querySelector(".btn");
+
+
+btn.addEventListener("click",async()=>{
+
+
+let email=document.querySelector('input[type="email"]').value;
+
+let password=document.querySelector('input[type="password"]').value;
+
+
+try{
+
+
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+
+
+window.location.href="student-dashboard.html";
+
+
+}
+
+catch(error){
+
+alert(error.code);
+
+}
+
+
+});
+
+
+</script>
 
 
 
