@@ -130,7 +130,6 @@ color:#00ff88;
 }
 
 
-
 </style>
 
 
@@ -145,36 +144,26 @@ color:#00ff88;
 
 
 <h2>
-
 SAGATRADING
-
 </h2>
 
 
 <h3>
-
 Student Login
-
 </h3>
 
 
 
-<input
-
+<input 
 id="email"
-
 type="email"
-
 placeholder="Student Email">
 
 
 
-<input
-
+<input 
 id="password"
-
 type="password"
-
 placeholder="Password">
 
 
@@ -188,7 +177,6 @@ LOGIN
 
 
 <p id="message"></p>
-
 
 
 </div>
@@ -238,7 +226,6 @@ from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
 
-
 const firebaseConfig = {
 
 
@@ -260,7 +247,6 @@ appId:"1:832507974614:web:6ad7b3f941d348a7388a77"
 
 
 
-
 const app = initializeApp(firebaseConfig);
 
 
@@ -272,22 +258,16 @@ const db = getFirestore(app);
 
 
 
-// Keep user logged in
 
-setPersistence(auth,browserLocalPersistence)
+// Save login session
 
-.then(()=>{
+await setPersistence(
 
-console.log("Auth Persistence Enabled");
+auth,
 
-})
+browserLocalPersistence
 
-.catch((error)=>{
-
-console.log(error);
-
-});
-
+);
 
 
 
@@ -300,13 +280,23 @@ window.loginStudent = async function(){
 
 
 
-let email = document.getElementById("email").value.trim();
+let email = document
+.getElementById("email")
+.value
+.trim();
 
 
-let password = document.getElementById("password").value.trim();
+
+let password = document
+.getElementById("password")
+.value
+.trim();
 
 
-let message = document.getElementById("message");
+
+let message = document
+.getElementById("message");
+
 
 
 
@@ -333,12 +323,11 @@ message.innerHTML="Checking...";
 
 
 
-
 try{
 
 
 
-const userCredential = await signInWithEmailAndPassword(
+const result = await signInWithEmailAndPassword(
 
 auth,
 
@@ -351,11 +340,12 @@ password
 
 
 
+
 console.log(
 
-"Firebase Login OK",
+"LOGIN SUCCESS",
 
-userCredential.user.email
+result.user.email
 
 );
 
@@ -377,7 +367,7 @@ where("email","==",email)
 
 
 
-const snapshot=await getDocs(q);
+const snapshot = await getDocs(q);
 
 
 
@@ -390,6 +380,9 @@ if(snapshot.empty){
 message.innerHTML="Student record not found";
 
 
+await auth.signOut();
+
+
 return;
 
 
@@ -399,14 +392,17 @@ return;
 
 
 
-let student;
+
+let studentData=null;
+
+
 
 
 
 snapshot.forEach((doc)=>{
 
 
-student=doc.data();
+studentData=doc.data();
 
 
 });
@@ -416,7 +412,24 @@ student=doc.data();
 
 
 
-if(student.status==="approved"){
+
+if(studentData.status!=="approved"){
+
+
+message.innerHTML="Waiting For Admin Approval";
+
+
+await auth.signOut();
+
+
+return;
+
+
+}
+
+
+
+
 
 
 
@@ -424,40 +437,32 @@ message.innerHTML="Login Successful ✅";
 
 
 
-// make sure auth is saved
-
-await auth.currentUser.reload();
 
 
+// wait for auth save
 
+await new Promise(
 
-setTimeout(()=>{
+resolve=>setTimeout(resolve,1500)
 
-
-window.location.href="student-dashboard.html";
-
-
-},500);
+);
 
 
 
-}
 
 
 
-else{
+window.location.replace(
 
+"student-dashboard.html"
 
-
-message.innerHTML="Waiting For Admin Approval";
+);
 
 
 
 }
 
 
-
-}
 
 
 
@@ -480,6 +485,7 @@ message.innerHTML=
 
 
 }
+
 
 
 
