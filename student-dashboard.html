@@ -12,16 +12,12 @@
 
 <style>
 
-
 *{
-
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:Arial,sans-serif;
-
 }
-
 
 
 body{
@@ -133,13 +129,9 @@ font-weight:bold;
 .lesson-card{
 
 background:#020617;
-
 border:1px solid #00bfff;
-
 border-radius:15px;
-
 padding:20px;
-
 margin:15px 0;
 
 }
@@ -148,19 +140,9 @@ margin:15px 0;
 
 .lesson-title{
 
-font-size:18px;
-
 color:#00ff88;
-
+font-size:18px;
 font-weight:bold;
-
-}
-
-
-
-.lesson-info{
-
-margin-top:10px;
 
 }
 
@@ -169,19 +151,12 @@ margin-top:10px;
 .lesson-btn{
 
 margin-top:15px;
-
 padding:10px 20px;
-
 background:#00ff88;
-
 color:black;
-
 border:none;
-
 border-radius:20px;
-
 font-weight:bold;
-
 cursor:pointer;
 
 }
@@ -199,7 +174,6 @@ border:2px solid #00ff88;
 .completed .lesson-btn{
 
 background:#555;
-
 color:white;
 
 }
@@ -209,28 +183,8 @@ color:white;
 .link{
 
 color:#00ff88;
-
 text-decoration:none;
-
 font-weight:bold;
-
-}
-
-
-
-.card li{
-
-list-style:none;
-
-background:#020617;
-
-padding:15px;
-
-margin:15px 0;
-
-border-radius:15px;
-
-border:1px solid #00bfff;
 
 }
 
@@ -255,7 +209,6 @@ text-align:center;
 #progressPercent{
 
 color:#00ff88;
-
 font-size:40px;
 
 }
@@ -265,17 +218,11 @@ font-size:40px;
 textarea{
 
 width:100%;
-
 height:120px;
-
 padding:15px;
-
 background:#020617;
-
 color:white;
-
 border:1px solid #00bfff;
-
 border-radius:15px;
 
 }
@@ -285,13 +232,9 @@ border-radius:15px;
 .reply-box{
 
 background:#020617;
-
 border:1px solid #00bfff;
-
-padding:15px;
-
 border-radius:15px;
-
+padding:15px;
 margin:10px 0;
 
 }
@@ -303,16 +246,22 @@ margin:10px 0;
 
 
 <body>
-  <div class="header">
 
+
+
+<div class="header">
 
 <h1>
+
 SAGATRADING STUDENT AREA
+
 </h1>
 
 
 <p>
+
 Welcome to your learning dashboard
+
 </p>
 
 
@@ -333,8 +282,6 @@ LOGOUT
 
 
 <div class="container">
-
-
 
 
 
@@ -418,10 +365,7 @@ Loading...
 </p>
 
 
-
 </div>
-
-
 
 
 
@@ -429,15 +373,12 @@ Loading...
 
 <div class="card">
 
-
 <h2>
 🎥 Course Lessons
 </h2>
 
 
-
 <div id="videoList">
-
 
 <p class="empty">
 
@@ -445,13 +386,10 @@ Loading Lessons...
 
 </p>
 
-
 </div>
 
 
 </div>
-
-
 
 
 
@@ -459,15 +397,12 @@ Loading Lessons...
 
 <div class="card">
 
-
 <h2>
 📚 PDF Materials
 </h2>
 
 
-
 <ul id="pdfList">
-
 
 <li class="empty">
 
@@ -475,13 +410,10 @@ Loading PDFs...
 
 </li>
 
-
 </ul>
 
 
 </div>
-
-
 
 
 
@@ -489,15 +421,12 @@ Loading PDFs...
 
 <div class="card">
 
-
 <h2>
 📢 Announcements
 </h2>
 
 
-
 <ul id="announcementList">
-
 
 <li class="empty">
 
@@ -505,13 +434,10 @@ Loading Announcements...
 
 </li>
 
-
 </ul>
 
 
 </div>
-
-
 
 
 
@@ -532,7 +458,6 @@ Loading Announcements...
 </h1>
 
 
-
 <p id="progressText">
 
 Completed Lessons: 0 / 0
@@ -546,8 +471,6 @@ Completed Lessons: 0 / 0
 
 
 
-
-
 <div class="card">
 
 
@@ -556,15 +479,14 @@ Completed Lessons: 0 / 0
 </h2>
 
 
-
 <textarea id="feedbackText"
 
-placeholder="Write your feedback here..."></textarea>
+placeholder="Write your feedback here...">
 
+</textarea>
 
 
 <br><br>
-
 
 
 <button class="btn" onclick="sendFeedback()">
@@ -572,7 +494,6 @@ placeholder="Write your feedback here..."></textarea>
 SEND FEEDBACK
 
 </button>
-
 
 
 <p id="feedbackMessage"></p>
@@ -584,15 +505,12 @@ SEND FEEDBACK
 
 
 
-
-
 <div class="card">
 
 
 <h2>
 📨 Admin Replies
 </h2>
-
 
 
 <div id="replyList">
@@ -614,8 +532,6 @@ No Replies Yet...
 
 
 
-
-
 <div class="card">
 
 
@@ -631,9 +547,7 @@ Contact SAGATRADING WhatsApp
 </p>
 
 
-
 <br>
-
 
 
 <a class="btn"
@@ -645,11 +559,7 @@ WhatsApp Support
 </a>
 
 
-
 </div>
-
-
-
 
 
 
@@ -669,7 +579,11 @@ getAuth,
 
 onAuthStateChanged,
 
-signOut
+signOut,
+
+setPersistence,
+
+browserLocalPersistence
 
 }
 
@@ -708,6 +622,7 @@ from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
 
+
 const firebaseConfig = {
 
 
@@ -729,6 +644,7 @@ appId:"1:832507974614:web:6ad7b3f941d348a7388a77"
 
 
 
+
 const app = initializeApp(firebaseConfig);
 
 
@@ -737,6 +653,11 @@ const auth = getAuth(app);
 
 const db = getFirestore(app);
 
+
+
+// Keep login active
+
+setPersistence(auth,browserLocalPersistence);
 
 
 
@@ -754,17 +675,21 @@ let totalLessons=0;
 
 
 
-
 onAuthStateChanged(auth, async(user)=>{
 
 
 if(!user){
 
-window.location.href="student-login.html";
+
+console.log("No user logged in");
+
 
 return;
 
+
 }
+
+
 
 
 
@@ -796,6 +721,7 @@ snapshot.forEach((doc)=>{
 
 
 let data=doc.data();
+
 
 
 
@@ -920,7 +846,7 @@ if(totalLessons>0){
 
 percent=Math.round(
 
-(completedLessons.length / totalLessons)*100
+(completedLessons.length/totalLessons)*100
 
 );
 
@@ -972,9 +898,7 @@ collection(db,"materials")
 let videoList=document.getElementById("videoList");
 
 
-
 videoList.innerHTML="";
-
 
 
 totalLessons=0;
@@ -990,6 +914,8 @@ let data=item.data();
 
 
 
+
+
 if(data.type==="video"){
 
 
@@ -998,7 +924,9 @@ totalLessons++;
 
 
 
-let done = completedLessons.includes(data.title);
+let done=completedLessons.includes(data.title);
+
+
 
 
 
@@ -1024,16 +952,7 @@ ${data.title}
 
 
 
-<div class="lesson-info">
-
-
-📂 Category:
-
-${data.category || "General"}
-
-
-
-<br><br>
+<br>
 
 
 
@@ -1049,9 +968,7 @@ target="_blank">
 
 
 
-</div>
-
-
+<br>
 
 
 
@@ -1082,19 +999,6 @@ ${done ? "✅ Completed":"Complete Lesson"}
 
 });
 
-
-
-
-
-if(totalLessons===0){
-
-
-videoList.innerHTML=
-
-"<p class='empty'>No Lessons Available</p>";
-
-
-}
 
 
 
@@ -1153,6 +1057,7 @@ alert("Lesson Completed ✅");
 loadLessons();
 
 
+
 }
 
 
@@ -1185,7 +1090,9 @@ where("studentEmail","==",currentEmail)
 
 
 
+
 const snapshot=await getDocs(q);
+
 
 
 
@@ -1222,7 +1129,11 @@ replyList.innerHTML += `
 <div class="reply-box">
 
 
-<b>Admin Reply:</b>
+<b>
+
+Admin Reply:
+
+</b>
 
 
 <br><br>
@@ -1264,6 +1175,8 @@ let text=document.getElementById("feedbackText").value.trim();
 
 
 let msg=document.getElementById("feedbackMessage");
+
+
 
 
 
@@ -1333,7 +1246,6 @@ window.location.href="student-login.html";
 
 
 });
-
 
 
 }
