@@ -76,10 +76,11 @@ const app=initializeApp(firebaseConfig);
 const auth=getAuth(app);
 const db=getFirestore(app);
 
+console.log("FIREBASE SCRIPT STARTED"); 
 
 document.getElementById("loginBtn").addEventListener("click",async()=>{
 
-console.log("BUTTON READY");
+console.log("LOGIN BUTTON CLICKED");
   
 const email=document.getElementById("email").value.trim().toLowerCase();
 const password=document.getElementById("password").value;
