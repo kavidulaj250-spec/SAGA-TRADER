@@ -79,6 +79,8 @@ const db=getFirestore(app);
 
 document.getElementById("loginBtn").addEventListener("click",async()=>{
 
+console.log("BUTTON READY");
+  
 const email=document.getElementById("email").value.trim().toLowerCase();
 const password=document.getElementById("password").value;
 const message=document.getElementById("message");
