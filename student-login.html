@@ -113,14 +113,6 @@ cursor:pointer;
 
 
 
-button:hover{
-
-background:white;
-
-}
-
-
-
 #message{
 
 margin-top:20px;
@@ -181,13 +173,13 @@ LOGIN
 
 </div>
 
-  <script type="module">
+
+<script type="module">
 
 
 import { initializeApp }
 
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-
 
 
 import {
@@ -203,7 +195,6 @@ browserLocalPersistence
 }
 
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
-
 
 
 import {
@@ -229,7 +220,7 @@ from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 const firebaseConfig = {
 
 
-apiKey:"AIzaD1vUF2PEwbcKsd1EhnxITRs_z_GZ689VQ",
+apiKey:"AIzaSyD1vUF2PEwbcKsd1EhnxITRs_z_GZ689VQ",
 
 authDomain:"sagatrading-mentorship.firebaseapp.com",
 
@@ -239,7 +230,9 @@ storageBucket:"sagatrading-mentorship.firebasestorage.app",
 
 messagingSenderId:"832507974614",
 
-appId:"1:832507974614:web:6ad7b3f941d348a7388a77"
+appId:"1:832507974614:web:6ad7b3f941d348a7388a77",
+
+measurementId:"G-BW06QF70MP"
 
 };
 
@@ -259,44 +252,19 @@ const db = getFirestore(app);
 
 
 
-// Save login session
-
-await setPersistence(
-
-auth,
-
-browserLocalPersistence
-
-);
-
-
-
-
-
-
 
 
 window.loginStudent = async function(){
 
 
 
-let email = document
-.getElementById("email")
-.value
-.trim();
+let email=document.getElementById("email").value.trim();
 
 
-
-let password = document
-.getElementById("password")
-.value
-.trim();
+let password=document.getElementById("password").value.trim();
 
 
-
-let message = document
-.getElementById("message");
-
+let message=document.getElementById("message");
 
 
 
@@ -316,14 +284,25 @@ return;
 
 
 
+try{
+
+
 
 message.innerHTML="Checking...";
 
 
 
+// Enable persistence before login
+
+await setPersistence(
+
+auth,
+
+browserLocalPersistence
+
+);
 
 
-try{
 
 
 
@@ -367,8 +346,7 @@ where("email","==",email)
 
 
 
-const snapshot = await getDocs(q);
-
+const snapshot=await getDocs(q);
 
 
 
@@ -380,9 +358,6 @@ if(snapshot.empty){
 message.innerHTML="Student record not found";
 
 
-await auth.signOut();
-
-
 return;
 
 
@@ -392,17 +367,14 @@ return;
 
 
 
-
-let studentData=null;
-
-
+let student=null;
 
 
 
 snapshot.forEach((doc)=>{
 
 
-studentData=doc.data();
+student=doc.data();
 
 
 });
@@ -412,14 +384,10 @@ studentData=doc.data();
 
 
 
-
-if(studentData.status!=="approved"){
+if(student.status!=="approved"){
 
 
 message.innerHTML="Waiting For Admin Approval";
-
-
-await auth.signOut();
 
 
 return;
@@ -439,31 +407,19 @@ message.innerHTML="Login Successful ✅";
 
 
 
-// wait for auth save
-
-await new Promise(
-
-resolve=>setTimeout(resolve,1500)
-
-);
+setTimeout(()=>{
 
 
+window.location.href="student-dashboard.html";
 
 
+},1000);
 
 
-window.location.replace(
-
-"student-dashboard.html"
-
-);
 
 
 
 }
-
-
-
 
 
 catch(error){
@@ -488,9 +444,7 @@ message.innerHTML=
 
 
 
-
 </script>
-
 
 
 </body>
