@@ -1,3 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SAGATRADING Student Dashboard</title>
+
+
+<style>
+
+
+*{
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+
+}
+
+
+body{
+
+background:#020617;
+color:white;
+
+}
+
+
+
+.header{
+
+background:#020611;
+padding:30px;
+text-align:center;
+border-bottom:1px solid #00bfff;
+
+}
+
+
+
+.header h1{
+
+color:#00bfff;
+
+}
+
+
+
+.container{
+
+padding:40px 10%;
+
+}
+
+
+
+.card{
+
+background:#071426;
+
+border:1px solid #00bfff;
+
+border-radius:20px;
+
+padding:30px;
+
+margin:25px 0;
+
+}
+
+
+
+.card h2{
+
+color:#00bfff;
+
+margin-bottom:20px;
+
+}
+
+
+
+.card li{
+
+list-style:none;
+
+background:#020617;
+
+padding:15px;
+
+margin:15px 0;
+
+border-radius:15px;
+
+border:1px solid #00bfff;
+
+}
+
+
+
+.btn{
+
+padding:12px 30px;
+
+background:#00bfff;
+
+color:black;
+
+border-radius:30px;
+
+border:none;
+
+font-weight:bold;
+
+cursor:pointer;
+
+text-decoration:none;
+
+}
+
+
+
+.logout{
+
+background:red;
+
+color:white;
+
+}
+
+
+
+.link{
+
+color:#00ff88;
+
+text-decoration:none;
+
+font-weight:bold;
+
+}
+
+
+
+.complete-btn{
+
+margin-top:15px;
+
+padding:10px 20px;
+
+background:#00ff88;
+
+color:black;
+
+border:none;
+
+border-radius:20px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+}
+
+
+
+.profile{
+
+text-align:center;
+
+}
+
+
+
+.profile p{
+
+margin:12px 0;
+
+font-size:16px;
+
+}
+
+
+
+.profile span{
+
+color:#00ff88;
+
+font-weight:bold;
+
+}
+
+
+
+.empty{
+
+color:#aaa;
+
+}
+
+
+
+.progress-box{
+
+text-align:center;
+
+}
+
+
+
+#progressPercent{
+
+color:#00ff88;
+
+font-size:40px;
+
+}
+
+
+
+textarea{
+
+width:100%;
+
+height:120px;
+
+padding:15px;
+
+background:#020617;
+
+color:white;
+
+border:1px solid #00bfff;
+
+border-radius:15px;
+
+resize:none;
+
+}
+
+
+
+#feedbackMessage{
+
+margin-top:15px;
+
+color:#00ff88;
+
+font-weight:bold;
+
+}
+
+
+
+.reply-box{
+
+background:#020617;
+
+border:1px solid #00bfff;
+
+border-radius:15px;
+
+padding:15px;
+
+margin:10px 0;
+
+}
+
+
+
+</style>
+
+
+</head>
+
+
+<body>
+
+
+
+<div class="header">
+
+
+<h1>
+
+SAGATRADING STUDENT AREA
+
+</h1>
+
+
+<p>
+
+Welcome to your learning dashboard
+
+</p>
+
+
+<br>
+
+
+<button class="btn logout" onclick="logoutUser()">
+
+LOGOUT
+
+</button>
+
+
+</div>
+<div class="container">
+
+
+
 <div class="card profile">
 
 
@@ -84,139 +401,385 @@ Loading...
 
 
 </div>
-<div class="card profile">
 
+
+
+
+
+
+
+<div class="card">
 
 <h2>
-👤 Student Profile
+🎥 Course Videos
 </h2>
 
 
+<ul id="videoList">
 
-<img id="studentImage"
+<li class="empty">
 
-src="https://via.placeholder.com/120"
+Loading Videos...
 
-style="width:120px;height:120px;border-radius:50%;border:2px solid #00bfff;">
+</li>
 
+</ul>
+
+</div>
+
+
+
+
+
+
+
+<div class="card">
+
+<h2>
+📚 PDF Materials
+</h2>
+
+
+<ul id="pdfList">
+
+<li class="empty">
+
+Loading PDFs...
+
+</li>
+
+</ul>
+
+</div>
+
+
+
+
+
+
+
+<div class="card">
+
+<h2>
+📢 Announcements
+</h2>
+
+
+<ul id="announcementList">
+
+<li class="empty">
+
+Loading Announcements...
+
+</li>
+
+</ul>
+
+</div>
+
+
+
+
+
+
+
+<div class="card progress-box">
+
+
+<h2>
+📊 Course Progress
+</h2>
+
+
+<h1 id="progressPercent">
+
+0%
+
+</h1>
+
+
+<p id="progressText">
+
+Completed Lessons: 0 / 0
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="card">
+
+
+<h2>
+📝 Student Feedback
+</h2>
+
+
+<textarea id="feedbackText"
+placeholder="Write your feedback here..."></textarea>
 
 
 <br><br>
 
 
+<button class="btn" onclick="sendFeedback()">
 
-<h2 id="studentName">
+SEND FEEDBACK
 
-Loading Student...
-
-</h2>
-
+</button>
 
 
-
-<p>
-📧 Email:
-
-<span id="studentEmail">
-
-Loading...
-
-</span>
-
-</p>
-
-
-
-
-<p>
-📚 Course:
-
-<span id="studentCourse">
-
-Loading...
-
-</span>
-
-</p>
-
-
-
-
-<p>
-📱 Phone:
-
-<span id="studentPhone">
-
-Loading...
-
-</span>
-
-</p>
-
-
-
-
-<p>
-📅 Joined:
-
-<span id="studentDate">
-
-Loading...
-
-</span>
-
-</p>
-
+<p id="feedbackMessage"></p>
 
 
 </div>
+
+
+
+
+
+
+
+<div class="card">
+
+
+<h2>
+📨 Admin Replies
+</h2>
+
+
+<div id="replyList">
+
+<p class="empty">
+
+No Replies Yet...
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="card">
+
+
+<h2>
+💬 Student Support
+</h2>
+
+
+<p>
+
+Contact SAGATRADING WhatsApp
+
+</p>
+
+
+<br>
+
+
+<a class="btn"
+
+href="https://wa.me/94740497974">
+
+WhatsApp Support
+
+</a>
+
+
+</div>
+
+
+</div>
+<script type="module">
+
+
+import { initializeApp }
+
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+
+import {
+
+getAuth,
+
+onAuthStateChanged,
+
+signOut
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+
+import {
+
+getFirestore,
+
+collection,
+
+query,
+
+where,
+
+getDocs,
+
+doc,
+
+getDoc,
+
+setDoc,
+
+addDoc,
+
+serverTimestamp
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+
+
+
+
+const firebaseConfig = {
+
+
+apiKey:"AIzaSyD1vUF2PEwbcKsd1EhnxITRs_z_GZ689VQ",
+
+authDomain:"sagatrading-mentorship.firebaseapp.com",
+
+projectId:"sagatrading-mentorship",
+
+storageBucket:"sagatrading-mentorship.firebasestorage.app",
+
+messagingSenderId:"832507974614",
+
+appId:"1:832507974614:web:6ad7b3f941d348a7388a77"
+
+};
+
+
+
+
+
+const app = initializeApp(firebaseConfig);
+
+
+const auth = getAuth(app);
+
+
+const db = getFirestore(app);
+
+
+
+let currentEmail="";
+
+let completedLessons=[];
+
+let totalLessons=0;
+
+
+
+
+
+
+
+
+onAuthStateChanged(auth, async(user)=>{
+
+
+if(!user){
+
+window.location.href="student-login.html";
+
+return;
+
+}
+
+
+
+currentEmail=user.email;
+
+
+
+
+
+const q=query(
+
+collection(db,"students"),
+
+where("email","==",user.email)
+
+);
+
+
+
+
+
+const snapshot=await getDocs(q);
+
+
+
+
+
 snapshot.forEach((doc)=>{
 
 
-let data = doc.data();
+let data=doc.data();
 
 
 
-document.getElementById("studentName").innerHTML =
+document.getElementById("studentName").innerHTML=
 
 "Welcome " + (data.name || "Student");
 
 
 
-
-document.getElementById("studentEmail").innerHTML =
+document.getElementById("studentEmail").innerHTML=
 
 data.email || currentEmail;
 
 
 
-
-document.getElementById("studentCourse").innerHTML =
+document.getElementById("studentCourse").innerHTML=
 
 data.course || "No Course";
 
 
 
-
-document.getElementById("studentPhone").innerHTML =
+document.getElementById("studentPhone").innerHTML=
 
 data.phone || "Not Added";
 
 
 
-
-document.getElementById("studentDate").innerHTML =
+document.getElementById("studentDate").innerHTML=
 
 data.date || "Not Available";
-
-
 
 
 
 if(data.image){
 
 
-document.getElementById("studentImage").src = data.image;
+document.getElementById("studentImage").src=data.image;
 
 
 }
@@ -224,3 +787,573 @@ document.getElementById("studentImage").src = data.image;
 
 
 });
+
+
+
+
+
+await loadProgress();
+
+
+loadMaterials();
+
+
+loadReplies();
+
+
+
+});
+
+
+
+
+
+
+
+
+
+async function loadReplies(){
+
+
+const replyList=document.getElementById("replyList");
+
+
+replyList.innerHTML="";
+
+
+
+const q=query(
+
+collection(db,"feedback"),
+
+where("studentEmail","==",currentEmail)
+
+);
+
+
+
+
+const snapshot=await getDocs(q);
+
+
+
+
+if(snapshot.empty){
+
+
+replyList.innerHTML=
+
+"<p class='empty'>No Replies Yet...</p>";
+
+
+return;
+
+
+}
+
+
+
+snapshot.forEach((item)=>{
+
+
+let data=item.data();
+
+
+
+if(data.reply){
+
+
+
+replyList.innerHTML+=`
+
+
+<div class="reply-box">
+
+
+<b>
+
+Admin Reply:
+
+</b>
+
+
+<br><br>
+
+
+${data.reply}
+
+
+</div>
+
+
+`;
+
+
+
+}
+
+
+
+});
+
+
+
+}
+
+
+
+
+
+
+
+
+
+async function loadProgress(){
+
+
+
+const progressRef=doc(
+
+db,
+
+"progress",
+
+currentEmail
+
+);
+
+
+
+const progressSnap=await getDoc(progressRef);
+
+
+
+if(progressSnap.exists()){
+
+
+completedLessons=
+
+progressSnap.data().completedLessons || [];
+
+
+}
+
+
+
+updateProgress();
+
+
+
+}
+
+
+
+
+
+
+
+
+
+function updateProgress(){
+
+
+let percent=0;
+
+
+
+if(totalLessons>0){
+
+
+percent=Math.round(
+
+(completedLessons.length/totalLessons)*100
+
+);
+
+
+}
+
+
+
+document.getElementById("progressPercent").innerHTML=
+
+percent+"%";
+
+
+
+document.getElementById("progressText").innerHTML=
+
+"Completed Lessons: "
+
++completedLessons.length+
+
+" / "
+
++totalLessons;
+
+
+
+}
+
+
+
+
+
+
+
+
+
+async function loadMaterials(){
+
+
+
+const snapshot=await getDocs(
+
+collection(db,"materials")
+
+);
+
+
+
+
+let videoList=document.getElementById("videoList");
+
+let pdfList=document.getElementById("pdfList");
+
+let announcementList=document.getElementById("announcementList");
+
+
+
+videoList.innerHTML="";
+
+pdfList.innerHTML="";
+
+announcementList.innerHTML="";
+
+
+
+totalLessons=0;
+
+
+
+
+
+snapshot.forEach((item)=>{
+
+
+let data=item.data();
+
+
+
+
+
+if(data.type==="video"){
+
+
+totalLessons++;
+
+
+
+videoList.innerHTML+=`
+
+
+<li>
+
+
+<b>
+
+${data.lesson || ""}
+
+${data.title}
+
+</b>
+
+
+<br>
+
+
+📂 Category:
+
+${data.category || "General"}
+
+
+
+<br><br>
+
+
+<a class="link"
+
+href="${data.link}"
+
+target="_blank">
+
+▶ Watch Video
+
+</a>
+
+
+<br><br>
+
+
+<button class="complete-btn"
+
+onclick="completeLesson('${data.title}')">
+
+✅ Complete Lesson
+
+</button>
+
+
+</li>
+
+
+`;
+
+
+
+}
+
+
+
+
+
+
+
+else if(data.type==="pdf"){
+
+
+
+pdfList.innerHTML+=`
+
+
+<li>
+
+
+<b>${data.title}</b>
+
+
+<br>
+
+
+${data.description || ""}
+
+
+<br><br>
+
+
+<a class="link"
+
+href="${data.link}"
+
+target="_blank">
+
+📥 Download PDF
+
+</a>
+
+
+</li>
+
+
+`;
+
+
+
+}
+
+
+
+
+
+
+
+else if(data.type==="announcement"){
+
+
+
+announcementList.innerHTML+=`
+
+
+<li>
+
+
+<b>${data.title}</b>
+
+
+<br>
+
+
+${data.description || ""}
+
+
+</li>
+
+
+`;
+
+
+
+}
+
+
+
+});
+
+
+
+
+
+updateProgress();
+
+
+
+}
+
+
+
+
+
+
+
+
+
+window.completeLesson=async function(title){
+
+
+
+if(!completedLessons.includes(title)){
+
+
+completedLessons.push(title);
+
+
+}
+
+
+
+await setDoc(
+
+doc(db,"progress",currentEmail),
+
+{
+
+
+studentEmail:currentEmail,
+
+completedLessons:completedLessons
+
+
+}
+
+);
+
+
+
+alert("Lesson Completed ✅");
+
+
+updateProgress();
+
+
+
+}
+
+
+
+
+
+
+
+
+
+window.sendFeedback=async function(){
+
+
+
+let text=document.getElementById("feedbackText").value.trim();
+
+
+let msg=document.getElementById("feedbackMessage");
+
+
+
+if(text===""){
+
+
+msg.innerHTML="Write your feedback first";
+
+
+return;
+
+
+}
+
+
+
+
+
+await addDoc(
+
+collection(db,"feedback"),
+
+{
+
+
+studentEmail:currentEmail,
+
+message:text,
+
+reply:"",
+
+time:serverTimestamp()
+
+
+}
+
+);
+
+
+
+
+
+msg.innerHTML="Feedback Sent Successfully ✅";
+
+
+document.getElementById("feedbackText").value="";
+
+
+}
+
+
+
+
+
+
+
+
+
+window.logoutUser=function(){
+
+
+
+signOut(auth)
+
+.then(()=>{
+
+
+window.location.href="student-login.html";
+
+
+});
+
+
+}
+
+
+
+</script>
+
+
+</body>
+
+</html>
