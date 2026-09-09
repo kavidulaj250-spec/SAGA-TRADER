@@ -322,13 +322,10 @@ window.location.href="admin.html";
 
 catch(error){
 
+console.log("ADMIN LOGIN ERROR:", error.code, error.message);
 
-console.log(error);
-
-
-msg.innerHTML=
-"Login Failed";
-
+msg.innerHTML =
+"Login Failed : " + error.code;
 
 }
 
