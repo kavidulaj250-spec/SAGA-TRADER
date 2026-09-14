@@ -233,6 +233,235 @@ display:inline-block;
 margin-top:20px;
 }
 
+
+/* PREMIUM ANIMATIONS */
+
+html{
+scroll-behavior:smooth;
+}
+
+.hero h1{
+animation: fadeZoom 1.4s ease;
+}
+
+.hero h2{
+animation: slideUp 1.6s ease;
+}
+
+.hero p{
+animation: fadeIn 2s ease;
+}
+
+.btn{
+transition:0.4s;
+animation:pulse 2.5s infinite;
+box-shadow:0 0 15px rgba(0,191,255,0.5);
+}
+
+.btn:hover{
+transform:translateY(-5px) scale(1.05);
+box-shadow:0 0 30px #00bfff;
+}
+
+.course-card{
+transition:0.5s;
+animation:cardShow 1s ease;
+}
+
+.course-card:hover{
+transform:translateY(-12px);
+box-shadow:0 0 35px rgba(0,191,255,0.7);
+}
+
+.logo{
+animation:glow 2s infinite alternate;
+}
+
+.section h2{
+animation:slideUp 1s ease;
+}
+
+@keyframes fadeZoom{
+from{
+opacity:0;
+transform:scale(0.7);
+}
+to{
+opacity:1;
+transform:scale(1);
+}
+}
+
+@keyframes slideUp{
+from{
+opacity:0;
+transform:translateY(40px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+@keyframes fadeIn{
+from{opacity:0;}
+to{opacity:1;}
+}
+
+@keyframes pulse{
+0%{transform:scale(1);}
+50%{transform:scale(1.04);}
+100%{transform:scale(1);}
+}
+
+@keyframes cardShow{
+from{
+opacity:0;
+transform:translateY(50px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+@keyframes glow{
+from{
+text-shadow:0 0 5px #00bfff;
+}
+to{
+text-shadow:0 0 25px #00bfff;
+}
+}
+
+
+.trading-bg{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+background:
+linear-gradient(90deg, transparent 48%, rgba(0,191,255,0.05) 50%, transparent 52%),
+linear-gradient(0deg, transparent 48%, rgba(0,191,255,0.05) 50%, transparent 52%);
+background-size:80px 80px;
+animation:gridMove 12s linear infinite;
+z-index:-1;
+}
+
+@keyframes gridMove{
+from{background-position:0 0;}
+to{background-position:80px 80px;}
+}
+
+.candle-chart{
+position:absolute;
+top:120px;
+left:50%;
+transform:translateX(-50%);
+width:80%;
+height:300px;
+opacity:.18;
+display:flex;
+align-items:flex-end;
+justify-content:center;
+gap:25px;
+pointer-events:none;
+z-index:0;
+}
+
+.candle{
+width:18px;
+position:relative;
+animation:moveCandle 3s infinite ease-in-out;
+}
+
+.candle:before{
+content:'';
+position:absolute;
+left:7px;
+width:3px;
+height:280px;
+background:#00bfff;
+top:-20px;
+}
+
+.candle:nth-child(even){
+background:#00ff88;
+}
+
+.candle:nth-child(odd){
+background:#ff3355;
+}
+
+.c1{height:90px}
+.c2{height:160px}
+.c3{height:120px}
+.c4{height:220px}
+.c5{height:140px}
+.c6{height:200px}
+.c7{height:110px}
+
+@keyframes moveCandle{
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-15px)}
+}
+
+.hero{
+position:relative;
+z-index:1;
+}
+
+
+.market-animal{
+position:absolute;
+top:180px;
+z-index:0;
+text-align:center;
+font-weight:bold;
+font-size:18px;
+animation:floatAnimal 4s infinite ease-in-out;
+opacity:.8;
+pointer-events:none;
+}
+
+.market-animal .animal-icon{
+font-size:80px;
+filter:drop-shadow(0 0 15px currentColor);
+}
+
+.market-animal .animal-text{
+margin-top:10px;
+letter-spacing:2px;
+}
+
+.bull{
+left:5%;
+color:#00ff88;
+}
+
+.bear{
+right:5%;
+color:#ff3355;
+animation-delay:1s;
+}
+
+@keyframes floatAnimal{
+0%,100%{
+transform:translateY(0);
+}
+50%{
+transform:translateY(-25px);
+}
+}
+
+@media(max-width:700px){
+.market-animal{
+display:none;
+}
+}
+
 </style>
 
 
@@ -240,6 +469,29 @@ margin-top:20px;
 
 
 <body>
+
+<div class="market-animal bull">
+<div class="animal-icon">🐂</div>
+<div class="animal-text">BULL MARKET</div>
+</div>
+
+<div class="market-animal bear">
+<div class="animal-icon">🐻</div>
+<div class="animal-text">BEAR MARKET</div>
+</div>
+
+
+<div class="candle-chart">
+<span class="candle c1"></span>
+<span class="candle c2"></span>
+<span class="candle c3"></span>
+<span class="candle c4"></span>
+<span class="candle c5"></span>
+<span class="candle c6"></span>
+<span class="candle c7"></span>
+</div>
+
+<div class="trading-bg"></div>
 
 
 
