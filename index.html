@@ -1388,7 +1388,31 @@ let message =
 document.getElementById("message").value;
 
 
+let password =
+document.getElementById("password").value;
 
+
+let confirmPassword =
+document.getElementById("confirmPassword").value;
+
+
+if(password !== confirmPassword){
+
+alert("Passwords do not match");
+
+return;
+
+}
+
+
+try{
+
+
+const userCredential = await createUserWithEmailAndPassword(
+auth,
+email,
+password
+);
 
 
 await addDoc(collection(db,"students"),{
@@ -1408,7 +1432,8 @@ message:message,
 
 status:"pending",
 
-role:"student"
+role:"student",
+uid:userCredential.user.uid
 
 
 });
