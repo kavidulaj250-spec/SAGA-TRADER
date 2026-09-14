@@ -4,106 +4,124 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SAGATRADING Student Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+
+<title>SAGATRADING MENTORSHIP</title>
+
 
 <style>
 
 *{
+margin:0;
+padding:0;
 box-sizing:border-box;
 font-family:Arial,sans-serif;
 }
 
 
 body{
-
-margin:0;
-padding:20px;
-
 background:#020617;
-
 color:white;
+}
 
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 8%;
+background:#020611;
+border-bottom:1px solid #123;
+}
+
+
+.logo{
+font-size:28px;
+font-weight:bold;
+color:#00bfff;
+}
+
+
+nav a{
+color:white;
+text-decoration:none;
+margin-left:20px;
 }
 
 
 
-.header{
+.hero{
+
+min-height:90vh;
 
 display:flex;
 
-justify-content:space-between;
+justify-content:center;
 
 align-items:center;
 
-margin-bottom:20px;
+text-align:center;
+
+padding:40px 10%;
 
 }
 
 
+.hero h1{
 
-.header h1{
+font-size:55px;
 
 color:#00bfff;
 
 }
 
 
+.hero h2{
 
-button{
+font-size:32px;
+
+margin:20px;
+
+}
+
+
+.hero p{
+
+font-size:18px;
+
+line-height:1.8;
+
+}
+
+
+
+.btn{
+
+display:inline-block;
+
+margin-top:25px;
+
+padding:15px 35px;
 
 background:#00bfff;
 
 color:black;
 
-border:none;
-
-padding:12px 25px;
-
-border-radius:25px;
+border-radius:30px;
 
 font-weight:bold;
 
-cursor:pointer;
+text-decoration:none;
 
 }
 
 
 
-button:hover{
+.section{
 
-background:white;
-
-}
-
-
-
-.card{
-
-background:#071426;
-
-border:1px solid #00bfff;
-
-border-radius:20px;
-
-padding:20px;
-
-margin-bottom:20px;
-
-}
-
-
-
-.card h2{
-
-color:#00bfff;
-
-}
-
-
-
-.profile{
+padding:70px 10%;
 
 text-align:center;
 
@@ -111,133 +129,63 @@ text-align:center;
 
 
 
-#studentImage{
+.section h2{
 
-width:120px;
+color:#00bfff;
 
-height:120px;
+font-size:36px;
 
-border-radius:50%;
-
-object-fit:cover;
-
-border:3px solid #00bfff;
+margin-bottom:25px;
 
 }
 
 
 
-.student-line{
+.course-card{
 
-margin:10px;
-
-}
-
-
-
-.progress-bar{
-
-height:20px;
-
-width:100%;
-
-background:#020617;
-
-border-radius:20px;
+background:#071426;
 
 border:1px solid #00bfff;
 
-overflow:hidden;
+border-radius:25px;
+
+padding:35px;
+
+margin:40px auto;
+
+max-width:850px;
 
 }
 
 
 
-#progressFill{
+.course-card h3{
 
-height:100%;
+color:#00ff88;
 
-width:0%;
-
-background:#00bfff;
+font-size:30px;
 
 }
 
 
 
-.material-card{
+.course-card ul{
 
-background:#0b1d35;
+text-align:left;
 
-padding:15px;
-
-margin:12px 0;
-
-border-radius:15px;
+line-height:2;
 
 }
 
 
 
-.material-title{
-
-font-size:18px;
-
-font-weight:bold;
-
-}
-
-
-
-.link{
-
-display:inline-block;
-
-margin-top:12px;
-
-padding:8px 18px;
-
-background:#00bfff;
-
-color:black !important;
-
-border-radius:20px;
-
-text-decoration:none;
-
-font-weight:bold;
-
-}
-
-
-
-.link:hover{
-
-background:white;
-
-}
-
-
-
-.reply-box{
-
-background:#102a43;
-
-padding:15px;
-
-border-radius:15px;
-
-margin:10px 0;
-
-}
-
-
-
-textarea{
+input,select,textarea{
 
 width:100%;
 
-height:120px;
+padding:12px;
+
+margin:10px 0;
 
 background:#020617;
 
@@ -247,42 +195,46 @@ border:1px solid #00bfff;
 
 border-radius:10px;
 
-padding:12px;
-
-}
-
-
-
-.empty{
-
-color:#aaa;
-
 }
 
 
 
 @media(max-width:700px){
 
-body{
-
-padding:10px;
-
-}
-
-
-.header{
+nav{
 
 flex-direction:column;
 
-gap:15px;
+}
+
+
+nav a{
+
+display:block;
+
+margin:10px;
+
+}
+
+
+.hero h1{
+
+font-size:35px;
 
 }
 
 }
 
 
+
+
+.student-login-link{
+display:inline-block;
+margin-top:20px;
+}
 
 </style>
+
 
 </head>
 
@@ -291,238 +243,823 @@ gap:15px;
 
 
 
-<div class="header">
+<nav>
+
+<div class="logo">
+SAGATRADING
+</div>
+
+
+<div>
+
+<a href="#">
+Home
+</a>
+
+<a href="#courses">
+Courses
+</a>
+
+<a href="#register">
+Register
+</a>
+
+<a href="#contact">
+Contact
+</a>
+
+<a href="admin-login.html">
+Admin Login
+</a>
+  
+</div>
+
+
+</nav>
+
+
+
+
+
+
+<section class="hero">
+
+<div>
+
 
 <h1>
-SAGATRADING Dashboard
+SAGATRADING MENTORSHIP
 </h1>
 
 
-<button id="logoutBtn">
-Logout
+<h2>
+Learn Trading. Build Your Future
+</h2>
+
+
+<p>
+
+Professional Trading Education Platform
+
+Forex Trading | Crypto Trading | Technical Analysis |
+Risk Management | Trading Psychology
+
+</p>
+
+
+<a class="btn"
+href="https://wa.me/94740497974">
+
+JOIN WHATSAPP
+
+</a>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<section class="section">
+
+
+<h2>
+About SAGATRADING
+</h2>
+
+
+<p>
+
+SAGATRADING INSTITUTE provides Basic to Advanced
+Trading Mentorship programs with practical market
+knowledge and personal guidance.
+
+</p>
+
+
+</section>
+
+
+
+
+
+
+
+
+<section class="section" id="courses">
+
+
+<h2>
+Our Courses
+</h2>
+
+
+
+<div class="course-card">
+
+
+<h2>
+SAGATRADING BASIC - ADVANCE MENTORSHIP
+</h2>
+
+
+<h3>
+Rs.10,000/-
+</h3>
+
+
+<p>
+Duration: 2 Hours
+</p>
+
+
+<ul>
+
+<li>✅ Lifetime After-Service Support</li>
+
+<li>✅ Live Session Recordings</li>
+
+<li>✅ VIP Signals Service Channel</li>
+
+<li>✅ Fundamental News Group</li>
+
+<li>✅ Market Opportunities Group</li>
+
+<li>✅ Weekend Revision Sessions</li>
+
+<li>✅ Chat Community</li>
+
+<li>✅ Personal Guide</li>
+
+<li>✅ Advanced PDF Materials</li>
+
+</ul>
+
+
+<a class="btn"
+href="https://wa.me/94740497974">
+
+JOIN NOW
+
+</a>
+
+
+</div>
+
+
+
+
+
+
+<div class="course-card">
+
+
+<h2>
+SAGATRADING INDIVIDUAL MENTORSHIP
+</h2>
+
+
+<h3>
+Rs.18,000/-
+</h3>
+
+
+<p>
+Duration: 2 Hours
+</p>
+
+
+<ul>
+
+<li>✅ Lifetime After-Service Support</li>
+
+<li>✅ Live Session Recordings</li>
+
+<li>✅ VIP Signals Service Channel</li>
+
+<li>✅ Fundamental News Group</li>
+
+<li>✅ Market Opportunities Group</li>
+
+<li>✅ Weekend Revision Sessions</li>
+
+<li>✅ Chat Community</li>
+
+<li>✅ 24H Personal Guide</li>
+
+<li>✅ Individual Zoom Guidance</li>
+
+<li>✅ Free Rejoin Batch</li>
+
+<li>✅ Advanced PDF Materials</li>
+
+</ul>
+
+
+<a class="btn"
+href="https://wa.me/94740497974">
+
+JOIN NOW
+
+</a>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+<section class="section" id="register">
+
+
+<h2>
+Student Registration
+</h2>
+
+
+
+<div class="course-card">
+
+
+<form id="registerForm">
+
+
+<input 
+id="name"
+type="text"
+placeholder="Full Name">
+
+
+<input
+id="phone"
+type="tel"
+placeholder="Phone Number">
+
+
+<input
+id="email"
+type="email"
+placeholder="Email Address">
+
+
+<select id="course">
+
+
+<option>
+SAGATRADING BASIC - ADVANCE Rs.10,000
+</option>
+
+
+<option>
+SAGATRADING INDIVIDUAL MENTORSHIP Rs.18,000
+</option>
+
+
+</select>
+
+
+
+<input
+id="payment"
+type="url"
+placeholder="Paste Google Drive Payment Proof Link">
+
+
+<input
+id="password"
+type="password"
+placeholder="Create Password"
+required>
+
+
+<input
+id="confirmPassword"
+type="password"
+placeholder="Confirm Password"
+required>
+
+
+
+<textarea
+id="message"
+placeholder="Message">
+
+</textarea>
+
+
+<button type="submit" class="btn">
+
+SUBMIT REGISTRATION
+
+</button>
+
+
+</form>
+
+
+</div>
+
+
+</section>
+<!-- BANK PAYMENT -->
+
+<section class="section">
+
+<h2>
+Bank Payment Details
+</h2>
+
+
+<div class="course-card">
+
+
+<h2>
+Sampath Bank
+</h2>
+
+
+<p>
+
+Account Name:
+<br>
+
+<b>PAMS SAGARA</b>
+
+<br><br>
+
+Account Number:
+<br>
+
+<b>101652849571</b>
+
+<br><br>
+
+Bank:
+<br>
+
+<b>Sampath Bank</b>
+
+<br><br>
+
+Branch:
+<br>
+
+<b>Gampaha</b>
+
+</p>
+
+
+
+<hr>
+
+<br>
+
+
+<h2>
+Bank of Ceylon (BOC)
+</h2>
+
+
+<p>
+
+Account Name:
+<br>
+
+<b>PAMS SAGARA</b>
+
+
+<br><br>
+
+Account Number:
+<br>
+
+<b>94150925</b>
+
+
+<br><br>
+
+Bank:
+<br>
+
+<b>BOC</b>
+
+
+<br><br>
+
+Branch:
+<br>
+
+<b>Gampaha</b>
+
+
+</p>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+<!-- STUDENT LOGIN -->
+
+
+<section class="section">
+
+<a class="btn" href="student-login.html">
+STUDENT LOGIN
+</a>
+
+</section>
+
+
+
+
+
+
+
+
+<!-- TOPICS -->
+
+
+<section class="section">
+
+
+<h2>
+Trading Topics
+</h2>
+
+
+<div class="course-card">
+
+
+<ul>
+
+<li>📈 Forex Trading</li>
+
+<li>₿ Crypto Trading</li>
+
+<li>📊 Technical Analysis</li>
+
+<li>📰 Fundamental Analysis</li>
+
+<li>📉 Price Action</li>
+
+<li>⚖️ Risk Management</li>
+
+<li>🧠 Trading Psychology</li>
+
+
+</ul>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- CALCULATOR -->
+
+
+<section class="section">
+
+<h2>
+Trading Calculator
+</h2>
+
+
+<div class="course-card">
+
+
+<label>Coin / Trading Pair</label>
+<input id="coin" type="text" placeholder="BTCUSDT / ETHUSDT / XAUUSD">
+
+
+<label>Trade Direction</label>
+
+<select id="direction">
+
+<option value="LONG">LONG 📈</option>
+
+<option value="SHORT">SHORT 📉</option>
+
+</select>
+
+
+<label>Account Capital ($)</label>
+<input id="capital" type="number" placeholder="Example: 1000">
+
+
+<label>Risk Percentage (%)</label>
+<input id="risk" type="number" placeholder="Example: 1">
+
+
+<label>Leverage (X)</label>
+<input id="leverage" type="number" placeholder="Example: 10">
+
+
+<hr>
+
+
+<label>Entry Price</label>
+<input id="entry" type="number" placeholder="Entry Price">
+
+
+<label>Stop Loss Price</label>
+<input id="stoploss" type="number" placeholder="Stop Loss Price">
+
+
+<label>Target Price</label>
+<input id="target" type="number" placeholder="Target Price">
+
+
+<button class="btn" onclick="calculateTrade()">
+CALCULATE
+</button>
+
+
+<div class="course-card">
+
+<h3>Trade Result</h3>
+
+<p>Coin: <b><span id="coinResult">-</span></b></p>
+
+<p>Direction: <b><span id="directionResult">-</span></b></p>
+
+<p>Risk Amount: <b><span id="riskAmount">$0</span></b></p>
+
+<p>Recommended Position Size: <b><span id="positionSize">0</span></b></p>
+
+<p>Required Margin: <b><span id="margin">$0</span></b></p>
+
+<p>Capital Used For Trade: <b><span id="capitalUsed">$0</span></b></p>
+
+<p>Potential Profit: <b><span id="profit">$0</span></b></p>
+
+<p>Risk Reward: <b><span id="rr">0</span></b></p>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- FEEDBACK -->
+
+
+<section class="section">
+
+
+<h2>
+Student Feedback
+</h2>
+
+
+<div class="course-card">
+
+
+<input
+placeholder="Your Name">
+
+
+<textarea
+placeholder="Your Feedback">
+</textarea>
+
+
+<button class="btn">
+
+SEND FEEDBACK
+
 </button>
 
 
 </div>
 
 
+</section>
 
 
 
-<div class="card profile">
-
-
-<img id="studentImage"
-
-src="https://ui-avatars.com/api/?name=Student"
-
->
 
 
 
-<h2 id="studentName">
 
-Loading...
 
+<!-- CONTACT -->
+
+
+<section class="section" id="contact">
+
+
+<h2>
+Contact SAGATRADING
 </h2>
-
 
 
 <p>
-📧 <span id="studentEmail"></span>
-</p>
 
+📞 WhatsApp:
 
-<p>
-📚 <span id="studentCourse"></span>
-</p>
+<br>
 
-
-<p>
-📞 <span id="studentPhone"></span>
-</p>
-
-
-<p>
-📅 <span id="studentDate"></span>
-</p>
-
-
-
-</div>
-
-
-
-
-
-<div class="card">
-
-
-<h2>
-Course Progress
-</h2>
-
-
-<h1 id="progressPercent">
-0%
-</h1>
-
-
-
-<div class="progress-bar">
-
-<div id="progressFill"></div>
-
-</div>
-
-
-
-<p id="progressText">
-Loading...
-</p>
-
-
-</div>
-
-
-
-
-
-<div class="card">
-
-<h2>
-🎥 Video Lessons
-</h2>
-
-
-<div id="videoList">
-
-<p class="empty">
-Loading videos...
-</p>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-<div class="card">
-
-
-<h2>
-📄 PDF Materials
-</h2>
-
-
-<div id="pdfList">
-
-<p class="empty">
-Loading PDFs...
-</p>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-<div class="card">
-
-
-<h2>
-📢 Announcements
-</h2>
-
-
-<div id="announcementList">
-
-<p class="empty">
-Loading announcements...
-</p>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-<div class="card">
-
-
-<h2>
-Admin Replies
-</h2>
-
-
-<div id="replyList">
-
-<p class="empty">
-Loading replies...
-</p>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-<div class="card">
-
-
-<h2>
-Send Feedback
-</h2>
-
-
-<textarea id="feedbackText"
-
-placeholder="Write your feedback">
-
-</textarea>
+<b>0740497974</b>
 
 
 <br><br>
 
 
-<button id="feedbackBtn">
+📧 Email:
 
-Send Feedback
+<br>
 
-</button>
+<b>sagatradinginstitute@gmail.com</b>
 
 
-<p id="feedbackMessage"></p>
+<br><br>
+
+
+🕒 Working Hours:
+
+<br>
+
+<b>07:30 PM - 09:30 PM</b>
+
+
+</p>
+
+
+<br>
+
+
+<a class="btn"
+href="https://wa.me/94740497974">
+
+WHATSAPP
+
+</a>
+
+
+</section>
+
+
+
+
+
+
+
+
+<!-- SOCIAL -->
+
+<section class="section">
+
+
+<h2>
+Follow SAGATRADING
+</h2>
+
+
+<div class="course-card">
+
+
+<a href="https://www.facebook.com/share/1E3g9hieWw/"
+style="color:#00bfff;"
+target="_blank">
+
+Facebook
+
+</a>
+
+
+<br><br>
+
+
+<a href="https://youtube.com/@sagatechnic?si=RZmFLGb9P16tlUpz"
+style="color:#00bfff;"
+target="_blank">
+
+YouTube
+
+</a>
+
+
+<br><br>
+
+
+<a href="https://www.tiktok.com/@sagatrading?_r=1&_t=ZS-99TaeMc7za1"
+style="color:#00bfff;"
+target="_blank">
+
+TikTok
+
+</a>
 
 
 </div>
+
+
+</section>
+
+
+
+
+
+
+
+
+<footer style="
+background:#020611;
+padding:30px;
+text-align:center;
+">
+
+
+<h3>
+SAGATRADING MENTORSHIP
+</h3>
+
+
+<p>
+Learn • Plan • Trade • Grow
+</p>
+
+
+<p>
+© 2026 SAGATRADING INSTITUTE
+</p>
+
+
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- FIREBASE -->
+
+
 <script type="module">
 
+
 import { initializeApp }
+
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
 
 import {
 
+getFirestore,
+
+collection,
+
+addDoc
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+import {
+
 getAuth,
-onAuthStateChanged,
-signOut
+
+createUserWithEmailAndPassword
 
 }
 
@@ -530,41 +1067,25 @@ from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
 
 
-import {
-
-getFirestore,
-collection,
-query,
-where,
-getDocs,
-doc,
-getDoc,
-setDoc,
-addDoc,
-serverTimestamp
-
-}
-
-from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
-
-
 
 
 const firebaseConfig = {
 
-apiKey:"AIzaSyD1vUF2PEwbcKsd1EhnxITRs_z_GZ689VQ",
 
-authDomain:"sagatrading-mentorship.firebaseapp.com",
+apiKey: "AIzaSyD1vUF2PEwbcKsd1EhnxITRs_z_GZ689VQ",
 
-projectId:"sagatrading-mentorship",
+authDomain: "sagatrading-mentorship.firebaseapp.com",
 
-storageBucket:"sagatrading-mentorship.firebasestorage.app",
+projectId: "sagatrading-mentorship",
 
-messagingSenderId:"832507974614",
+storageBucket: "sagatrading-mentorship.firebasestorage.app",
 
-appId:"1:832507974614:web:6ad7b3f941d348a7388a77",
+messagingSenderId: "832507974614",
 
-measurementId:"G-BW06QF70MP"
+appId: "1:832507974614:web:6ad7b3f941d348a7388a77",
+
+measurementId: "G-BW06QF70MP"
+
 
 };
 
@@ -573,647 +1094,265 @@ measurementId:"G-BW06QF70MP"
 
 const app = initializeApp(firebaseConfig);
 
+
+const db = getFirestore(app);
+
+const auth = getAuth(app);
+
+
+
+
+
+
+document.getElementById("registerForm").addEventListener("submit", async function(e){
+
+
+e.preventDefault();
+
+
+
+let name =
+document.getElementById("name").value;
+
+
+let phone =
+document.getElementById("phone").value;
+
+
+let email =
+document.getElementById("email").value;
+
+
+let course =
+document.getElementById("course").value;
+
+
+let payment =
+document.getElementById("payment").value;
+
+
+let message =
+document.getElementById("message").value;
+
+
+
+
+
+await addDoc(collection(db,"students"),{
+
+
+name:name,
+
+phone:phone,
+
+email:email,
+
+course:course,
+
+payment:payment,
+
+message:message,
+
+status:"pending",
+
+role:"student"
+
+
+});
+
+
+alert("Registration Submitted Successfully!");
+
+}
+
+catch(error){
+
+alert(error.message);
+
+}
+
+});
+
+
+// TRADING CALCULATOR FUNCTION
+
+window.calculateTrade = function(){
+
+let coin = document.getElementById("coin").value.trim();
+
+let direction = document.getElementById("direction").value;
+
+let capital = Number(document.getElementById("capital").value);
+
+let risk = Number(document.getElementById("risk").value);
+
+let leverage = Number(document.getElementById("leverage").value);
+
+let entry = Number(document.getElementById("entry").value);
+
+let stoploss = Number(document.getElementById("stoploss").value);
+
+let target = Number(document.getElementById("target").value);
+
+
+if(!capital || !risk || !leverage || !entry || !stoploss || !target){
+
+alert("Please enter all values");
+
+return;
+
+}
+
+
+let riskMoney = capital * (risk / 100);
+
+
+// price movement for stop loss
+
+let stopDistance = Math.abs(entry - stoploss);
+
+
+if(stopDistance <= 0){
+
+alert("Invalid Stop Loss");
+
+return;
+
+}
+
+
+// quantity based on allowed risk
+
+let positionSize = riskMoney / stopDistance;
+
+
+// leverage margin needed
+
+let margin = (positionSize * entry) / leverage;
+
+
+// Do not use more than capital
+
+let capitalUsed = Math.min(margin, capital);
+
+
+// profit calculation
+
+let profit = Math.abs(target - entry) * positionSize;
+
+
+// risk reward
+
+let rewardRisk = Math.abs(target-entry) / stopDistance;
+
+
+
+document.getElementById("coinResult").innerHTML =
+coin.toUpperCase() || "-";
+
+
+document.getElementById("directionResult").innerHTML =
+direction;
+
+
+document.getElementById("riskAmount").innerHTML =
+"$ " + riskMoney.toFixed(2);
+
+
+document.getElementById("positionSize").innerHTML =
+positionSize.toFixed(4);
+
+
+document.getElementById("margin").innerHTML =
+"$ " + margin.toFixed(2);
+
+
+document.getElementById("capitalUsed").innerHTML =
+"$ " + capitalUsed.toFixed(2);
+
+
+document.getElementById("profit").innerHTML =
+"$ " + profit.toFixed(2);
+
+
+document.getElementById("rr").innerHTML =
+"1 : " + rewardRisk.toFixed(2);
+
+
+}
+
+</script>
+
+<script type="module">
+
+import { initializeApp } 
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+import {
+getAuth,
+signInWithEmailAndPassword
+}
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+const firebaseConfig = {
+
+apiKey:"AIzaSyD1vUF2PEwbcKsd1EhnxITRs_z_GZ689VQ",
+authDomain:"sagatrading-mentorship.firebaseapp.com",
+projectId:"sagatrading-mentorship",
+storageBucket:"sagatrading-mentorship.firebasestorage.app",
+messagingSenderId:"832507974614",
+appId:"1:832507974614:web:6ad7b3f941d348a7388a77"
+
+};
+
+
+const app = initializeApp(firebaseConfig);
+
 const auth=getAuth(app);
 
-const db=getFirestore(app);
 
 
-
-let currentEmail="";
-
-let completedLessons=[];
-
-let totalLessons=0;
+const btn=document.querySelector(".btn");
 
 
-
-function text(id,value){
-
-let e=document.getElementById(id);
-
-if(e){
-
-e.textContent=value;
-
-}
-
-}
+btn.addEventListener("click",async()=>{
 
 
+let email=document.querySelector('input[type="email"]').value;
+
+let password=document.querySelector('input[type="password"]').value;
 
 
-onAuthStateChanged(auth,async(user)=>{
+try{
 
 
-if(!user){
-
-window.location.href="student-login.html";
-
-return;
-
-}
-
-
-currentEmail=user.email;
-
-
-console.log("USER:",currentEmail);
-
-
-
-const q=query(
-
-collection(db,"students"),
-
-where("email","==",currentEmail)
-
+await signInWithEmailAndPassword(
+auth,
+email,
+password
 );
 
 
 
-const snap=await getDocs(q);
-
-
-
-console.log("STUDENT FOUND:",snap.size);
-
-
-
-if(snap.empty){
-
-text("studentName","Student Not Found");
-
-return;
-
-}
-
-
-
-let data;
-
-
-snap.forEach((item)=>{
-
-data=item.data();
-
-});
-
-
-
-text(
-"studentName",
-"Welcome "+(data.name || "Student")
-);
-
-
-text(
-"studentEmail",
-data.email || currentEmail
-);
-
-
-text(
-"studentCourse",
-data.course || "No Course"
-);
-
-
-text(
-"studentPhone",
-data.phone || "Not Added"
-);
-
-
-text(
-"studentDate",
-data.date || "Not Available"
-);
-
-
-
-if(data.image){
-
-document.getElementById("studentImage").src=data.image;
-
-}
-
-
-
-await loadProgress();
-
-await loadMaterials();
-
-await loadReplies();
-
-
-});
-
-
-
-
-
-
-
-async function loadProgress(){
-
-
-const ref=doc(
-
-db,
-
-"progress",
-
-currentEmail
-
-);
-
-
-const snap=await getDoc(ref);
-
-
-
-if(snap.exists()){
-
-
-completedLessons=
-
-snap.data().completedLessons || [];
+window.location.href="student-dashboard.html";
 
 
 }
 
+catch(error){
 
-
-updateProgress();
-
-
-}
-
-
-
-
-
-
-
-function updateProgress(){
-
-
-let percent=0;
-
-
-if(totalLessons>0){
-
-percent=Math.round(
-
-(completedLessons.length/totalLessons)*100
-
-);
-
-}
-
-
-
-text(
-"progressPercent",
-percent+"%"
-);
-
-
-text(
-"progressText",
-
-"Completed Lessons: "
-
-+completedLessons.length+
-
-" / "
-
-+totalLessons
-
-);
-
-
-
-document.getElementById("progressFill")
-.style.width=percent+"%";
-
-
-}
-
-
-
-
-
-
-
-
-
-async function loadMaterials(){
-
-
-
-let video=document.getElementById("videoList");
-
-let pdf=document.getElementById("pdfList");
-
-let announcement=document.getElementById("announcementList");
-
-
-
-video.innerHTML="";
-
-pdf.innerHTML="";
-
-announcement.innerHTML="";
-
-
-
-totalLessons=0;
-
-
-
-const snap=await getDocs(
-
-collection(db,"materials")
-
-);
-
-
-
-snap.forEach((item)=>{
-
-
-let data=item.data();
-
-
-let type=(data.type || "")
-.toLowerCase();
-
-
-
-if(type==="video"){
-
-
-totalLessons++;
-
-
-video.innerHTML+=`
-
-<div class="material-card">
-
-
-<div class="material-title">
-
-${data.title || "Video Lesson"}
-
-</div>
-
-
-<a class="link"
-
-href="${data.link || '#'}"
-
-target="_blank">
-
-▶ Watch Video
-
-</a>
-
-
-<br><br>
-
-
-<button onclick="completeLesson('${data.title}')">
-
-${
-completedLessons.includes(data.title)
-?
-"✅ Completed"
-:
-"Complete Lesson"
-}
-
-</button>
-
-
-</div>
-
-`;
-
-}
-
-
-
-
-if(type==="pdf"){
-
-
-pdf.innerHTML+=`
-
-<div class="material-card">
-
-
-<div class="material-title">
-
-${data.title || "PDF"}
-
-</div>
-
-
-<a class="link"
-
-href="${data.link || '#'}"
-
-target="_blank">
-
-📄 View PDF
-
-</a>
-
-
-</div>
-
-`;
-
-}
-
-
-
-
-if(type==="announcement"){
-
-
-announcement.innerHTML+=`
-
-<div class="material-card">
-
-
-<div class="material-title">
-
-${data.title || "Announcement"}
-
-</div>
-
-
-<p>
-
-${data.description || data.message || ""}
-
-</p>
-
-
-</div>
-
-`;
-
-}
-
-
-
-});
-
-
-
-if(video.innerHTML===""){
-
-video.innerHTML="<p class='empty'>No Videos</p>";
-
-}
-
-
-if(pdf.innerHTML===""){
-
-pdf.innerHTML="<p class='empty'>No PDFs</p>";
-
-}
-
-
-if(announcement.innerHTML===""){
-
-announcement.innerHTML="<p class='empty'>No Announcements</p>";
-
-}
-
-
-
-updateProgress();
-
-
-}
-
-
-
-
-
-
-
-
-window.completeLesson=async function(title){
-
-
-if(!completedLessons.includes(title)){
-
-completedLessons.push(title);
-
-}
-
-
-
-await setDoc(
-
-doc(db,"progress",currentEmail),
-
-{
-
-studentEmail:currentEmail,
-
-completedLessons:completedLessons
-
-},
-
-{merge:true}
-
-);
-
-
-
-alert("Lesson Completed ✅");
-
-
-loadMaterials();
-
-
-}
-
-
-
-
-
-
-
-
-
-async function loadReplies(){
-
-
-
-let box=document.getElementById("replyList");
-
-
-box.innerHTML="";
-
-
-const q=query(
-
-collection(db,"feedback"),
-
-where("studentEmail","==",currentEmail)
-
-);
-
-
-
-const snap=await getDocs(q);
-
-
-
-let found=false;
-
-
-
-snap.forEach((item)=>{
-
-
-let data=item.data();
-
-
-if(data.reply){
-
-
-found=true;
-
-
-box.innerHTML+=`
-
-<div class="reply-box">
-
-<b>Admin Reply:</b>
-
-<br><br>
-
-${data.reply}
-
-</div>
-
-`;
+alert(error.code);
 
 }
 
 
 });
-
-
-
-if(!found){
-
-box.innerHTML=
-
-"<p class='empty'>No Replies Yet</p>";
-
-}
-
-
-
-}
-
-
-
-
-
-
-
-
-
-document
-
-.getElementById("feedbackBtn")
-
-.onclick=async()=>{
-
-
-let box=document.getElementById("feedbackText");
-
-
-let msg=document.getElementById("feedbackMessage");
-
-
-let value=box.value.trim();
-
-
-
-if(value===""){
-
-msg.textContent="Write feedback first";
-
-return;
-
-}
-
-
-
-await addDoc(
-
-collection(db,"feedback"),
-
-{
-
-studentEmail:currentEmail,
-
-message:value,
-
-reply:"",
-
-time:serverTimestamp()
-
-}
-
-);
-
-
-
-msg.textContent="Feedback Sent Successfully ✅";
-
-
-box.value="";
-
-
-};
-
-
-
-
-
-
-
-
-document
-
-.getElementById("logoutBtn")
-
-.onclick=async()=>{
-
-
-await signOut(auth);
-
-
-window.location.href="student-login.html";
-
-
-};
-
 
 
 </script>
+
+
 
 
 </body>
